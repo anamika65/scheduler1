@@ -1,0 +1,57 @@
+		<h1 style = "background:#004682">
+			<c:if test="${headerImage == null}">
+				<img align="left" src = "../resources/images/header.png"/>
+			</c:if> 
+			<c:if test="${headerImage != null}">
+				<img align="left" src = "../../resources/images/header.png"/>			
+			</c:if>
+			
+			<p style = "padding: 7px 0px 0px 0px; height: 110px; font-size: 13px; color: #FFFFFF; font-weight: normal">
+				<c:if test="${specialties != null}">
+					Specialization
+					<select id="chosenSpecialty" name="chosenSpecialty">
+						<c:forEach items="${specialties}" var="specialty">  
+				            <option value="${specialty.specialtyID}"><c:out value="${specialty.name}"/></option>  
+				     	</c:forEach> 
+			     	</select> 
+		     	</c:if>
+			</p>
+		</h1>		
+		
+		<table  class="homepageTable" style="width:100%;">
+		
+		<c:if test="${headerViewAdministration != null or headerViewSchedule != null 
+						or headerGoAdministration != null or headerGoSchedule != null 
+						or headerLogout != null or headerModule != null}">
+		
+			<div class="navbar navbarCustomization" style="width:1100px;">
+			    <div class="navbar-inner">
+			    	<c:if test="${headerViewAdministration != null}">
+			   	 		<a id="smaller" class="brand" href="${headerViewAdministration}">Administration</a>
+			   	 	</c:if>
+			   	 	<c:if test="${headerViewSchedule != null}">	
+			    		<a id="smaller" class="brand" href="${headerViewSchedule}">Schedule View</a>
+			    	</c:if>
+			    	
+			    	<c:if test="${headerModule != null}">
+			    		<a id="smaller" class="brand">></a>
+			    		<a id="smaller" class="brand" href="">${headerModule}</a>
+			    	</c:if>
+				   
+				    <ul class="nav" style="float:right;">
+						<c:if test="${headerGoAdministration != null}">
+					   		<li><a href="${headerGoAdministration}">Go to administration view</a></li>
+					   	</c:if>
+					   	<c:if test="${headerGoSchedule != null}">
+   					   		<li><a href="${headerGoSchedule}">Go to schedule view</a></li>
+					   	</c:if>
+					   	<c:if test="${headerLogout != null}">
+							<li><a href="${headerLogout}">Logout</a></li>
+						</c:if>
+				    </ul>
+			    </div>
+		    </div>
+		    
+		</c:if>
+		
+		</table>
