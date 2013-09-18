@@ -24,7 +24,7 @@ $(document).ready(function() {
 <body>
 	<div class="wrap">
 			
-		<c:set var="headerLogout" value="../logout" scope="session"/>		
+		<%-- <c:set var="headerLogout" value="../logout" scope="session"/> --%>		
 		<c:set var="headerGoSchedule" value="../schedule/view" scope="session"/>
 		<c:set var="headerViewAdministration" value="../administration/home" scope="session"/>		
 		<c:set var="headerModule" value="Import"/>

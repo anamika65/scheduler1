@@ -1,3 +1,4 @@
+	<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 		<h1 style = "background:#004682">
 			<c:if test="${headerImage == null}">
 				<img align="left" src = "../resources/images/header.png"/>
@@ -22,7 +23,7 @@
 		
 		<c:if test="${headerViewAdministration != null or headerViewSchedule != null 
 						or headerGoAdministration != null or headerGoSchedule != null 
-						or headerLogout != null or headerModule != null}">
+						or headerModule != null}">
 		
 			<div class="navbar navbarCustomization" style="width:1100px;">
 			    <div class="navbar-inner">
@@ -42,12 +43,19 @@
 						<c:if test="${headerGoAdministration != null}">
 					   		<li><a href="${headerGoAdministration}">Go to administration view</a></li>
 					   	</c:if>
+					   	
 					   	<c:if test="${headerGoSchedule != null}">
    					   		<li><a href="${headerGoSchedule}">Go to schedule view</a></li>
 					   	</c:if>
-					   	<c:if test="${headerLogout != null}">
-							<li><a href="${headerLogout}">Logout</a></li>
-						</c:if>
+					   	<sec:authorize ifNotGranted="ROLE_ADMIN,ROLE_USER,ROLE_INSTRUCTOR">
+					   		<li><a href="<c:url value='/scheduler/login'/>">Login</li> 
+					   	</sec:authorize>
+					   	<sec:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER" >
+					   		<c:url value="/j_spring_security_logout" var="logOutUrl" />
+					   		<li><a href="${logOutUrl}">Logout</a></li>
+					   	</sec:authorize>
+							
+						
 				    </ul>
 			    </div>
 		    </div>

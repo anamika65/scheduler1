@@ -40,15 +40,15 @@
 
 <body>
 	<div class="wrap">
-		    
-		<c:set var="headerLogout" value="../logout" scope="session"/>		
+
+		<%-- <c:set var="headerLogout" value="../logout" scope="session"/> --%>		
 		<c:set var="headerGoSchedule" value="../schedule/view" scope="session"/>
 		<c:set var="headerViewAdministration" value="../administration/home" scope="session"/>		
 		<c:set var="headerModule" value="Residents and training progress"/>			
-								
+
 		<c:remove var="headerViewSchedule" scope="session"/>	
 		<c:remove var="headerGoAdministration" scope="session"/>	
-		
+
 		<%@include file="/WEB-INF/jsp/common/header.jspf"%>
 
 		<table  class="homepageTable" style="width:100%;">
@@ -56,12 +56,12 @@
 				<%@ include file="/WEB-INF/jsp/admin/AddResident.jspf" %>
 			</tr>
 		</table>
-		
+
 		<!-- counts residents in list  -->
 		<c:set var="count" value="0" />
 		<!-- wrapper for tabs -->
 		<div class="centeredTableNoTop" style="width:1100px;">
-		
+
 			<!-- tabs for active and inactive residents -->
             <ul id="myTab" class="nav nav-tabs">
               <li class="active"><a href="#activeProjects" data-toggle="tab">Active</a></li>
@@ -72,7 +72,7 @@
             <div id="myTabContent" class="tab-content">
 			  <!-- active tab is the one with active residents -->
               <div class="tab-pane fade active in" id="activeProjects">
-					
+
 				<!-- all residents are wrapped in an group that manages which body is visible -->
 				<div class="accordion" id="accordion1">
 					<c:forEach items="${activeProjects}" var="project">					
@@ -103,7 +103,7 @@
 							        </c:if>
 						      </a>
 				    		</div>
-				    
+
 							<!-- collapse body -->
 				    		<div id="${collapseResident}" class="accordion-body collapse">
 						      <div class="accordion-inner">
@@ -153,7 +153,7 @@
 								<!-- Generate the URL with the dSuppOpId -->
 								<c:url var="editPersonURL" value="../administration/progress/editPersonInformation?id=${project.key.project.projectID}" />
 							    <form method="POST" action="${editPersonURL}">
-							    
+
 	 						    <!------------------------------------- Modal for editing the current person ------------------------------------------------>
 							    <div id="${myEditPersonURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								        <div class="modal-header">
@@ -265,7 +265,7 @@
 							    </div>
 							    </form>
 							    <!------------------------------------- End Modal for editing the current person ------------------------------------------------>
-							  							
+
 								<!-- Deactivate for each project -->
 								<!-- Generate the URL with the projectID -->
 								<c:url var="DeactivateUrl" value="../administration/progress/deactivate?id=${project.key.project.projectID}" />
@@ -276,7 +276,7 @@
 										    	<a class="close" data-dismiss="modal">×</a>
 												<h3 id="myModalLabel"> Deactivate </h3>
 											</div>
-											    
+
 										    <div class="modal-body" style="text-align:left;">
 												<br/>
 												<p> 
@@ -286,14 +286,14 @@
 												   	<br/>
 											    </p>
 										    </div>
-										        
+
 										    <div class="modal-footer">
 											    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
 											    <input type="submit" value="Deactivate" class="btn btn-primary" />
 										    </div>
 									</div>
 								</form>
-								
+
 								<!-- Enter Vacation for each project -->
 								<!-- Generate the URL with the projectID -->
 								<c:url var="OnVacationUrl" value="../administration/progress/onVacation?id=${project.key.project.projectID}" />
@@ -304,7 +304,7 @@
 										    	<a class="close" data-dismiss="modal">×</a>
 												<h3 id="myModalLabel"> Enter vacation for resident </h3>
 											</div>
-											    
+
 										    <div class="modal-body" style="text-align:left;">
 												<br/>
 												<p> 
@@ -318,26 +318,26 @@
 													<span class="add-on"><i class="icon-th"></i></span>
 												</div>
 										    </div>
-										        
+
 										    <div class="modal-footer">
 											    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
 											    <input type="submit" value="Save" class="btn btn-primary" />
 										    </div>
 									</div>
 								</form>
-						      	
+
 						      	Start Date: <fmt:formatDate pattern="dd.MM.yyyy" value="${project.key.project.startDate}" />
 						      	<font style="padding-left:30px">Duration:</font> <c:out value="${project.key.project.duration}" /> months
 						      	<font style="padding-left:30px">Capacity:</font> <c:out value="${project.key.project.capacity}" /> operations/month 
-						      	
+
 						      	<br>
 						      	<br>
-				      	
+
 				      			<c:set var="totalProgressPercent" value="0"/>
 				      			<c:set var="expectedProgressPercent" value="0"/>
 						      	<table>
 							      <tbody> 
-							      
+
 								      <tr style="border-top:2px solid white">
 									    <c:forEach items="${project.value}" var="items" begin="0" step="2">
 									      <td style = "padding-right:15px">
@@ -351,7 +351,7 @@
 										  </td>
 									    </c:forEach>
 									   </tr>
-									   
+
 									   <tr style="border-top:2px solid white">
 									    <c:forEach items="${project.value}" var="items" begin="1" step="2">
 									      <td style = "padding-right:15px">
@@ -365,10 +365,10 @@
 										  </td>
 									    </c:forEach>
 									   </tr>
-									   
+
 								   </tbody>
 								</table>
-						
+
 								<c:set var="nrOfCatalogs" value="${fn:length(project.value)}" />
 								<c:set var="totalProgressPercent" value="${totalProgressPercent / nrOfCatalogs}" />
 								<c:set var="expectedProgressPercent" value="${expectedProgressPercent / nrOfCatalogs}" />
@@ -378,7 +378,7 @@
 									<c:set var="expectedProgressPercent" value="100" />
 								</c:if>
 								<i>(expected training progress: <fmt:formatNumber value="${expectedProgressPercent}" pattern="0.0"/>%)</i>
-						
+
 								<div>
 									<br>
 									<i><b>Performed number of operations:</b></i>
@@ -436,7 +436,7 @@
 						    </div>
 						    <div id="${collapseResident}" class="accordion-body collapse">
 						      <div class="accordion-inner">
-						      
+
 							 	Name: <b style="font-size:16px;"> <c:out value="${project.key.person.name}" /> </b>
 						       	<font style="padding-left:30px;">First Name:</font> <b style="font-size:16px;"> <c:out value="${project.key.person.firstName}" /> </b>
 								<font style="padding-left:30px;">Nickname: <b style="font-size:16px;"><c:out value="${project.key.project.nickname}" /></b></font>
@@ -459,7 +459,7 @@
 			                         </li>
 			                      </ul>
 			                    </ul>
-							  							
+
 								<!-- Activate for each project -->
 								<!-- Generate the URL with the catalogueID -->
 								<c:url var="ActivateUrl" value="../administration/progress/activate?id=${project.key.project.projectID}" />
@@ -470,7 +470,7 @@
 										    	<a class="close" data-dismiss="modal">×</a>
 												<h3 id="myModalLabel"> Activate </h3>
 											</div>
-											    
+
 										    <div class="modal-body" style="text-align:left;">
 												<br/>
 												<p> 
@@ -480,26 +480,26 @@
 												   	<br/>
 											    </p>
 										    </div>
-										        
+
 										    <div class="modal-footer">
 											    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
 											    <input type="submit" value="Activate" class="btn btn-primary" />
 										    </div>
 									</div>
 								</form>
-							  	
+
 						      	Start Date: <fmt:formatDate pattern="dd.MM.yyyy" value="${project.key.project.startDate}" /> 
 						      	<font style="padding-left:30px">Duration:</font> <c:out value="${project.key.project.duration}" /> months
 						      	<font style="padding-left:30px">Capacity:</font> <c:out value="${project.key.project.capacity}" /> operations/month 
 
 						      	<br>
 						      	<br>
-						      	
+
 						      	<c:set var="totalProgressPercent" value="0"/>
-						      	
+
 						      	<table>
 							      <tbody> 
-							      
+
 								      <tr style="border-top:2px solid white">
 									    <c:forEach items="${project.value}" var="items" begin="0" step="2">
 									      <td style = "padding-right:15px">
@@ -511,7 +511,7 @@
 										  </td>
 									    </c:forEach>
 									   </tr>
-									   
+
 									   <tr style="border-top:2px solid white">
 									    <c:forEach items="${project.value}" var="items" begin="1" step="2">
 									      <td style = "padding-right:15px">
@@ -523,15 +523,15 @@
 										  </td>
 									    </c:forEach>
 									   </tr>
-									   
+
 								   </tbody>
 								</table>
-								
+
 								<c:set var="nrOfCatalogs" value="${fn:length(project.value)}" />
 								<c:set var="overallProgressPercent" value="${totalProgressPercent / nrOfCatalogs}" />
 								<fmt:setLocale value="en_US" scope="session"/>
 								Overall training progress: <b><fmt:formatNumber value="${overallProgressPercent}" pattern="0.0"/>%</b>
-								
+
 								<div>
 									<br>
 									<i><b>Performed number of operations:</b></i>
@@ -546,7 +546,7 @@
 					</div>
 				 </c:forEach>
 				</div>
-								 
+
               </div>
             </div>
             
@@ -554,9 +554,9 @@
         
 		<br/>
 		<br/>
-		
+
 		<jsp:include page="/WEB-INF/jsp/common/footer.jspf"/>	
-				
+
 	</div>
 	<div style = "height:30px"></div>
 </body>

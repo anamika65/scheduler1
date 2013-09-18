@@ -1,5 +1,6 @@
 package de.scheduler.controller;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -33,6 +35,9 @@ import de.scheduler.model.Project;
 import de.scheduler.model.ProjectPersonInfo;
 import de.scheduler.model.ProjectCatalogStatus;
 import de.scheduler.model.Specialty;
+import de.scheduler.model.User;
+import de.scheduler.model.UserInfo;
+import de.scheduler.model.UserRole;
 import de.scheduler.service.ConfigurationService;
 import de.scheduler.service.DSupportOperationService;
 import de.scheduler.service.OpBlockService;
@@ -44,6 +49,8 @@ import de.scheduler.service.SchedulerService;
 import de.scheduler.service.SchedulesService;
 import de.scheduler.service.SpecialtyLoader;
 import de.scheduler.service.ProjectService;
+import de.scheduler.service.UsrMngmentCRUDService;
+import de.scheduler.service.UsrMngmentCRUDServiceIntrface;
 import de.scheduler.util.SpecialtySelector;
 
 
@@ -91,6 +98,9 @@ public class AdminController {
 	
 	@Resource(name="dSupportOperationService")
 	private DSupportOperationService dSupportOperationService;
+	
+	@Resource(name="usrMngmentCRUDService")
+	private UsrMngmentCRUDServiceIntrface usrMngmentCRUDServiceIntrface;
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -667,6 +677,71 @@ public class AdminController {
 		// This will redirect to /progress
 		return "redirect:../progress";
 	}
+    
+    /**
+     * User Management CRUD(Create,Read,Update,Delete) Operation
+     * 
+     */
+    
+    @RequestMapping(value = "/administration/crud", method = RequestMethod.GET)
+    public String crudOperation(Model model, Principal principal){
+    	final String currentUser = principal.getName();
+    	List<UserInfo> userDetail = usrMngmentCRUDServiceIntrface.getAllUsers(currentUser);
+    	
+    	// Attach specialties to the Model
+    	model.addAttribute("userDetail", userDetail);
+    	
+    	return "admin/UsrMangment";
+    }
+    
+    
+    /**
+     * Delete an existing User 
+     * 
+     * @param id		the id of the current resident to be deleted
+     */
+    @RequestMapping(value = "/administration/crud/delete", method = RequestMethod.POST)
+    public String deleteUser(@RequestParam(value="id", required=true) Integer id) {   
+		logger.debug("Received request to deleting existing user");
+		
+		usrMngmentCRUDServiceIntrface.deleteUsers(id);
+		// This will redirect to /WEB-INF/jsp/admin/crud.jsp
+		return "redirect:../crud";
+	}
+    /**
+     * Updating an existing User 
+     * 
+     * @param id		the id of the current resident to be updated
+     */
+    @RequestMapping(value = "/administration/crud/updateUserInformation", method = RequestMethod.POST)
+    public String updateUser(@RequestParam(value="id", required=true) Integer id,
+    						 @RequestParam(value="username" , required=true) String username,
+    						 @RequestParam(value="password" , required=true) String password,
+    						 @RequestParam(value="activity") Boolean activity,
+    						 @RequestParam(value="user_role") String user_role
+    		) {   
+		logger.debug("Received request to updating existing user");
+		
+		//Find User by id
+		User user = usrMngmentCRUDServiceIntrface.get(id);
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setActive(activity);
+			
+		//Update User
+		usrMngmentCRUDServiceIntrface.updateUsers(user);
+		
+		//Update User_Role
+		Integer role_id=usrMngmentCRUDServiceIntrface.getRoleId(id);	
+		UserRole usrRole = usrMngmentCRUDServiceIntrface.getUserRole(role_id);
+		usrRole.setRole(user_role);
+		usrRole.setUser(user);
+		
+		//Update User Role
+		usrMngmentCRUDServiceIntrface.updateUserRole(usrRole);
+		// This will redirect to /WEB-INF/jsp/admin/crud.jsp
+		return "redirect:../crud";
+	}
 
 	/**
 	 * Attach specialties to the Model
@@ -683,6 +758,7 @@ public class AdminController {
     	
     	return true;
     }
+    
 
 }
 

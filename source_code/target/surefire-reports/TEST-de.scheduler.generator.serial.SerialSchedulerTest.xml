@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.057" errors="0" skipped="0" tests="1" name="de.scheduler.generator.serial.SerialSchedulerTest">
+<testsuite failures="0" time="0.05" errors="0" skipped="0" tests="1" name="de.scheduler.generator.serial.SerialSchedulerTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Libraries"/>
@@ -17,7 +17,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/Users/anamikachowdhury/Documents/Eclipse Workspace/source_code"/>
+    <property name="user.dir" value="/Users/anamikachowdhury/git/scheduler1/source_code"/>
     <property name="java.runtime.version" value="1.6.0_51-b11-457-11M4509"/>
     <property name="java.awt.graphicsenv" value="apple.awt.CGraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/endorsed"/>
@@ -27,7 +27,7 @@
 "/>
     <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/Users/anamikachowdhury/springsource/sts(SpringToolSuite)/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf8032026330064266462.tmp"/>
+    <property name="classworlds.conf" value="/Users/anamikachowdhury/springsource/sts(SpringToolSuite)/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf8013884685865850297.tmp"/>
     <property name="sun.jnu.encoding" value="MacRoman"/>
     <property name="java.library.path" value=".:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -66,5 +66,5 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.057" classname="de.scheduler.generator.serial.SerialSchedulerTest" name="testParallelScheduleWithSmallestDuration"/>
+  <testcase time="0.05" classname="de.scheduler.generator.serial.SerialSchedulerTest" name="testParallelScheduleWithSmallestDuration"/>
 </testsuite>

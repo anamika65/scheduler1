@@ -51,7 +51,9 @@ public final class footer_jspf extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
 
       out.write("\n");
-      out.write("<div style=\"height:80px\"> </div>\n");
+      out.write("<div style=\"height:80px\" align=\"left\"> \n");
+      out.write("\t\t<a id=\"showCurrentSch\" href=\"../schedule/fileDownload\">UserGuide</a>\n");
+      out.write("</div>\n");
       out.write("\n");
       out.write("<img style = \" position: absolute; display: block; left:0; bottom: 0;\" src = \"../resources/images/footer.png\"/> \n");
       out.write("\n");

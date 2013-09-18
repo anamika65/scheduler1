@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -18,7 +18,7 @@
 <body>
 	<div class="wrap">
 	
-		<c:set var="headerLogout" value="../logout" scope="session"/>		
+		<%-- <c:set var="headerLogout" value="../logout" scope="session"/> --%>		
 		<c:set var="headerGoSchedule" value="../schedule/view" scope="session"/>
 		<c:set var="headerViewAdministration" value="../administration/home" scope="session"/>
 				
@@ -147,7 +147,22 @@
 					Settings
 				</td>					
 			</tr>
+		<sec:authorize ifAllGranted="ROLE_ADMIN">			
+			<tr>					
+				<td style="width:110px;"/>
+				<td class="textAlignCenter"> 
+					<a href="../administration/crud">
+						<div id="cf" class="resizeImgContainer">
+						  <img class="bottom resizeImg" src="../resources/images/crud.png"/>
+						  <img class="top resizeImg" src="../resources/images/crud_bw.png"/>
+						</div>
+					</a>
+					<br>
+					User Management 
+				</td>
+				</tr>
 			<tr style="height:40px;"/>
+		</sec:authorize>
 		</table>
 		<jsp:include page="/WEB-INF/jsp/common/footer.jspf"/>
 	</div>

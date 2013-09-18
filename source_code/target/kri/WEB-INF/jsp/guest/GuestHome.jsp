@@ -27,7 +27,7 @@
 <body>
 	<div class="wrap">
 	
-		<c:set var="headerLogout" value="../logout" scope="session"/>		
+		<%-- <c:set var="headerLogout" value="../logout" scope="session"/> --%>		
 		<c:set var="headerViewSchedule" value="../schedule/view" scope="session"/>
 		<c:set var="headerGoAdministration" value="../administration/home" scope="session"/>	
 		
@@ -62,7 +62,9 @@
 						<span class="add-on"><i class="icon-th"></i></span>
 					</div>
 				</td>
-				
+				<td>
+					<a id="showCurrentSch" href="../schedule/fileDownload" class="btn btn-primary" role= "button">?</a>
+				</td>
 				<td class="floatRight">
 					<a id="showCurrentSch" href=../schedule/view?scheduledate=<%= birtFormatter.format(currentDate) %> class="btn btn-primary birt-button" role="button"> Show schedule </a>
 				</td>

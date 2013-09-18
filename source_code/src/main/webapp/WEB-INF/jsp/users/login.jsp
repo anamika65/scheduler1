@@ -2,13 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ include file="/WEB-INF/jsp/common/imports.jspf" %>
 <html>
-<link href="<c:url value='/resources/styles/body.css'/>" rel="stylesheet"  type="text/css" />
-<link href="../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="../resources/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"/>
-<script src="../resources/js/jquery-1.8.3.min.js"></script>
-<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
 
 <head>
 	<title>Log in</title>
@@ -16,7 +11,7 @@
 
 <div  class="wrap">
 
-	<c:remove var="headerLogout" scope="session"/>		
+	<%-- <c:remove var="headerLogout" scope="session"/> --%>		
 	<c:remove var="headerGoSchedule" scope="session"/>
 	<c:remove var="headerGoAdministration" scope="session"/>	
 	<c:remove var="headerViewAdministration" scope="session"/>		
@@ -70,21 +65,14 @@
 		    
 		</form>
 		
-		<br/>
-		
-		<div style="font-size:10px">
-			<p>Valid username/passwords are:</p>
-			<ul>
-				<li>keith/melbourne</li>
-				<li>erwin/leuven</li>
-				<li>jeremy/atlanta</li>
-				<li>scott/rochester</li>
-			</ul>
-		</div>
-		
-		<br/>
-		<br/>
+		<br/>		
 	</div>
+	
+	<table  class="homepageTable" style="width:100%;">
+		    <tr>					
+				<%@ include file="/WEB-INF/jsp/users/register.jspf" %>
+			</tr>
+		</table>
 	
 	<jsp:include page="/WEB-INF/jsp/common/footer.jspf"/>	
 						

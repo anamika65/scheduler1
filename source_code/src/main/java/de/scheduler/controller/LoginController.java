@@ -1,5 +1,7 @@
 package de.scheduler.controller;
 
+import java.security.Principal;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -55,6 +57,8 @@ public class LoginController {
 		// This will resolve to /WEB-INF/jsp/users/logoutSuccess.jsp
 		return "users/logoutSuccess";
 	}
+	
+	
 	
 	
 }

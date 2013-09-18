@@ -27,7 +27,7 @@
 <body>
 	<div class="wrap">
 	
-		<c:set var="headerLogout" value="../logout" scope="session"/>		
+		<%-- <c:set var="headerLogout" value="../logout" scope="session"/> --%>		
 		<c:set var="headerViewSchedule" value="../schedule/view" scope="session"/>
 		<c:set var="headerGoAdministration" value="../administration/home" scope="session"/>	
 		

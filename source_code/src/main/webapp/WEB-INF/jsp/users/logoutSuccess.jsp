@@ -17,7 +17,7 @@
 <body>
 <div class="wrap">
 
-	<c:remove var="headerLogout" scope="session"/>		
+	<%-- <c:remove var="headerLogout" scope="session"/> --%>		
 	<c:remove var="headerGoSchedule" scope="session"/>
 	<c:remove var="headerGoAdministration" scope="session"/>	
 	<c:remove var="headerViewAdministration" scope="session"/>		

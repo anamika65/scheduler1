@@ -11,7 +11,7 @@
 	<div class="wrap">
 			
 	    <jsp:include page="/WEB-INF/jsp/common/header.jspf">
-			<jsp:param name="headerLogout" value="../logout"/>
+			<%-- <jsp:param name="headerLogout" value="../logout"/> --%>
 			<jsp:param name="headerGoSchedule" value="../schedule/view"/>
 			<jsp:param name="headerViewAdministration" value="../administration/home"/>
 			<jsp:param name="headerModule" value="Import"/>
