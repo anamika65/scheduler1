@@ -11,7 +11,7 @@
 <html>
 
 <head>
-	<title>CRUD Operation</title>
+	<title>User Management</title>
 </head>
 	
 <body>
@@ -20,34 +20,35 @@
 		<%-- <c:set var="headerLogout" value="../logout" scope="session"/> --%>		
 		<c:set var="headerGoSchedule" value="../schedule/view" scope="session"/>
 		<c:set var="headerViewAdministration" value="../administration/home" scope="session"/>		
-		<c:set var="headerModule" value="CRUD Operation"/>		
+		<c:set var="headerModule" value="User Management"/>		
 								
 		<c:remove var="headerViewSchedule" scope="session"/>	
 		<c:remove var="headerGoAdministration" scope="session"/>	
 			
 		<%@include file="/WEB-INF/jsp/common/header.jspf"%>
 		
-					<!-- User Management CRUD Operation -->
+		<!-- User Management CRUD Operation -->
 		  
 		
 		<table id="zebraTable" class="table table-hover centeredTableNoTop"  style="width:1100px;">
  			<thead> 				
 				<tr style="font-size:12px">
-					<th>UserID</th>
-					<th>Active</th>
 					<th>Username</th>
-					<th>Password</th>
+					<!-- th>UserID</th>
+					<th>Password</th -->
 					<th>User Role</th>
+					<th>Status</th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
 			<c:forEach var="user" items="${userDetail}">
 					<tr>
-						<td><c:out value="${user.usrId}" /></td>					
-						<td><c:out value="${user.active}" /></td>
 						<td><c:out value="${user.userName}" /></td>
-						<td><c:out value="${user.password}" /></td>
+						<!-- td><c:out value="${user.usrId}" /></td>
+						<td><c:out value="${user.password}" /></td -->
 						<td><c:out value="${user.userRole}" /></td>
+						<td><c:out value="${user.active == true ? 'Active' : 'Inactive' }" /></td>
 						<td>  
     						<ul class="dropdown nav pull-right" style="text-align: left;">
 			                      <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Manage<b class="caret"></b></a>
@@ -178,6 +179,11 @@
     					</td> 
 					</tr>
 			</c:forEach>
+			<tr>
+				<td colspan=4>
+					<%@ include file="/WEB-INF/jsp/users/register.jspf" %>
+				</td>
+			</tr>
 			</tbody>	
 		</table>
 			

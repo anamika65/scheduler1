@@ -67,13 +67,7 @@
 		
 		<br/>		
 	</div>
-	
-	<table  class="homepageTable" style="width:100%;">
-		    <tr>					
-				<%@ include file="/WEB-INF/jsp/users/register.jspf" %>
-			</tr>
-		</table>
-	
+
 	<jsp:include page="/WEB-INF/jsp/common/footer.jspf"/>	
 						
 </div>

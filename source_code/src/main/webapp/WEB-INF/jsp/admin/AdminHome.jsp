@@ -147,6 +147,8 @@
 					Settings
 				</td>					
 			</tr>
+			
+			<tr style="height:30px;"/>
 		<sec:authorize ifAllGranted="ROLE_ADMIN">			
 			<tr>					
 				<td style="width:110px;"/>

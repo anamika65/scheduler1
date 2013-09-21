@@ -190,3 +190,12 @@ tr.zerba td {
 	display: inline-block;
 	width: 140px; 
 }
+
+.helpLink {
+	position: absolute;
+	display: block;
+	left: 356px;
+	bottom: 6px;
+	z-index: 5;
+	color: #999999;
+}
