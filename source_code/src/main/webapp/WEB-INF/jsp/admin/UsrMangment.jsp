@@ -29,6 +29,18 @@
 		
 		<!-- User Management CRUD Operation -->
 		  
+		<table  class="homepageTable" style="width:100%;">
+		    <tr>					
+				<td style="width:50px;"/>
+				<td style="width:950px;">
+		    		<legend class="legendFont">User Management</legend>
+		    	</td>
+		   		<td class="buttonRight">
+		   			<%@ include file="/WEB-INF/jsp/users/register.jspf" %>
+		   		</td>
+				<td style="width:50px;"/>
+			</tr>
+		</table> 	
 		
 		<table id="zebraTable" class="table table-hover centeredTableNoTop"  style="width:1100px;">
  			<thead> 				
@@ -179,11 +191,7 @@
     					</td> 
 					</tr>
 			</c:forEach>
-			<tr>
-				<td colspan=4>
-					<%@ include file="/WEB-INF/jsp/users/register.jspf" %>
-				</td>
-			</tr>
+
 			</tbody>	
 		</table>
 			
