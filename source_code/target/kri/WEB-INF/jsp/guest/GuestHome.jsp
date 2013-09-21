@@ -62,9 +62,7 @@
 						<span class="add-on"><i class="icon-th"></i></span>
 					</div>
 				</td>
-				<td>
-					<a id="showCurrentSch" href="../schedule/fileDownload" class="btn btn-primary" role= "button">?</a>
-				</td>
+				
 				<td class="floatRight">
 					<a id="showCurrentSch" href=../schedule/view?scheduledate=<%= birtFormatter.format(currentDate) %> class="btn btn-primary birt-button" role="button"> Show schedule </a>
 				</td>
