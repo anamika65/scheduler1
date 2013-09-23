@@ -69,7 +69,7 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/jsp/common/footer.jspf"/>	
-						
+	
 </div>
 
 <div style = "height:30px"></div>

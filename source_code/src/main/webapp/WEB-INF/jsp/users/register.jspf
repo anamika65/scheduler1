@@ -1,5 +1,5 @@
 <!-- Button to trigger modal for adding a User -->
-<a href="#userRegistration" class="btn btn-primary" role="button" data-toggle="modal">Add new user</a>
+<a href="#userRegistration" class="btn btn-primary" role="button" data-toggle="modal">Add User</a>
 <!-- URL for adding the catalogue; the new values will be available in controller using parameters -->
 <c:url var="addUser" value="../login/add" />
 <form method="POST" action="${addUser}">
@@ -7,7 +7,7 @@
 		<div id="userRegistration" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
    		<div class="modal-header">
   		   	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-     		<h3 id="myModalLabel">User Registration</h3>
+     		<h3 id="myModalLabel" style="text-align:left">User Registration</h3>
    		</div>
   		 	<div class="modal-body">
 	     	<table>

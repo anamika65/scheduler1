@@ -60,7 +60,7 @@ public class RegistrationController {
 		userRgistrationService.addUserRole(user_Role);
 
 		// This will resolve to /WEB-INF/jsp/users/logoutSuccess.jsp
-		return "redirect:../login";
+		return "redirect:../crud";
 	}
 	
 	
