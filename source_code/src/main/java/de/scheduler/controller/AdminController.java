@@ -21,9 +21,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import de.scheduler.importer.UploadForm;
 import de.scheduler.model.Configuration;
@@ -43,6 +45,8 @@ import de.scheduler.service.DSupportOperationService;
 import de.scheduler.service.OpBlockService;
 import de.scheduler.service.OpCatalogueService;
 import de.scheduler.service.OperationBlockGenerator;
+import de.scheduler.service.OpsCodeMappingService;
+import de.scheduler.service.OpsCodeMappingServiceInterface;
 import de.scheduler.service.PersonService;
 import de.scheduler.service.ProjectPersonInfoCmp;
 import de.scheduler.service.SchedulerService;
@@ -88,6 +92,11 @@ public class AdminController {
 	
 	@Resource(name="specialtyLoader")
 	private SpecialtyLoader specialtyLoader;
+	
+	//** Sakib [
+	@Resource(name="opsCodeMappingService")
+	private OpsCodeMappingServiceInterface opsCodeMappingService;
+	//** Sakib ]
 	
 	@Value("#{settings['birtURL']}")  
 	private String birtURL;
@@ -192,7 +201,16 @@ public class AdminController {
 		
     	// Attach status to the Model
 		model.addAttribute("residentListForCatalogues", residentListByCatalogues);
+    
+	//** Sakib [
+	//Information for List of OpCatalogues
+		// Retrieve all OpCatalogues by delegating the call to OpsCodeMappingService
+    	List<OpCatalogue> opCatalogues = opsCodeMappingService.getAllOpCatalogue();
     	
+    	// Attach OpCatalogues to the Model
+    	model.addAttribute("opCatalogues", opCatalogues);
+    	
+	//** Sakib ]
     	// This will resolve to /WEB-INF/jsp/admin/DecisionSupport.jsp
 		return "admin/DecisionSupport";
 	}
@@ -758,7 +776,51 @@ public class AdminController {
     	
     	return true;
     }
-    
+
+    /**
+     * Check if an OpCatalgue exists for the sent pscode 
+     * 
+     * @param psValue		the pscode to be checked
+     */
+
+    @RequestMapping(value = "/administration/decisionsupport/checkmapping", method = RequestMethod.POST)
+    public @ResponseBody String checkmapping(String psValue) {
+		logger.debug("Received request to check the mapping between OpCatalogue and pscode");
+		
+		// Get the OpCatalogue for PsCode
+		Integer opCatalogueId = opsCodeMappingService.getOpCatalogueIdForPsCode(psValue);
+		
+		if(opCatalogueId == null) return "-1";
+		else return opCatalogueId.toString();
+	}
+
+    /**
+     * Insert/Update OpCatalgue for the sent pscode 
+     * 
+     * @param psValue		the pscode to be updated / inserted
+     * @param clValue		the OpCatalgue to be mapped with
+     */
+
+    @RequestMapping(value = "/administration/decisionsupport/updatemapping", method = RequestMethod.POST)
+    public @ResponseBody String updatemapping(String psValue, String clValue) {
+		logger.debug("Received request to insert / update the mapping between OpCatalogue and pscode");
+		
+		if(Integer.parseInt(clValue) <= 0 ) return "-1";
+		
+		// Get the OpCatalogue for PsCode
+		Integer opCatalogueId = opsCodeMappingService.getOpCatalogueIdForPsCode(psValue);
+		Boolean updateSuccess = false;
+		if(opCatalogueId == null) {
+			// Insert the OpCatalogue for PsCode
+			updateSuccess = opsCodeMappingService.insertOpCatalogueForPsCode(psValue, clValue, "");
+		} else {
+			// Update the OpCatalogue for PsCode
+			updateSuccess = opsCodeMappingService.updateOpCatalogueForPsCode(psValue,clValue);
+		}
+				
+		if(updateSuccess) return clValue.toString();
+		else return "-1";
+	}
 
 }
 
