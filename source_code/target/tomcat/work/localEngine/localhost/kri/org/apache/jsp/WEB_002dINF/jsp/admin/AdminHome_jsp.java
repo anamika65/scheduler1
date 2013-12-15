@@ -313,6 +313,8 @@ public final class AdminHome_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t\t\t\t\tSettings\n");
       out.write("\t\t\t\t</td>\t\t\t\t\t\n");
       out.write("\t\t\t</tr>\n");
+      out.write("\t\t\t\n");
+      out.write("\t\t\t<tr style=\"height:30px;\"/>\n");
       out.write("\t\t");
       if (_jspx_meth_sec_005fauthorize_005f2(_jspx_page_context))
         return;
@@ -1128,7 +1130,7 @@ public final class AdminHome_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.springframework.security.taglibs.authz.AuthorizeTag _jspx_th_sec_005fauthorize_005f2 = (org.springframework.security.taglibs.authz.AuthorizeTag) _005fjspx_005ftagPool_005fsec_005fauthorize_0026_005fifAllGranted.get(org.springframework.security.taglibs.authz.AuthorizeTag.class);
     _jspx_th_sec_005fauthorize_005f2.setPageContext(_jspx_page_context);
     _jspx_th_sec_005fauthorize_005f2.setParent(null);
-    // /WEB-INF/jsp/admin/AdminHome.jsp(150,2) name = ifAllGranted type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/AdminHome.jsp(152,2) name = ifAllGranted type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_sec_005fauthorize_005f2.setIfAllGranted("ROLE_ADMIN");
     int _jspx_eval_sec_005fauthorize_005f2 = _jspx_th_sec_005fauthorize_005f2.doStartTag();
     if (_jspx_eval_sec_005fauthorize_005f2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {

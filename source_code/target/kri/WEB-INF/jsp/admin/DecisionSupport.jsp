@@ -27,6 +27,127 @@
 $(document).ready(function () {
 	$("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); 
 	$("#zebraTable tr:nth-child(even)").addClass("zerba");
+	
+	/*Sakib [*/
+	$(".catalogue1, .catalogue2").hide();
+	
+	//Empty checking for Ops code mapping
+	$( "#addOperationForm" ).submit(function( event ) {
+		if($.trim($("#firstOpscode").val()).length) {
+			if(parseInt($("#catalogueForFirstOpscode").val()) <= 0) {
+				return false;
+			}
+		}
+		if($.trim($("#secondOpscode").val()).length) {
+			if(parseInt($("#catalogueForSecondOpscode").val()) <= 0) {
+				return false;
+			}
+		}
+		return true;
+	});
+	
+	//For First OpsCode
+	$( "#firstOpscode" ).blur(function() {
+		if($.trim($("#firstOpscode").val()).length) {
+			var psValue1 = $.trim($("#firstOpscode").val());
+			$.ajax({
+			    url: "../administration/decisionsupport/checkmapping",//servlet URL that gets first option as parameter and returns JSON of to-be-populated options
+			    data : "psValue=" + psValue1,
+			    type: "POST",//request type, can be GET
+			    cache: false,//do not cache returned data
+			}).done(function(data) {
+				// -1 : PSCode doesn't exist, 0 : Catalogue not mapped yet, others : Catalogue already mapped
+				if(data == "-1" || data == "0") {
+					$("#catalogueForFirstOpscode").find('option:selected').removeAttr("selected");
+					// ask user to set catalogue
+					$(".mappingSuggestion1").html("Select a Catalogue").css("color","#aa0000");
+				} else {
+					$("#catalogueForFirstOpscode").val(data);
+					$(".mappingSuggestion1").html("Catalogue found").css("color","#00aa00");
+				}
+			});
+			$(".catalogue1").show();
+		}
+		else $(".catalogue1").hide();
+	});
+	$( "#catalogueForFirstOpscode" ).change(function() {
+		if(parseInt($("#catalogueForFirstOpscode").val()) > 0) {
+			$(".mappingSuggestion1").html("Updating Catalogue...").css("color","#00aa00");
+			var clValue1 = $("#catalogueForFirstOpscode").val();
+			var psValue1 = $.trim($("#firstOpscode").val());
+			$.ajax({
+			    url: "../administration/decisionsupport/updatemapping",//servlet URL that gets first option as parameter and returns JSON of to-be-populated options
+			    data : "psValue=" + psValue1 + "&clValue=" + clValue1,
+			    type: "POST",//request type, can be GET
+			    cache: false,//do not cache returned data
+			}).done(function(data) {
+				// 0 : Internal error, others : Catalogue already mapped
+				if(data == "-1") {
+					$("#catalogueForFirstOpscode").find('option:selected').removeAttr("selected");
+					// ask user to set catalogue
+					$(".mappingSuggestion1").html("Internal server error").css("color","#aa0000");
+				} else {
+					//$("#catalogueForFirstOpscode").val(data);
+					$(".mappingSuggestion1").html("Catalogue updated").css("color","#00aa00");
+				}
+			});
+		} else {
+			// ask user to set catalogue
+			$(".mappingSuggestion1").html("Select a Catalogue").css("color","#aa0000");
+		}
+	});
+	
+	//For second OpsCode
+	$( "#secondOpscode" ).blur(function() {
+		if($.trim($("#secondOpscode").val()).length) {
+			var psValue2 = $.trim($("#secondOpscode").val());
+			$.ajax({
+			    url: "../administration/decisionsupport/checkmapping",//servlet URL that gets first option as parameter and returns JSON of to-be-populated options
+			    data : "psValue=" + psValue2,
+			    type: "POST",//request type, can be GET
+			    cache: false,//do not cache returned data
+			}).done(function(data) {
+				// -1 : PSCode doesn't exist, 0 : Catalogue not mapped yet, others : Catalogue already mapped
+				if(data == "-1" || data == "0") {
+					$("#catalogueForSecondOpscode").find('option:selected').removeAttr("selected");
+					// ask user to set catalogue
+					$(".mappingSuggestion2").html("Select a Catalogue").css("color","#aa0000");
+				} else {
+					$("#catalogueForSecondOpscode").val(data);
+					$(".mappingSuggestion2").html("Catalogue found").css("color","#00aa00");
+				}
+			});
+			$(".catalogue2").show();
+		}
+		else $(".catalogue2").hide();
+	});
+	$( "#catalogueForSecondOpscode" ).change(function() {
+		if(parseInt($("#catalogueForSecondOpscode").val()) > 0) {
+			$(".mappingSuggestion2").html("Updating Catalogue...").css("color","#00aa00");
+			var clValue2 = $("#catalogueForSecondOpscode").val();
+			var psValue2 = $.trim($("#secondOpscode").val());
+			$.ajax({
+			    url: "../administration/decisionsupport/updatemapping",//servlet URL that gets first option as parameter and returns JSON of to-be-populated options
+			    data : "psValue=" + psValue2 + "&clValue=" + clValue2,
+			    type: "POST",//request type, can be GET
+			    cache: false,//do not cache returned data
+			}).done(function(data) {
+				// 0 : Internal error, others : Catalogue already mapped
+				if(data == "-1") {
+					$("#catalogueForSecondOpscode").find('option:selected').removeAttr("selected");
+					// ask user to set catalogue
+					$(".mappingSuggestion2").html("Internal server error").css("color","#aa0000");
+				} else {
+					//$("#catalogueForFirstOpscode").val(data);
+					$(".mappingSuggestion2").html("Catalogue updated").css("color","#00aa00");
+				}
+			});
+		} else {
+			// ask user to set catalogue
+			$(".mappingSuggestion2").html("Select a Catalogue").css("color","#aa0000");
+		}
+	});
+	/*Sakib ]*/
 } );
 $(document).ready(
 		function() {
@@ -72,7 +193,7 @@ $(function(){
 					
 					<!-- URL for adding the operation; the new values will be available in controller using parameters -->
 					<c:url var="addUrl" value="../administration/decisionsupport/add" />
-				    <form method="POST" action="${addUrl}">
+				    <form id="addOperationForm" method="POST" action="${addUrl}">
 
 					<!-- Modal for adding a new catalogue -->						    
 				    <div id="myAddURL" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -88,17 +209,69 @@ $(function(){
 									<span style="vertical-align:baseline;">
 										<span class="control-group">
 								        	<span class="controls">
-												<input name="opsc1Add" type="text" placeholder="Type code..."  required/> 
+												<input id="firstOpscode" name="opsc1Add" type="text" placeholder="Type code..."  required/> 
 									     	</span>
 							            </span>
+						            </span>
+						            <span class="catalogue1" id="editSpan">Catalogue:</span>
+									<span class="catalogue1" style="vertical-align:baseline;">
+										<span class="control-group">
+								        	<span class="controls">
+												<c:if test="${filteredOpCatalogues != null}">
+													<select id="catalogueForFirstOpscode" name="catalogueForFirstOpscode" >
+														<option value="-1">&nbsp;</option>
+														<c:forEach items="${filteredOpCatalogues}" var="opCatalogue">  
+															<option value="${opCatalogue.catalogueID}"><c:out value="${opCatalogue.name}"/></option>
+												     	</c:forEach> 
+											     	</select> 
+											     	<span class="mappingSuggestion1 miniSugg"></span>
+										     	</c:if> 
+									     	</span>
+							            </span>
+						            </span>
+						            <span class="catalogue1" id="editSpan">Difficulty:</span>
+									<span class="catalogue1">
+										<span class="control-group">
+								        	<span class="controls">
+												<input type="radio" name="difficultyForFirstOpscode" value="1" checked> Normal &nbsp;&nbsp;
+												<input type="radio" name="difficultyForFirstOpscode" value="2"> Difficult
+									     	</span>
+							            </span>
+							            <br />
 						            </span>
 									<span id="editSpan">OPSC02:</span>
 									<span style="vertical-align:baseline;">
 						            	<span class="control-group">
 							              	<span class="controls">
-								            	<input name="opsc2Add" type="text" placeholder="Type code..." /> 
+								            	<input id="secondOpscode" name="opsc2Add" type="text" placeholder="Type code..." />
 							             	</span>
 							            </span>
+						            </span>
+						            <span class="catalogue2" id="editSpan">Catalogue</span>
+									<span class="catalogue2" style="vertical-align:baseline;">
+										<span class="control-group">
+								        	<span class="controls">
+								        		<c:if test="${filteredOpCatalogues != null}">
+													<select id="catalogueForSecondOpscode" name="catalogueForSecondOpscode" >
+														<option value="-1">&nbsp;</option>
+														<c:forEach items="${filteredOpCatalogues}" var="opCatalogue">  
+															<option value="${opCatalogue.catalogueID}"><c:out value="${opCatalogue.name}"/></option>
+												     	</c:forEach> 
+											     	</select> 
+											     	<span class="mappingSuggestion2 miniSugg"></span>
+										     	</c:if> 
+									     	</span>
+							            </span>
+						            </span>
+						            <span class="catalogue2" id="editSpan">Difficulty:</span>
+									<span class="catalogue2">
+										<span class="control-group">
+								        	<span class="controls">
+												<input type="radio" name="difficultyForSecondOpscode" value="1" checked> Normal &nbsp;&nbsp;
+												<input type="radio" name="difficultyForSecondOpscode" value="2"> Difficult
+									     	</span>
+							            </span>
+							            <br />
 						            </span>
 						            <span id="editSpan">Operation date:</span>
 						            <span style="vertical-align:baseline;">
@@ -118,6 +291,10 @@ $(function(){
 															<option value="${nickname}"><c:out value="${nickname}"/></option>
 												     	</c:forEach> 
 											     	</select> 
+							             			<span class="sub-controls">
+											     		<input type="checkbox" name="opscToCountForOp1" value="OPSC01"> OPSC01
+														<input type="checkbox" name="opscToCountForOp1" value="OPSC02"> OPSC02 
+													</span>
 										     	</c:if> 
 							             	</span>
 										</span>
@@ -132,6 +309,10 @@ $(function(){
 															<option value="${nickname}"><c:out value="${nickname}"/></option>
 												     	</c:forEach> 
 											     	</select> 
+											     	<span class="sub-controls">
+											     		<input type="checkbox" name="opscToCountForOp2" value="OPSC01"> OPSC01
+														<input type="checkbox" name="opscToCountForOp2" value="OPSC02"> OPSC02 
+													</span>
 										     	</c:if>  
 							             	</span>
 										</span>
@@ -146,6 +327,10 @@ $(function(){
 															<option value="${nickname}"><c:out value="${nickname}"/></option>
 												     	</c:forEach> 
 											     	</select> 
+											     	<span class="sub-controls">
+											     		<input type="checkbox" name="opscToCountForAss1" value="OPSC01"> OPSC01
+														<input type="checkbox" name="opscToCountForAss1" value="OPSC02"> OPSC02 
+													</span>
 										     	</c:if> 										             	
 										     </span>
 							              </span>

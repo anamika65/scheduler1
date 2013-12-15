@@ -41,6 +41,47 @@ $(document).ready(function () {
 				<td style="width:950px;">
 		    		<legend class="legendFont">Configure catalogues</legend>
 		    	</td>
+		    	<td class="buttonLeft">
+
+					<!-- Button to trigger modal for adding a new Catalogue -->
+					<a href="#myAddTrainURL" class="btn btn-primary" role="button" data-toggle="modal"> Add Training System </a>
+					
+					<!-- URL for adding the catalogue; the new values will be available in controller using parameters -->
+					<c:url var="addUrl" value="../administration/catalogues/addTrainSystem" />
+				    <form method="POST" action="${addUrl}">
+
+					<!-- Modal for adding a new catalogue -->						    
+				    <div id="myAddTrainURL" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					        <div class="modal-header">
+					            <a class="close" data-dismiss="modal">×</a>
+							    <h3 id="myModalLabel" style="text-align:left"> New Training System </h3>
+						    </div>
+						    
+					        <div class="modal-body" style="text-align:left;">
+								<br/>
+								<table>
+								<tr>
+						            <td class="tdCatalogueType1" style="vertical-align:baseline;">
+											<label class="control-label" > Name Training System: </label>
+									</td>
+									<td style="vertical-align:baseline;">
+						              <div class="control-group">
+						              	<div class="controls">
+							            	<input name="trainSysName" type="text" placeholder="Type Training System..." required/> 
+						             	</div>
+						              </div>
+						            </td>
+					            </tr>
+					            </table>
+					        </div>
+					        
+					        <div class="modal-footer">
+					            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+					            <input type="submit" value="Add" class="btn btn-primary" />
+					        </div>
+				    </div>
+				    </form>
+				</td>
 		   		<td class="buttonRight">
 
 					<!-- Button to trigger modal for adding a new Catalogue -->

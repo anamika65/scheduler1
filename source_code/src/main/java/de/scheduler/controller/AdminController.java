@@ -1,7 +1,9 @@
 package de.scheduler.controller;
 
+import java.io.Console;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,7 @@ import de.scheduler.model.Project;
 import de.scheduler.model.ProjectPersonInfo;
 import de.scheduler.model.ProjectCatalogStatus;
 import de.scheduler.model.Specialty;
+import de.scheduler.model.TrainingSystem;
 import de.scheduler.model.User;
 import de.scheduler.model.UserInfo;
 import de.scheduler.model.UserRole;
@@ -53,6 +56,7 @@ import de.scheduler.service.SchedulerService;
 import de.scheduler.service.SchedulesService;
 import de.scheduler.service.SpecialtyLoader;
 import de.scheduler.service.ProjectService;
+import de.scheduler.service.TrainingSystemService;
 import de.scheduler.service.UsrMngmentCRUDService;
 import de.scheduler.service.UsrMngmentCRUDServiceIntrface;
 import de.scheduler.util.SpecialtySelector;
@@ -97,6 +101,11 @@ public class AdminController {
 	@Resource(name="opsCodeMappingService")
 	private OpsCodeMappingServiceInterface opsCodeMappingService;
 	//** Sakib ]
+	
+	//Anamika Start
+	@Resource(name="trSystemService")
+	private TrainingSystemService trSystemService;
+	//Anamika End
 	
 	@Value("#{settings['birtURL']}")  
 	private String birtURL;
@@ -207,8 +216,11 @@ public class AdminController {
 		// Retrieve all OpCatalogues by delegating the call to OpsCodeMappingService
     	List<OpCatalogue> opCatalogues = opsCodeMappingService.getAllOpCatalogue();
     	
+    	List<OpCatalogue> filteredOpCatalogues = opsCodeMappingService.getFilteredOpCatalogue();
+    	
     	// Attach OpCatalogues to the Model
     	model.addAttribute("opCatalogues", opCatalogues);
+    	model.addAttribute("filteredOpCatalogues", filteredOpCatalogues);
     	
 	//** Sakib ]
     	// This will resolve to /WEB-INF/jsp/admin/DecisionSupport.jsp
@@ -271,7 +283,13 @@ public class AdminController {
     						@RequestParam(value="opDateAdd", required=true) Date opDate,
     						@RequestParam(value="op1Add", required=true) String op1,
     						@RequestParam(value="op2Add", required=false) String op2,
-    						@RequestParam(value="ass1Add", required=false) String ass1) {
+    						@RequestParam(value="ass1Add", required=false) String ass1,
+    						@RequestParam(value="difficultyForFirstOpscode", required=true) String difficultyForFirstOpscode,
+    						@RequestParam(value="difficultyForSecondOpscode", required=false) String difficultyForSecondOpscode,
+    						@RequestParam(value="opscToCountForOp1", required=false) String opscToCountForOp1,
+    						@RequestParam(value="opscToCountForOp2", required=false) String opscToCountForOp2,
+    						@RequestParam(value="opscToCountForAss1", required=false) String opscToCountForAss1
+    						) {
     	logger.debug("Received request to add decision support operation");
 		
     	// We assign the input fields
@@ -283,7 +301,19 @@ public class AdminController {
     	dSupportOperation.setOp2(op2);
     	dSupportOperation.setAss1(ass1);
     	dSupportOperation.setEntryDate(new Date());
+    	dSupportOperation.setOPSC01Difficulty(Integer.parseInt(difficultyForFirstOpscode));
+    	dSupportOperation.setOP1Credit(opscToCountForOp1);
+    	if(!opsc2.isEmpty() ) {
+    		dSupportOperation.setOPSC02Difficulty(Integer.parseInt(difficultyForSecondOpscode));
+    	}
+    	if(!op2.isEmpty() ) {
+    		dSupportOperation.setOP2Credit(opscToCountForOp2);
+    	}
+    	if(!ass1.isEmpty() ) {
+    		dSupportOperation.setAss1Credit(opscToCountForAss1);
+    	}
     	
+    	//System.out.println(opscToCountForOp1);
     	// Delegate to DSupportOperationService to do the mapping of the OPSCode to a catalogue
     	// and the actual add
     	dSupportOperationService.add(dSupportOperation);
@@ -647,7 +677,25 @@ public class AdminController {
 		// This will redirect to /WEB-INF/jsp/admin/Catalogues.jsp
 		return "redirect:../catalogues";
 	}
-   
+    /**
+     * Add a new training system by delegating the processing to TrainingSystemService.
+     * 
+   	 * @param trainSysName		the name of the training system to be added
+     */
+    @RequestMapping(value = "/administration/catalogues/addTrainSystem", method = RequestMethod.POST)
+    public String addTrainSystem (@RequestParam(value="trainSysName", required=true) String trainSysName) {    	
+		logger.debug("Received request to add new catalog");
+		
+    	// We assign the input fields
+    	TrainingSystem trSystem = new TrainingSystem();
+    	trSystem.setTrain_system_name(trainSysName);
+    	
+		// Call TrainingSystemService to do the actual add
+    	trSystemService.addTrSystem(trSystem);
+		
+		// This will redirect to /WEB-INF/jsp/admin/Catalogues.jsp
+		return "redirect:../catalogues";
+	}
     @RequestMapping(value = "/administration/settings", method = RequestMethod.GET)
     public String showSettings(Model model) {
     	logger.debug("Received request to show settings");
@@ -657,6 +705,22 @@ public class AdminController {
     		model.addAttribute(config.getName(), config.getValue());
     	}
     	
+    	String username = "Dirk"; // This will be fixed after registration process is complete
+    	List<DSupportOperation> difficultOperations = dSupportOperationService.getAllForUser(username);
+    	model.addAttribute("difficultOperations", difficultOperations);
+    	
+    	List<String> operatedAs = new ArrayList<String>();
+    	for(DSupportOperation difficultOperation : difficultOperations) { 
+    		if(difficultOperation.getOp1() == username) {
+    			operatedAs.add("Op1");
+    		} else if(difficultOperation.getOp2() == username) {
+    			operatedAs.add("Op2");
+    		} else {
+    			operatedAs.add("Ass1");
+    		}
+    	}
+    	
+    	model.addAttribute("nameUser", username);
 		// This will resolve to /WEB-INF/jsp/admin/Settings.jsp
 		return "admin/Settings";
 	}

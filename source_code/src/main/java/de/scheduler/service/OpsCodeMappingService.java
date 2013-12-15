@@ -30,6 +30,11 @@ public class OpsCodeMappingService implements OpsCodeMappingServiceInterface {
 											  " FROM opcatalogues" +
 											  " ORDER BY opcatalogues.Name ASC";
 	
+	public static String GET_FILTERED_CATALOGUE = " SELECT * " +
+			  										" FROM opcatalogues" +
+			  										" WHERE CatalogID != 4" +
+			  										" ORDER BY opcatalogues.Name ASC";
+	
 	public static String GET_CATALOGUE_FOR_PSCODE = " SELECT CatalogID " +
 													" FROM pscodes" +
 													" WHERE PSCode = :psCode";
@@ -51,6 +56,27 @@ public class OpsCodeMappingService implements OpsCodeMappingServiceInterface {
 		
 		// Create a Hibernate query
 		Query query = session.createSQLQuery(GET_ALL_CATALOGUE)
+									.addEntity(OpCatalogue.class);
+		
+		List<OpCatalogue> catalogues = query.list();
+		
+		// Retrieve all
+		return catalogues;
+	}
+	
+	/**
+	 * Retrieves filtered OpCatalogues without the difficulty
+	 * 
+	 * @return 		a list
+	 */
+	public List<OpCatalogue> getFilteredOpCatalogue() {
+		logger.debug("Retrieving filterd opcatalogue  without the 'difficulty'");
+		
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+		
+		// Create a Hibernate query
+		Query query = session.createSQLQuery(GET_FILTERED_CATALOGUE)
 									.addEntity(OpCatalogue.class);
 		
 		List<OpCatalogue> catalogues = query.list();

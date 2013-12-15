@@ -38,9 +38,24 @@ public class DSupportOperation {
 	
 	@Column(name = "OP2")
 	private String op2;
-	
+
 	@Column(name = "Ass1")
 	private String ass1;
+
+	@Column(name = "OPSC01Difficulty")
+	private Integer oPSC01Difficulty;
+
+	@Column(name = "OPSC02Difficulty")
+	private Integer oPSC02Difficulty;
+
+	@Column(name = "OP1Credit")
+	private String oP1Credit;
+
+	@Column(name = "OP2Credit")
+	private String oP2Credit;
+	
+	@Column(name = "Ass1Credit")
+	private String ass1Credit;
 
 	@Column(name = "EntryDate")
 	private Date entryDate;
@@ -110,6 +125,46 @@ public class DSupportOperation {
 
 	public void setAss1(String ass1) {
 		this.ass1 = ass1;
+	}
+
+	public Integer getOPSC01Difficulty() {
+		return oPSC01Difficulty;
+	}
+
+	public void setOPSC01Difficulty(Integer oPSC01Difficulty) {
+		this.oPSC01Difficulty = oPSC01Difficulty;
+	}
+
+	public Integer getOPSC02Difficulty() {
+		return oPSC02Difficulty;
+	}
+
+	public void setOPSC02Difficulty(Integer oPSC02Difficulty) {
+		this.oPSC02Difficulty = oPSC02Difficulty;
+	}
+
+	public String getOP1Credit() {
+		return oP1Credit;
+	}
+
+	public void setOP1Credit(String oP1Credit) {
+		this.oP1Credit = oP1Credit;
+	}
+
+	public String getOP2Credit() {
+		return oP2Credit;
+	}
+
+	public void setOP2Credit(String oP2Credit) {
+		this.oP2Credit = oP2Credit;
+	}
+
+	public String getAss1Credit() {
+		return ass1Credit;
+	}
+
+	public void setAss1Credit(String ass1Credit) {
+		this.ass1Credit = ass1Credit;
 	}
 
 	public Date getEntryDate() {

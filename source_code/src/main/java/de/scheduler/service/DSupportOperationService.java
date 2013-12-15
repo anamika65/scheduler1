@@ -49,12 +49,41 @@ public class DSupportOperationService {
 								", dsop.EntryDate" +
 								", dsop.CatalogID" +
 								", dsop.CatalogName" +
+								", dsop.OPSC01Difficulty" +
+								", dsop.OPSC02Difficulty" +
+								", dsop.OP1Credit" +
+								", dsop.OP2Credit" +
+								", dsop.Ass1Credit" +
 						" FROM " +
 								" dSupportOperations dsop inner join project prj ON dsop.Op1 = prj.Nickname" +
 						" WHERE " +
 								" prj.SpecialtyID = :specialtyID" +
 						" ORDER BY " +
 								" dsop.OpDate ASC";
+	
+	public static String GET_ALL_DECISION_SUPPORT_OPERATIONS_FOR_USER = " SELECT " +
+								" dsop.dSuppOpID" +
+								", dsop.OPSC01" +
+								", dsop.OPSC02" +
+								", dsop.OpDate" +
+								", dsop.Op1" +
+								", dsop.Op2" +
+								", dsop.Ass1" +
+								", dsop.EntryDate" +
+								", dsop.CatalogID" +
+								", dsop.CatalogName" +
+								", dsop.OPSC01Difficulty" +
+								", dsop.OPSC02Difficulty" +
+								", dsop.OP1Credit" +
+								", dsop.OP2Credit" +
+								", dsop.Ass1Credit" +
+						" FROM " +
+								" dSupportOperations dsop " +
+						" WHERE " +
+								" ( dsop.Op1 = :username OR dsop.Op2 = :username OR dsop.Ass1 = :username ) AND " +
+								" ( dsop.OPSC01Difficulty = 2 OR dsop.OPSC02Difficulty = 2 )" +
+						" ORDER BY " +
+								" dsop.OpDate DESC";
 	
 	public static String GET_CATALOG_ID_FOR_D_SUPP_OP = " SELECT " +
 																" psc.CatalogID as CatalogID " +
@@ -169,6 +198,33 @@ public class DSupportOperationService {
 		// Retrieve all
 		return dSupportOperationsForSpecialty;
 	}
+	
+
+	/**
+	 * Retrieves all DSupportOperations for a User (Admin, Resident, Instructor)
+	 * 
+	 * @param username		the User (Admin, Resident, Instructor)
+	 * 
+	 * @return 		a list of DSupportOperations
+	 */
+	@SuppressWarnings("unchecked")
+	public List<DSupportOperation> getAllForUser(String username) {
+		logger.debug("Retrieving all decision support operations for specialty");
+		
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+		
+		// Create a Hibernate query (HQL)
+		Query query = session.createSQLQuery(GET_ALL_DECISION_SUPPORT_OPERATIONS_FOR_USER)
+									.addEntity(DSupportOperation.class)
+									.setParameter("username", username);
+		
+		List<DSupportOperation> dSupportOperationsForSpecialty = query.list();
+		
+		// Retrieve all
+		return dSupportOperationsForSpecialty;
+	}
+	
 	
 	/**
 	 * Retrieves a single DSupportOperation and maps the OPSCode to a Catalogue

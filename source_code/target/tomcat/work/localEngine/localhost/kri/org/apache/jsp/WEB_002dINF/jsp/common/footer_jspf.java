@@ -52,11 +52,11 @@ public final class footer_jspf extends org.apache.jasper.runtime.HttpJspBase
 
       out.write("\n");
       out.write("<div style=\"height:80px\" align=\"left\"> \n");
-      out.write("\t\t<a id=\"showCurrentSch\" href=\"../schedule/fileDownload\">UserGuide</a>\n");
+      out.write("\t\t\n");
       out.write("</div>\n");
       out.write("\n");
       out.write("<img style = \" position: absolute; display: block; left:0; bottom: 0;\" src = \"../resources/images/footer.png\"/> \n");
-      out.write("\n");
+      out.write("<div class=\"helpLink\">&nbsp;&nbsp;<a id=\"showCurrentSch\" href=\"../schedule/fileDownload\">User Guide</a></div>\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

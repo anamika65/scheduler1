@@ -72,6 +72,7 @@ $(document).ready(function () {
 	});
 	$( "#catalogueForFirstOpscode" ).change(function() {
 		if(parseInt($("#catalogueForFirstOpscode").val()) > 0) {
+			$(".mappingSuggestion1").html("Updating Catalogue...").css("color","#00aa00");
 			var clValue1 = $("#catalogueForFirstOpscode").val();
 			var psValue1 = $.trim($("#firstOpscode").val());
 			$.ajax({
@@ -122,6 +123,7 @@ $(document).ready(function () {
 	});
 	$( "#catalogueForSecondOpscode" ).change(function() {
 		if(parseInt($("#catalogueForSecondOpscode").val()) > 0) {
+			$(".mappingSuggestion2").html("Updating Catalogue...").css("color","#00aa00");
 			var clValue2 = $("#catalogueForSecondOpscode").val();
 			var psValue2 = $.trim($("#secondOpscode").val());
 			$.ajax({
@@ -215,10 +217,10 @@ $(function(){
 									<span class="catalogue1" style="vertical-align:baseline;">
 										<span class="control-group">
 								        	<span class="controls">
-												<c:if test="${opCatalogues != null}">
+												<c:if test="${filteredOpCatalogues != null}">
 													<select id="catalogueForFirstOpscode" name="catalogueForFirstOpscode" >
 														<option value="-1">&nbsp;</option>
-														<c:forEach items="${opCatalogues}" var="opCatalogue">  
+														<c:forEach items="${filteredOpCatalogues}" var="opCatalogue">  
 															<option value="${opCatalogue.catalogueID}"><c:out value="${opCatalogue.name}"/></option>
 												     	</c:forEach> 
 											     	</select> 
@@ -226,6 +228,16 @@ $(function(){
 										     	</c:if> 
 									     	</span>
 							            </span>
+						            </span>
+						            <span class="catalogue1" id="editSpan">Difficulty:</span>
+									<span class="catalogue1">
+										<span class="control-group">
+								        	<span class="controls">
+												<input type="radio" name="difficultyForFirstOpscode" value="1" checked> Normal &nbsp;&nbsp;
+												<input type="radio" name="difficultyForFirstOpscode" value="2"> Difficult
+									     	</span>
+							            </span>
+							            <br />
 						            </span>
 									<span id="editSpan">OPSC02:</span>
 									<span style="vertical-align:baseline;">
@@ -239,10 +251,10 @@ $(function(){
 									<span class="catalogue2" style="vertical-align:baseline;">
 										<span class="control-group">
 								        	<span class="controls">
-								        		<c:if test="${opCatalogues != null}">
+								        		<c:if test="${filteredOpCatalogues != null}">
 													<select id="catalogueForSecondOpscode" name="catalogueForSecondOpscode" >
 														<option value="-1">&nbsp;</option>
-														<c:forEach items="${opCatalogues}" var="opCatalogue">  
+														<c:forEach items="${filteredOpCatalogues}" var="opCatalogue">  
 															<option value="${opCatalogue.catalogueID}"><c:out value="${opCatalogue.name}"/></option>
 												     	</c:forEach> 
 											     	</select> 
@@ -250,6 +262,16 @@ $(function(){
 										     	</c:if> 
 									     	</span>
 							            </span>
+						            </span>
+						            <span class="catalogue2" id="editSpan">Difficulty:</span>
+									<span class="catalogue2">
+										<span class="control-group">
+								        	<span class="controls">
+												<input type="radio" name="difficultyForSecondOpscode" value="1" checked> Normal &nbsp;&nbsp;
+												<input type="radio" name="difficultyForSecondOpscode" value="2"> Difficult
+									     	</span>
+							            </span>
+							            <br />
 						            </span>
 						            <span id="editSpan">Operation date:</span>
 						            <span style="vertical-align:baseline;">
@@ -269,6 +291,10 @@ $(function(){
 															<option value="${nickname}"><c:out value="${nickname}"/></option>
 												     	</c:forEach> 
 											     	</select> 
+							             			<span class="sub-controls">
+											     		<input type="checkbox" name="opscToCountForOp1" value="OPSC01"> OPSC01
+														<input type="checkbox" name="opscToCountForOp1" value="OPSC02"> OPSC02 
+													</span>
 										     	</c:if> 
 							             	</span>
 										</span>
@@ -283,6 +309,10 @@ $(function(){
 															<option value="${nickname}"><c:out value="${nickname}"/></option>
 												     	</c:forEach> 
 											     	</select> 
+											     	<span class="sub-controls">
+											     		<input type="checkbox" name="opscToCountForOp2" value="OPSC01"> OPSC01
+														<input type="checkbox" name="opscToCountForOp2" value="OPSC02"> OPSC02 
+													</span>
 										     	</c:if>  
 							             	</span>
 										</span>
@@ -297,6 +327,10 @@ $(function(){
 															<option value="${nickname}"><c:out value="${nickname}"/></option>
 												     	</c:forEach> 
 											     	</select> 
+											     	<span class="sub-controls">
+											     		<input type="checkbox" name="opscToCountForAss1" value="OPSC01"> OPSC01
+														<input type="checkbox" name="opscToCountForAss1" value="OPSC02"> OPSC02 
+													</span>
 										     	</c:if> 										             	
 										     </span>
 							              </span>

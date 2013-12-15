@@ -4,4 +4,4 @@
 </div>
 
 <img style = " position: absolute; display: block; left:0; bottom: 0;" src = "../resources/images/footer.png"/> 
-<div class="helpLink">|&nbsp;&nbsp;<a id="showCurrentSch" href="../schedule/fileDownload">User Guide</a></div>
+<div class="helpLink">&nbsp;&nbsp;<a id="showCurrentSch" href="../schedule/fileDownload">User Guide</a></div>

@@ -12,10 +12,9 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
   private static java.util.List _jspx_dependants;
 
   static {
-    _jspx_dependants = new java.util.ArrayList(3);
+    _jspx_dependants = new java.util.ArrayList(2);
     _jspx_dependants.add("/WEB-INF/jsp/common/imports.jspf");
     _jspx_dependants.add("/WEB-INF/jsp/common/header.jspf");
-    _jspx_dependants.add("/WEB-INF/jsp/users/register.jspf");
   }
 
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody;
@@ -230,96 +229,11 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t\t\n");
       out.write("\t\t<br/>\t\t\n");
       out.write("\t</div>\n");
-      out.write("\t\n");
-      out.write("\t<table  class=\"homepageTable\" style=\"width:100%;\">\n");
-      out.write("\t\t    <tr>\t\t\t\t\t\n");
-      out.write("\t\t\t\t");
-      out.write("<td style=\"width:50px;\"/>\n");
       out.write("\n");
-      out.write("\t\t\t\t<td style=\"width:950px;\">\n");
-      out.write("\t\t    \t\t<legend class=\"legendFont\"></legend>\n");
-      out.write("\t\t    \t</td>\n");
-      out.write("\n");
-      out.write("\t\t   \t\t<td class=\"buttonRight\">\n");
-      out.write("\n");
-      out.write("<!-- Button to trigger modal for adding a User -->\n");
-      out.write("\t\t\t\t\t<a href=\"#userRegistration\" class=\"btn btn-primary\" role=\"button\" data-toggle=\"modal\"> Registration </a>\n");
-      out.write("\n");
-      out.write("\t\t\t\t\t<!-- URL for adding the catalogue; the new values will be available in controller using parameters -->\n");
-      out.write("\t\t\t\t\t");
-      if (_jspx_meth_c_005furl_005f10(_jspx_page_context))
-        return;
-      out.write("\n");
-      out.write("\t\t\t\t    <form method=\"POST\" action=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${addUser}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
-      out.write("\">\n");
-      out.write("  \t\t<!-- Modal1 -->\n");
-      out.write("  \t\t<div id=\"userRegistration\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n");
-      out.write("    \t<div class=\"modal-header\">\n");
-      out.write("   \t\t   <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\n");
-      out.write("      \t\t<h3 id=\"myModalLabel\">User Registration</h3>\n");
-      out.write("    \t\t</div>\n");
-      out.write("   \t\t <div class=\"modal-body\">\n");
-      out.write("\t\t     <table>\n");
-      out.write("\t\t\t\t\t<tr>\n");
-      out.write("\t\t\t\t\t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<label class=\"control-label\" > Username: </label>\n");
-      out.write("\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t<div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t\t<input name=\"username\" type=\"text\" placeholder=\"Enter Username\" required/> \n");
-      out.write("\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t   </td>\n");
-      out.write("\t\t\t\t  </tr>\n");
-      out.write("\t\t\t\t  <tr>\n");
-      out.write("\t\t\t\t\t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<label class=\"control-label\" > Password: </label>\n");
-      out.write("\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t<div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t\t<input name=\"password\" type=\"password\" placeholder=\"Enter Password\" required/> \n");
-      out.write("\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t   </td>\n");
-      out.write("\t\t\t\t  </tr>\n");
-      out.write("\t\t\t\t  <tr>\n");
-      out.write("\t\t\t\t\t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<label class=\"control-label\" > Role: </label>\n");
-      out.write("\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t<div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t\t<select class=\"input-block-level\" id=\"month\" name=\"user_role\">\n");
-      out.write("\t\t\t\t\t\t\t<option value=\"ROLE_ADMIN\">ADMIN</option>\n");
-      out.write("\t\t\t\t\t\t\t<option value=\"ROLE_INSTRUCTOR\">INSTRUCTOR</option>\n");
-      out.write("\t\t\t\t\t\t\t<option value=\"ROLE_USER\">USER</option>\n");
-      out.write("\t\t\t\t\t\t</select> \n");
-      out.write("\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t   </td>\n");
-      out.write("\t\t\t\t  </tr>\n");
-      out.write("\t\t   </table>\n");
-      out.write("    </div>\n");
-      out.write("    <div class=\"modal-footer\">\n");
-      out.write("      <a href=\"#\" class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">Cancel</a>\n");
-      out.write("\t\t<input type=\"submit\" value=\"Register\" class=\"btn btn-primary\" />\n");
-      out.write("    </div>\n");
-      out.write("\t</div>\n");
-      out.write("\t</form>\n");
-      out.write("\t</td>\n");
-      out.write("\n");
-      out.write("<td style=\"width:50px;\"/>");
-      out.write("\n");
-      out.write("\t\t\t</tr>\n");
-      out.write("\t\t</table>\n");
-      out.write("\t\n");
       out.write("\t");
       org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "/WEB-INF/jsp/common/footer.jspf", out, false);
       out.write("\t\n");
-      out.write("\t\t\t\t\t\t\n");
+      out.write("\t\n");
       out.write("</div>\n");
       out.write("\n");
       out.write("<div style = \"height:30px\"></div>\n");
@@ -1113,27 +1027,6 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       return true;
     }
     _005fjspx_005ftagPool_005fc_005fif_0026_005ftest.reuse(_jspx_th_c_005fif_005f9);
-    return false;
-  }
-
-  private boolean _jspx_meth_c_005furl_005f10(PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  c:url
-    org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f10 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
-    _jspx_th_c_005furl_005f10.setPageContext(_jspx_page_context);
-    _jspx_th_c_005furl_005f10.setParent(null);
-    // /WEB-INF/jsp/users/register.jspf(13,5) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005furl_005f10.setVar("addUser");
-    // /WEB-INF/jsp/users/register.jspf(13,5) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005furl_005f10.setValue("login/add");
-    int _jspx_eval_c_005furl_005f10 = _jspx_th_c_005furl_005f10.doStartTag();
-    if (_jspx_th_c_005furl_005f10.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fc_005furl_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005furl_005f10);
-      return true;
-    }
-    _005fjspx_005ftagPool_005fc_005furl_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005furl_005f10);
     return false;
   }
 }
