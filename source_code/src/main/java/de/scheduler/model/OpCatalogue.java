@@ -44,6 +44,18 @@ public class OpCatalogue {
 	@Column(name = "SpecialtyID")
 	private Integer specialtyID;
 	
+	//Training System Added
+	@Column(name = "TrainSystemID")
+	private Integer trainSystemID;
+	
+	public Integer getTrainSystemID() {
+		return trainSystemID;
+	}
+
+	public void setTrainSystemID(Integer trainSystemID) {
+		this.trainSystemID = trainSystemID;
+	}
+
 	@Transient
 	private boolean allowDelete;
 

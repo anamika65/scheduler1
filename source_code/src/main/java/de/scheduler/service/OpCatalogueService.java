@@ -29,9 +29,10 @@ public class OpCatalogueService {
 	@Resource(name="sessionFactory")
 	private SessionFactory sessionFactory;
 	
+	
 	public static String GET_ALL_CATALOGUES_FOR_SPECIALTY = " SELECT * " +
 														  " FROM opcatalogues" +
-														  " WHERE SpecialtyID = :specialtyID" +
+														  " WHERE SpecialtyID = :specialtyID"  +
 														  " ORDER BY opcatalogues.Name ASC";
 	
 	public static String GET_ALLOW_DELETE = " SELECT count(*) as allowed" +
@@ -68,6 +69,7 @@ public class OpCatalogueService {
 	 * @return 		a list
 	 */
 	public List<OpCatalogue> getAllForSpecialty(Integer specialtyID) {
+		
 		logger.debug("Retrieving all opcatalogues for specialty");
 		
 		// Retrieve session from Hibernate

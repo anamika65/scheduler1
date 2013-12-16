@@ -553,10 +553,18 @@ public class AdminController {
     	int specialtyId = SpecialtySelector.getSpecialtyId(cookie, specialtyLoader.getFirstSpecialtyID());
     	
 		// Retrieve all catalogues by delegating the call to OpCatalogueService
-		List<OpCatalogue> catalogues = opCatalogueService.getAllForSpecialty(specialtyId);
+		List<OpCatalogue> catalogues = opCatalogueService.getAllForSpecialty(specialtyId);//Anamika 
+    	//Map<Integer, List<OpCatalogue>> catalogues = opCatalogueService.getAllForSpecialty(specialtyId);
 		
-		// Attach catalogues to the Model
-		model.addAttribute("opCatalogues", catalogues);
+		//Retrieve all Catalogue according to the Training System Added by Anamika
+		Map<Integer, List<OpCatalogue>> catalogueByTrainSystem = trSystemService.getCatalogueInfoByTrainSys(specialtyId);
+	    List<String> TrainSysNameCatalogue = trSystemService.getTrainSystemNameForCatalogue();
+	    System.out.println(TrainSysNameCatalogue);
+		// Attach catalogues by TrainSystem to the Model 
+		model.addAttribute("opCataloguesByTrain_ID", catalogueByTrainSystem);
+		
+		//Attach Train System Name to the Model 
+		model.addAttribute("trainSysName", TrainSysNameCatalogue);
 		
 		// This will resolve to /WEB-INF/jsp/admin/Catalogues.jsp
 		return "admin/Catalogues";

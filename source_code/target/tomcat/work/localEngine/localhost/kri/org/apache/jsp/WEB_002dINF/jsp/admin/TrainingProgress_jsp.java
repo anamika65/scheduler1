@@ -592,7 +592,7 @@ static {
             out.write("\t\t\t\t\t\t\t\t\t            </tr>\n");
             out.write("\t\t\t\t\t\t\t\t\t            <tr>\n");
             out.write("\t\t\t\t\t\t\t\t\t            \t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-            out.write("\t\t\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"control-label\" > First Name: </label>\n");
+            out.write("\t\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"control-label\" > First Name: </label>\n");
             out.write("\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n");
             out.write("\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
             out.write("\t\t\t\t\t\t\t\t\t\t              <div class=\"control-group\">\n");

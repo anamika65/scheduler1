@@ -189,7 +189,7 @@
 									            </tr>
 									            <tr>
 									            	<td class="tdCatalogueType1" style="vertical-align:baseline;">
-														<label class="control-label" > First Name: </label>
+													<label class="control-label" > First Name: </label>
 													</td>
 													<td style="vertical-align:baseline;">
 										              <div class="control-group">

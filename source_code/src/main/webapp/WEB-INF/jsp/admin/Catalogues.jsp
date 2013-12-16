@@ -41,7 +41,7 @@ $(document).ready(function () {
 				<td style="width:950px;">
 		    		<legend class="legendFont">Configure catalogues</legend>
 		    	</td>
-		    	<td class="buttonLeft">
+		    	<td class="buttonRight">
 
 					<!-- Button to trigger modal for adding a new Catalogue -->
 					<a href="#myAddTrainURL" class="btn btn-primary" role="button" data-toggle="modal"> Add Training System </a>
@@ -82,9 +82,188 @@ $(document).ready(function () {
 				    </div>
 				    </form>
 				</td>
-		   		<td class="buttonRight">
+		   		
+				<td style="width:50px;"/>
+			</tr>
+		</table> 					
+		<!--  Here Accordian for Different Training System Start Added by Anamika-->
+<div class="accordion" id="accordion2">
+<c:set var="tName" value="0" />
+<c:forEach items="${opCataloguesByTrain_ID}" var="cataloguebyTrainSys">
+  <div class="accordion-group"> 
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#${cataloguebyTrainSys.key}">
+      ${cataloguebyTrainSys.key} . ${trainSysName[tName]}
+      </a>
+      <c:set var="tName" value="${tName + 1}"/>
+    </div>
+    <div id="${cataloguebyTrainSys.key}" class="accordion-body collapse in">
+      <div class="accordion-inner">
+      <table id="zebraTable" class="table table-hover centeredTableNoTop"  style="width:1100px;">
+ 			<thead> 				
+				<tr style="font-size:12px">
+					<th> </th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Trunk</th>
+					<th style="text-align:center;">easy / normal / hard</th>
+					<th style="text-align:center;">Block size</th>
+					<th style="text-align:center;">Monthly Capacity</th>
+				</tr>
+			</thead>
+			<tbody>
+      <!--  Here is my Catalgue -->
+      <c:set var="count" value="0" />
+       <c:forEach items="${cataloguebyTrainSys.value}" var="catalgueTrainsSys">
+       	
+				<!-- Iterate each item in the list and display the position and fields -->	
+					<tr>
+						<td>
+							<c:set var="count" value="${count + 1}"/>
+							<c:out value="${count}" />
+						</td>					
+						<td><c:out value="${catalgueTrainsSys.name}" /></td>
+						<td><c:out value="${catalgueTrainsSys.description}" /></td>
+						<td>
+							<c:if test="${catalgueTrainsSys.specialTrunk == true}">
+								Special
+							</c:if>
+							<c:if test="${catalgueTrainsSys.specialTrunk == false}">
+								Common
+							</c:if>
+						</td>
+						<td style="text-align:center;"><c:out value="${catalgueTrainsSys.leve1OpNo}" />/<c:out value="${catalgueTrainsSys.leve2OpNo}" />/<c:out value="${catalogue.leve3OpNo}" /></td>
+						<td style="text-align:center;"><c:out value="${catalgueTrainsSys.blockSize}" /></td>
+						<td style="text-align:center;">${catalgueTrainsSys.monthlyCapacity}</td>
+						<td style="text-align:center;"> 
+							
+							<!-- Button to trigger modal for entering the new block size -->
+							<!-- The URL is dynamically set when clicking on the item, this allows a dynamic modal -->
+					    	<c:set var="myURL" value="confCatalog${count}" />
+							<a href="#${myURL}" role="button" style="font-size:12px;" data-toggle="modal"> Configure blocks </a>
+		     
+							<!-- Generate the URL with the catalogueID; the new value will be available in controller using parameters -->
+							<c:url var="configureUrl" value="../administration/catalogues/save?id=${catalgueTrainsSys.catalogueID}" />
+						    <form method="POST" action="${configureUrl}">
+						    
+   						    <!-- Modal for entering the new block size -->
+						    <div id="${myURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							        <div class="modal-header">
+							            <a class="close" data-dismiss="modal">×</a>
+									    <h3 id="myModalLabel" style="text-align:left"> Configure block size </h3>
+								    </div>
+								    
+							        <div class="modal-body" style="text-align:left;">
+								        <br/>
+								    	<c:set var="totalNrOperations" value="${catalgueTrainsSys.leve1OpNo + catalgueTrainsSys.leve2OpNo + catalgueTrainsSys.leve3OpNo}" />
+								    	<p> 
+									    	Catalog	'<c:out value="${catalgueTrainsSys.name}" />' has a number of 
+									   		<c:out value="${totalNrOperations}" /> operations.
+								   		</p>
+								   		<p>
+								   			Current block size is <c:out value="${catalgueTrainsSys.blockSize}" />.
+								   		</p>
+								   		<br/>
+								   		<p>
+								              <div class="control-group">
+												<label class="control-label" > New block size: </label>
+								              	<div class="controls">
+								              		<input name="newBlockSize" min="1" max="100" type="number" placeholder="Type nr..." style="width:120px;vertical-align:baseline" required/>
+								             	</div>
+								              </div>
+							            </p>
+							        </div>
+							        
+							        <div class="modal-footer">
+							            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+							            <input type="submit" value="Save" class="btn btn-primary" />
+							        </div>
+						    </div>
+						    </form>
+						</td>
+						
+						<td> 
+							<!-- Button to trigger modal for configure monthly capacity -->
+					    	<c:set var="myConfigureMonthlyURL" value="configureMonthly${count}" />
+							<a href="#${myConfigureMonthlyURL}" style="font-size:12px;" role="button" data-toggle="modal"> Configure capacity </a>
+		     
+							<!-- Generate the URL with the catalogueID -->
+							<c:url var="configureMonthlyCapacityURL" value="../administration/catalogues/configureMonthlyCapacity?id=${catalgueTrainsSys.catalogueID}" />
+						    <form method="POST" action="${configureMonthlyCapacityURL}">
+						    
+ 						    <!-- Modal for deleting the current catalogue -->
+						    <div id="${myConfigureMonthlyURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							        <div class="modal-header">
+							            <a class="close" data-dismiss="modal">×</a>
+									    <h3 id="myModalLabel"> Configure monthly capacity of operations </h3>
+								    </div>
+								    
+							      	<div class="modal-body" style="text-align:left;">
+								        <br/>
+								   		<p>
+								   			Current monthly capacity for catalog ${catalgueTrainsSys.name} is <c:out value="${catalgueTrainsSys.monthlyCapacity}" />.
+								   		</p>
+								   		<br/>
+								   		<p>
+								              <div class="control-group">
+												<label class="control-label" > New monthly capacity: </label>
+								              	<div class="controls">
+								              		<input name="newMonthlyCapacity" min="1" max="300" type="number" placeholder="Type nr..." style="width:120px;vertical-align:baseline" required/>
+								             	</div>
+								              </div>
+							            </p>
+							        </div>
+							        <div class="modal-footer">
+							            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+							            <input type="submit" value="Save" class="btn btn-primary" />
+							        </div>
+						    </div>
+						    </form>
+						</td>			
+						<td> 
+						<c:if test="${catalgueTrainsSys.allowDelete}">
+							<!-- Button to trigger modal for deleting the current catalogue -->
+					    	<c:set var="myDeleteURL" value="delCatalog${count}" />
+							<a href="#${myDeleteURL}" style="font-size:12px;" role="button" data-toggle="modal"> Delete </a>
+		     
+							<!-- Generate the URL with the catalogueID -->
+							<c:url var="deleteUrl" value="../administration/catalogues/delete?id=${catalgueTrainsSys.catalogueID}" />
+						    <form method="POST" action="${deleteUrl}">
+						    
+ 						    <!-- Modal for deleting the current catalogue -->
+						    <div id="${myDeleteURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							        <div class="modal-header">
+							            <a class="close" data-dismiss="modal">×</a>
+									    <h3 id="myModalLabel"> Delete </h3>
+								    </div>
+								    
+							        <div class="modal-body" style="text-align:left;">
+								        <br/>
+								    	<p> 
+								    		Do you want to delete catalog '<c:out value="${catalgueTrainsSys.name}" />' ?
+								   			<br/>
+							            </p>
+							        </div>
+							        
+							        <div class="modal-footer">
+							            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+							            <input type="submit" value="Delete" class="btn btn-primary" />
+							        </div>
+						    </div>
+						    </form>
+						</c:if>
+						</td>
+					</tr>
+				  </c:forEach>
+			</tbody>	
+		</table>
 
-					<!-- Button to trigger modal for adding a new Catalogue -->
+      
+      </div>
+    </div>
+  </div>
+</c:forEach>
+	<!-- Button to trigger modal for adding a new Catalogue -->
 					<a href="#myAddURL" class="btn btn-primary" role="button" data-toggle="modal"> Add Catalogue </a>
 					
 					<!-- URL for adding the catalogue; the new values will be available in controller using parameters -->
@@ -174,169 +353,7 @@ $(document).ready(function () {
 					        </div>
 				    </div>
 				    </form>
-				</td>
-				<td style="width:50px;"/>
-			</tr>
-		</table> 		
-				
- 		<table id="zebraTable" class="table table-hover centeredTableNoTop"  style="width:1100px;">
- 			<thead> 				
-				<tr style="font-size:12px">
-					<th> </th>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Trunk</th>
-					<th style="text-align:center;">easy / normal / hard</th>
-					<th style="text-align:center;">Block size</th>
-					<th style="text-align:center;">Monthly Capacity</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:set var="count" value="0" />
-				<!-- Iterate each item in the list and display the position and fields -->
-				<c:forEach items="${opCatalogues}" var="catalogue">
-					<tr>
-						<td>
-							<c:set var="count" value="${count + 1}"/>
-							<c:out value="${count}" />
-						</td>					
-						<td><c:out value="${catalogue.name}" /></td>
-						<td><c:out value="${catalogue.description}" /></td>
-						<td>
-							<c:if test="${catalogue.specialTrunk == true}">
-								Special
-							</c:if>
-							<c:if test="${catalogue.specialTrunk == false}">
-								Common
-							</c:if>
-						</td>
-						<td style="text-align:center;"><c:out value="${catalogue.leve1OpNo}" />/<c:out value="${catalogue.leve2OpNo}" />/<c:out value="${catalogue.leve3OpNo}" /></td>
-						<td style="text-align:center;"><c:out value="${catalogue.blockSize}" /></td>
-						<td style="text-align:center;">${catalogue.monthlyCapacity}</td>
-						<td style="text-align:center;"> 
-							
-							<!-- Button to trigger modal for entering the new block size -->
-							<!-- The URL is dynamically set when clicking on the item, this allows a dynamic modal -->
-					    	<c:set var="myURL" value="confCatalog${count}" />
-							<a href="#${myURL}" role="button" style="font-size:12px;" data-toggle="modal"> Configure blocks </a>
-		     
-							<!-- Generate the URL with the catalogueID; the new value will be available in controller using parameters -->
-							<c:url var="configureUrl" value="../administration/catalogues/save?id=${catalogue.catalogueID}" />
-						    <form method="POST" action="${configureUrl}">
-						    
-   						    <!-- Modal for entering the new block size -->
-						    <div id="${myURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							        <div class="modal-header">
-							            <a class="close" data-dismiss="modal">×</a>
-									    <h3 id="myModalLabel" style="text-align:left"> Configure block size </h3>
-								    </div>
-								    
-							        <div class="modal-body" style="text-align:left;">
-								        <br/>
-								    	<c:set var="totalNrOperations" value="${catalogue.leve1OpNo + catalogue.leve2OpNo + catalogue.leve3OpNo}" />
-								    	<p> 
-									    	Catalog	'<c:out value="${catalogue.name}" />' has a number of 
-									   		<c:out value="${totalNrOperations}" /> operations.
-								   		</p>
-								   		<p>
-								   			Current block size is <c:out value="${catalogue.blockSize}" />.
-								   		</p>
-								   		<br/>
-								   		<p>
-								              <div class="control-group">
-												<label class="control-label" > New block size: </label>
-								              	<div class="controls">
-								              		<input name="newBlockSize" min="1" max="100" type="number" placeholder="Type nr..." style="width:120px;vertical-align:baseline" required/>
-								             	</div>
-								              </div>
-							            </p>
-							        </div>
-							        
-							        <div class="modal-footer">
-							            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-							            <input type="submit" value="Save" class="btn btn-primary" />
-							        </div>
-						    </div>
-						    </form>
-						</td>
-						
-						<td> 
-							<!-- Button to trigger modal for configure monthly capacity -->
-					    	<c:set var="myConfigureMonthlyURL" value="configureMonthly${count}" />
-							<a href="#${myConfigureMonthlyURL}" style="font-size:12px;" role="button" data-toggle="modal"> Configure capacity </a>
-		     
-							<!-- Generate the URL with the catalogueID -->
-							<c:url var="configureMonthlyCapacityURL" value="../administration/catalogues/configureMonthlyCapacity?id=${catalogue.catalogueID}" />
-						    <form method="POST" action="${configureMonthlyCapacityURL}">
-						    
- 						    <!-- Modal for deleting the current catalogue -->
-						    <div id="${myConfigureMonthlyURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							        <div class="modal-header">
-							            <a class="close" data-dismiss="modal">×</a>
-									    <h3 id="myModalLabel"> Configure monthly capacity of operations </h3>
-								    </div>
-								    
-							      	<div class="modal-body" style="text-align:left;">
-								        <br/>
-								   		<p>
-								   			Current monthly capacity for catalog ${catalogue.name} is <c:out value="${catalogue.monthlyCapacity}" />.
-								   		</p>
-								   		<br/>
-								   		<p>
-								              <div class="control-group">
-												<label class="control-label" > New monthly capacity: </label>
-								              	<div class="controls">
-								              		<input name="newMonthlyCapacity" min="1" max="300" type="number" placeholder="Type nr..." style="width:120px;vertical-align:baseline" required/>
-								             	</div>
-								              </div>
-							            </p>
-							        </div>
-							        <div class="modal-footer">
-							            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-							            <input type="submit" value="Save" class="btn btn-primary" />
-							        </div>
-						    </div>
-						    </form>
-						</td>
-						
-						<td> 
-						<c:if test="${catalogue.allowDelete}">
-							<!-- Button to trigger modal for deleting the current catalogue -->
-					    	<c:set var="myDeleteURL" value="delCatalog${count}" />
-							<a href="#${myDeleteURL}" style="font-size:12px;" role="button" data-toggle="modal"> Delete </a>
-		     
-							<!-- Generate the URL with the catalogueID -->
-							<c:url var="deleteUrl" value="../administration/catalogues/delete?id=${catalogue.catalogueID}" />
-						    <form method="POST" action="${deleteUrl}">
-						    
- 						    <!-- Modal for deleting the current catalogue -->
-						    <div id="${myDeleteURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							        <div class="modal-header">
-							            <a class="close" data-dismiss="modal">×</a>
-									    <h3 id="myModalLabel"> Delete </h3>
-								    </div>
-								    
-							        <div class="modal-body" style="text-align:left;">
-								        <br/>
-								    	<p> 
-								    		Do you want to delete catalog '<c:out value="${catalogue.name}" />' ?
-								   			<br/>
-							            </p>
-							        </div>
-							        
-							        <div class="modal-footer">
-							            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-							            <input type="submit" value="Delete" class="btn btn-primary" />
-							        </div>
-						    </div>
-						    </form>
-						</c:if>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>	
-		</table>
-		
+</div>		
 		<jsp:include page="/WEB-INF/jsp/common/footer.jspf"/>	
 		
 	</div>
