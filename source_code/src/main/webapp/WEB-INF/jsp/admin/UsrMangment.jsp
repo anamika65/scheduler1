@@ -10,6 +10,11 @@
 
 <html>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="../resources/js/jquery-1.8.3.min.js"></script>
+<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="<c:url value='/scheduler/resources/js/jqBootstrapValidation.js'/>"></script>
+<script src="<c:url value='/scheduler/resources/js/jqEmailValidation.js'/>"></script>
 <head>
         <title>User Management</title>
 </head>
@@ -108,16 +113,27 @@
 						</div>
 			   		</td>
 			  	</tr>
-	   		</table>
-   		</div>
-   		<div class="modal-footer">
-    			<a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-		<input type="submit" value="Register" class="btn btn-primary" />
-  		</div>
-	</div>
-</form>
+			  	<tr>
 
-
+			  		<td class="tdCatalogueType1" style="vertical-align:baseline;">
+			  			<label class="control-label" for="email">Email Address</label>
+			  		</td>
+			  		<td style="vertical-align:baseline;">
+			  			 <div class="control-group">
+                          <div class="controls">
+                           <input type="email" name="emailAdd" id="email" placeholder="Your email address">
+                          </div>
+                         </div>
+			  		</td>
+			  		</tr>
+	   				</table>
+   					</div>
+   					<div class="modal-footer">
+    				<a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+					<input type="submit" value="Register" class="btn btn-primary" />
+  										</div>
+									</div>
+								</form>
                                    </td>
                                 <td style="width:50px;"/>
                         </tr>

@@ -28,10 +28,21 @@ public class User {
 	@Column(name = "password")
 	private String password;
 	
+
+	@Column(name= "EmailID")
+	private String emailID;
 	
 	@Column(name= "SpecialtyID")
 	private Integer specialityID;
 
+	public String getEmailID() {
+		return emailID;
+	}
+
+	public void setEmailID(String emailID) {
+		this.emailID = emailID;
+	}
+	
 	public Integer getSpecialityID() {
 		return specialityID;
 	}

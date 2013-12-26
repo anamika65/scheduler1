@@ -829,7 +829,8 @@ public class AdminController {
 			@RequestParam(value="username", required=true) String username,
 			@RequestParam(value="password", required=true) String password,
 			@RequestParam(value="user_role", required=true) String user_role,
-			@RequestParam(value="specialityID", required=true)Integer specialityID
+			@RequestParam(value="specialityID", required=true)Integer specialityID,
+			@RequestParam(value="emailAdd", required=true,defaultValue="")String emailID
 			) {
 		logger.debug("Received request for registration");
 		
@@ -840,6 +841,7 @@ public class AdminController {
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setSpecialityID(specialityID);
+		user.setEmailID(emailID);
 		userRgistrationService.addUser(user);
 		
 		Integer userNewId = user.getId();
