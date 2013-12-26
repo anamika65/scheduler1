@@ -27,6 +27,18 @@ public class User {
 	@NotEmpty(message = "Password must not be Empty")
 	@Column(name = "password")
 	private String password;
+	
+	
+	@Column(name= "SpecialtyID")
+	private Integer specialityID;
+
+	public Integer getSpecialityID() {
+		return specialityID;
+	}
+
+	public void setSpecialityID(Integer specialityID) {
+		this.specialityID = specialityID;
+	}
 
 	public Integer getId() {
 		return id;

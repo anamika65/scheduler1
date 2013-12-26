@@ -1,4 +1,5 @@
 package de.scheduler.service;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ protected static Logger logger = Logger.getLogger("service");
                                                 " FROM training_systems ts" + " ,opcatalogues op " + 
                                                 " WHERE ts.train_system_id = op.TrainSystemID" ;
 	
-	public static String GET_ALL_TRAIN_SYSTEM_NAME = " SELECT distinct train_system_name" + 
+	public static String GET_ALL_TRAIN_SYSTEM_NAME = " SELECT  distinct train_system_name" + 
             									" FROM training_systems" + ", opcatalogues " + 
             									" WHERE training_systems.train_system_id = opcatalogues.TrainSystemID" ;
 	
@@ -40,6 +41,9 @@ protected static Logger logger = Logger.getLogger("service");
                                                           " FROM opcatalogues" +
                                                           " WHERE SpecialtyID = :specialtyID" + " AND TrainSystemID = :train_Sys"  +
                                                           " ORDER BY opcatalogues.Name ASC";
+	public static String GET_ALL_TRAIN_SYSTEM_ID = " SELECT distinct train_system_id as trID" + 
+													" FROM training_systems" + 
+													" WHERE train_system_name = :trName " ;
 	
 	/**
 	 * Adds a new Training System
@@ -104,6 +108,27 @@ protected static Logger logger = Logger.getLogger("service");
 				List<String> train_Sys_name = query1.list();
 	
 	return train_Sys_name;	
+	}
+	/**
+	 * 
+	 * @return List of Training System Name
+	 */
+	public List<Integer> getTrainSystemIDForCatalogue(List<String> trSysName){
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+		List<Integer> train_Sys_ID = new ArrayList<Integer>();
+		// Create a Hibernate query
+		for(String trName: trSysName){
+		Query query1=session.createSQLQuery(GET_ALL_TRAIN_SYSTEM_ID)
+				.addScalar("trID",Hibernate.INTEGER)
+				.setParameter("trName", trName)
+				;
+		Integer tId = new Integer((Integer) query1.list().get(0));
+			 //tId = (Integer) query1.list().get(0);
+				train_Sys_ID.add(tId);
+				System.out.println(tId);
+		}
+	return train_Sys_ID;	
 	}
 	/**
 	 * Sets if a catalogue can be deleted or not

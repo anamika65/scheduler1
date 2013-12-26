@@ -93,9 +93,9 @@ $(document).ready(function () {
   <div class="accordion-group"> 
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#${cataloguebyTrainSys.key}">
-      ${cataloguebyTrainSys.key} . ${trainSysName[tName]}
+      ${trainSysName[tName]}
       </a>
-      <c:set var="tName" value="${tName + 1}"/>
+     <!-- Here incremented tName --> 
     </div>
     <div id="${cataloguebyTrainSys.key}" class="accordion-body collapse in">
       <div class="accordion-inner">
@@ -225,7 +225,6 @@ $(document).ready(function () {
 							<!-- Button to trigger modal for deleting the current catalogue -->
 					    	<c:set var="myDeleteURL" value="delCatalog${count}" />
 							<a href="#${myDeleteURL}" style="font-size:12px;" role="button" data-toggle="modal"> Delete </a>
-		     
 							<!-- Generate the URL with the catalogueID -->
 							<c:url var="deleteUrl" value="../administration/catalogues/delete?id=${catalgueTrainsSys.catalogueID}" />
 						    <form method="POST" action="${deleteUrl}">
@@ -257,24 +256,18 @@ $(document).ready(function () {
 				  </c:forEach>
 			</tbody>	
 		</table>
-
-      
-      </div>
-    </div>
-  </div>
-</c:forEach>
-	<!-- Button to trigger modal for adding a new Catalogue -->
-					<a href="#myAddURL" class="btn btn-primary" role="button" data-toggle="modal"> Add Catalogue </a>
-					
+		<div>
+			<!-- Button to trigger modal for adding a new Catalogue -->
+					<c:set var="myAddURL" value="addCatalog${tName}" />
+					<a href="#${myAddURL}" class="btn btn-primary" role="button" data-toggle="modal"> Add Catalogue </a>
 					<!-- URL for adding the catalogue; the new values will be available in controller using parameters -->
-					<c:url var="addUrl" value="../administration/catalogues/add" />
+					<c:url var="addUrl" value="../administration/catalogues/add?id=${trainSysID[tName]}" />
 				    <form method="POST" action="${addUrl}">
-
 					<!-- Modal for adding a new catalogue -->						    
-				    <div id="myAddURL" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				    <div id="${myAddURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					        <div class="modal-header">
 					            <a class="close" data-dismiss="modal">×</a>
-							    <h3 id="myModalLabel" style="text-align:left"> New Catalog </h3>
+							    <h3 id="myModalLabel" style="text-align:left">New Catalog </h3>
 						    </div>
 						    
 					        <div class="modal-body" style="text-align:left;">
@@ -353,6 +346,14 @@ $(document).ready(function () {
 					        </div>
 				    </div>
 				    </form>
+		</div>
+      
+      </div>
+    </div>
+  </div>
+  <c:set var="tName" value="${tName + 1}"/>
+</c:forEach>
+	
 </div>		
 		<jsp:include page="/WEB-INF/jsp/common/footer.jspf"/>	
 		

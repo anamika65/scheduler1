@@ -56,7 +56,9 @@ import de.scheduler.service.SchedulerService;
 import de.scheduler.service.SchedulesService;
 import de.scheduler.service.SpecialtyLoader;
 import de.scheduler.service.ProjectService;
+import de.scheduler.service.SpecialtyService;
 import de.scheduler.service.TrainingSystemService;
+import de.scheduler.service.UserRegistrationService;
 import de.scheduler.service.UsrMngmentCRUDService;
 import de.scheduler.service.UsrMngmentCRUDServiceIntrface;
 import de.scheduler.util.SpecialtySelector;
@@ -102,10 +104,9 @@ public class AdminController {
 	private OpsCodeMappingServiceInterface opsCodeMappingService;
 	//** Sakib ]
 	
-	//Anamika Start
 	@Resource(name="trSystemService")
 	private TrainingSystemService trSystemService;
-	//Anamika End
+	
 	
 	@Value("#{settings['birtURL']}")  
 	private String birtURL;
@@ -119,6 +120,12 @@ public class AdminController {
 	
 	@Resource(name="usrMngmentCRUDService")
 	private UsrMngmentCRUDServiceIntrface usrMngmentCRUDServiceIntrface;
+	
+	@Resource(name = "userRegistrationService")
+	private UserRegistrationService userRgistrationService;
+	
+	@Resource(name="specialtyService")
+	private SpecialtyService specService;
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -559,12 +566,15 @@ public class AdminController {
 		//Retrieve all Catalogue according to the Training System Added by Anamika
 		Map<Integer, List<OpCatalogue>> catalogueByTrainSystem = trSystemService.getCatalogueInfoByTrainSys(specialtyId);
 	    List<String> TrainSysNameCatalogue = trSystemService.getTrainSystemNameForCatalogue();
+		//List<TrainingSystem> TrainSysNameCatalogue = trSystemService.getTrainSystemNameForCatalogue();
+	    List<Integer> TrainSysIDCatalogue = trSystemService.getTrainSystemIDForCatalogue(TrainSysNameCatalogue);
 	    System.out.println(TrainSysNameCatalogue);
 		// Attach catalogues by TrainSystem to the Model 
 		model.addAttribute("opCataloguesByTrain_ID", catalogueByTrainSystem);
 		
 		//Attach Train System Name to the Model 
 		model.addAttribute("trainSysName", TrainSysNameCatalogue);
+		model.addAttribute("trainSysID", TrainSysIDCatalogue);
 		
 		// This will resolve to /WEB-INF/jsp/admin/Catalogues.jsp
 		return "admin/Catalogues";
@@ -645,7 +655,7 @@ public class AdminController {
 	}
 
     /**
-     * Add a new catalog by delegating the processing to OpCatalogService.
+     *  a new catalog by delegating the processing to OpCatalogService.
      * 
    	 * @param name		the name of the catalogue to be added
 	 * @param description		the description of the catalogue to be added
@@ -661,12 +671,13 @@ public class AdminController {
     					@RequestParam(value="specialTrunk", required=true) Boolean specialTrunk,
     					@RequestParam(value="easy", required=true) Integer easy,
     					@RequestParam(value="normal", required=true) Integer normal,
-    					@RequestParam(value="hard", required=true) Integer hard) {    	
+    					@RequestParam(value="hard", required=true) Integer hard,
+    					@RequestParam(value="id", required=true)Integer id) {    	
 		logger.debug("Received request to add new catalog");
 		
 		//load the specialty id from the cookie 
     	int specialtyId = SpecialtySelector.getSpecialtyId(cookie, specialtyLoader.getFirstSpecialtyID());
-    	
+    	System.out.println(id);
     	// We assign the input fields
     	OpCatalogue opCatalogue = new OpCatalogue();
     	opCatalogue.setName(name);
@@ -678,6 +689,7 @@ public class AdminController {
     	opCatalogue.setBlockSize(0);
     	opCatalogue.setMonthlyCapacity(0);
     	opCatalogue.setSpecialtyID(specialtyId);
+    	opCatalogue.setTrainSystemID(id);
 		
 		// Call OpCatalogueService to do the actual add
 		opCatalogueService.add(opCatalogue);
@@ -771,14 +783,18 @@ public class AdminController {
     /**
      * User Management CRUD(Create,Read,Update,Delete) Operation
      * 
-     */
-    
+     */   
     @RequestMapping(value = "/administration/crud", method = RequestMethod.GET)
     public String crudOperation(Model model, Principal principal){
     	final String currentUser = principal.getName();
     	List<UserInfo> userDetail = usrMngmentCRUDServiceIntrface.getAllUsers(currentUser);
     	
-    	// Attach specialties to the Model
+    	List<Specialty> specialityID = specService.getAll();
+    	
+    	System.out.println(specialityID);
+    	//Attach specialities to the Model 
+    	model.addAttribute("specIality", specialityID);
+    	// Attach Users to the Model
     	model.addAttribute("userDetail", userDetail);
     	
     	return "admin/UsrMangment";
@@ -798,6 +814,46 @@ public class AdminController {
 		// This will redirect to /WEB-INF/jsp/admin/crud.jsp
 		return "redirect:../crud";
 	}
+    
+    
+    /**
+	 * User Registration Form
+	 * Insert into User Table as well as User_Roles Table
+	 * @param username
+	 * @param password
+	 * @param user_role
+	 * @return Redirect to login
+	 */
+	@RequestMapping(value = "/administration/crud/add", method = RequestMethod.POST)
+	public String getNewUser(
+			@RequestParam(value="username", required=true) String username,
+			@RequestParam(value="password", required=true) String password,
+			@RequestParam(value="user_role", required=true) String user_role,
+			@RequestParam(value="specialityID", required=true)Integer specialityID
+			) {
+		logger.debug("Received request for registration");
+		
+		//System.out.println(specialityID);
+		//Add a new User
+		User user = new User();
+		user.setActive(true);
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setSpecialityID(specialityID);
+		userRgistrationService.addUser(user);
+		
+		Integer userNewId = user.getId();
+		//Add User Roles
+		UserRole user_Role = new UserRole();
+		user_Role.setRole(user_role);
+		user_Role.setUser(user);
+		userRgistrationService.addUserRole(user_Role);
+
+		// This will resolve to /WEB-INF/jsp/users/logoutSuccess.jsp
+		return "redirect:../crud";
+	}
+    
+    
     /**
      * Updating an existing User 
      * 

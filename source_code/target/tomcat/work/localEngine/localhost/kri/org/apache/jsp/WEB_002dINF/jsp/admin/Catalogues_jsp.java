@@ -271,101 +271,7 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_meth_c_005fforEach_005f1(_jspx_page_context))
         return;
       out.write("\n");
-      out.write("\t<!-- Button to trigger modal for adding a new Catalogue -->\n");
-      out.write("\t\t\t\t\t<a href=\"#myAddURL\" class=\"btn btn-primary\" role=\"button\" data-toggle=\"modal\"> Add Catalogue </a>\n");
-      out.write("\t\t\t\t\t\n");
-      out.write("\t\t\t\t\t<!-- URL for adding the catalogue; the new values will be available in controller using parameters -->\n");
-      out.write("\t\t\t\t\t");
-      if (_jspx_meth_c_005furl_005f15(_jspx_page_context))
-        return;
-      out.write("\n");
-      out.write("\t\t\t\t    <form method=\"POST\" action=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${addUrl}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
-      out.write("\">\n");
-      out.write("\n");
-      out.write("\t\t\t\t\t<!-- Modal for adding a new catalogue -->\t\t\t\t\t\t    \n");
-      out.write("\t\t\t\t    <div id=\"myAddURL\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n");
-      out.write("\t\t\t\t\t        <div class=\"modal-header\">\n");
-      out.write("\t\t\t\t\t            <a class=\"close\" data-dismiss=\"modal\">×</a>\n");
-      out.write("\t\t\t\t\t\t\t    <h3 id=\"myModalLabel\" style=\"text-align:left\"> New Catalog </h3>\n");
-      out.write("\t\t\t\t\t\t    </div>\n");
-      out.write("\t\t\t\t\t\t    \n");
-      out.write("\t\t\t\t\t        <div class=\"modal-body\" style=\"text-align:left;\">\n");
-      out.write("\t\t\t\t\t\t\t\t<br/>\n");
-      out.write("\t\t\t\t\t\t\t\t<table>\n");
-      out.write("\t\t\t\t\t\t\t\t<tr>\n");
-      out.write("\t\t\t\t\t\t            <td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t\t\t\t\t\t<label class=\"control-label\" > Name: </label>\n");
-      out.write("\t\t\t\t\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t              <div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t              \t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t\t            \t<input name=\"name\" type=\"text\" placeholder=\"Type name...\" required/> \n");
-      out.write("\t\t\t\t\t\t             \t</div>\n");
-      out.write("\t\t\t\t\t\t              </div>\n");
-      out.write("\t\t\t\t\t\t            </td>\n");
-      out.write("\t\t\t\t\t            </tr>\n");
-      out.write("\t\t\t\t\t            <tr>\n");
-      out.write("\t\t\t\t\t            \t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t\t\t\t\tDescription:\n");
-      out.write("\t\t\t\t\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\t\t\t\t\t\t              \n");
-      out.write("\t\t\t\t\t\t\t            <textarea name=\"description\" type=\"text\" placeholder=\"Type description...\" rows=\"3\"></textarea>\n");
-      out.write("\t\t\t\t\t\t            </td>\n");
-      out.write("\t\t\t\t\t\t        </tr>\n");
-      out.write("\t\t\t\t\t            <tr style=\"height:55px;vertical-align:top;\">\n");
-      out.write("\t\t\t\t\t\t            <td></td>\n");
-      out.write("\t\t\t\t\t\t            <td>\n");
-      out.write("\t\t\t\t\t\t\t            <input name=\"specialTrunk\" type=\"radio\" value=\"true\" checked=\"checked\" style=\"vertical-align:baseline\"/> Special trunk\n");
-      out.write("\t\t\t\t\t\t\t            <br>\n");
-      out.write("\t\t\t\t\t\t\t            <input name=\"specialTrunk\" type=\"radio\" value=\"false\" style=\"vertical-align:baseline\"> Common trunk\n");
-      out.write("\t\t\t\t\t\t            </td>\n");
-      out.write("\t\t\t\t\t\t        </tr>\n");
-      out.write("\t\t\t\t\t            <tr>\n");
-      out.write("\t\t\t\t\t            \t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t\t\t\t\t\t<label class=\"control-label\" > Number of easy operations: </label>\n");
-      out.write("\t\t\t\t\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t              <div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t              \t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t              \t\t<input name=\"easy\" type=\"number\" min=\"0\" max=\"150\" placeholder=\"Type nr...\" style=\"width:120px;vertical-align:baseline\" required/>\n");
-      out.write("\t\t\t\t\t\t             \t</div>\n");
-      out.write("\t\t\t\t\t\t              </div>\n");
-      out.write("\t\t\t\t\t\t            </td>\n");
-      out.write("\t\t\t\t\t            </tr>\n");
-      out.write("\t\t\t\t\t            <tr>\n");
-      out.write("\t\t\t\t\t            \t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t\t\t\t\t\t<label class=\"control-label\" > Number of normal operations: </label>\n");
-      out.write("\t\t\t\t\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t              <div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t              \t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t              \t\t<input name=\"normal\" type=\"number\" min=\"0\" max=\"150\" placeholder=\"Type nr...\" style=\"width:120px;vertical-align:baseline\" required/>\n");
-      out.write("\t\t\t\t\t\t             \t</div>\n");
-      out.write("\t\t\t\t\t\t              </div>\n");
-      out.write("\t\t\t\t\t\t            </td>\n");
-      out.write("\t\t\t\t\t            </tr>\n");
-      out.write("\t\t\t\t\t            <tr>\n");
-      out.write("\t\t\t\t\t            \t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t\t\t\t\t\t<label class=\"control-label\" > Number of hard operations: </label>\n");
-      out.write("\t\t\t\t\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t              <div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t              \t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t              \t\t<input name=\"hard\" type=\"number\" min=\"0\" max=\"150\" placeholder=\"Type nr...\" style=\"width:120px;vertical-align:baseline\" required/>\n");
-      out.write("\t\t\t\t\t\t             \t</div>\n");
-      out.write("\t\t\t\t\t\t              </div>\n");
-      out.write("\t\t\t\t\t\t            </td>\n");
-      out.write("\t\t\t\t\t            </tr>\n");
-      out.write("\t\t\t\t\t            </table>\n");
-      out.write("\t\t\t\t\t        </div>\n");
-      out.write("\t\t\t\t\t        \n");
-      out.write("\t\t\t\t\t        <div class=\"modal-footer\">\n");
-      out.write("\t\t\t\t\t            <a href=\"#\" class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">Cancel</a>\n");
-      out.write("\t\t\t\t\t            <input type=\"submit\" value=\"Add\" class=\"btn btn-primary\" />\n");
-      out.write("\t\t\t\t\t        </div>\n");
-      out.write("\t\t\t\t    </div>\n");
-      out.write("\t\t\t\t    </form>\n");
+      out.write("\t\n");
       out.write("</div>\t\t\n");
       out.write("\t\t");
       org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "/WEB-INF/jsp/common/footer.jspf", out, false);
@@ -1222,17 +1128,10 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${cataloguebyTrainSys.key}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\">\n");
           out.write("      ");
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${cataloguebyTrainSys.key}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
-          out.write(' ');
-          out.write('.');
-          out.write(' ');
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${trainSysName[tName]}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\n");
           out.write("      </a>\n");
-          out.write("      ");
-          if (_jspx_meth_c_005fset_005f4(_jspx_th_c_005fforEach_005f1, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f1))
-            return true;
-          out.write("\n");
+          out.write("     <!-- Here incremented tName --> \n");
           out.write("    </div>\n");
           out.write("    <div id=\"");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${cataloguebyTrainSys.key}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
@@ -1253,7 +1152,7 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\t\t\t<tbody>\n");
           out.write("      <!--  Here is my Catalgue -->\n");
           out.write("      ");
-          if (_jspx_meth_c_005fset_005f5(_jspx_th_c_005fforEach_005f1, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f1))
+          if (_jspx_meth_c_005fset_005f4(_jspx_th_c_005fforEach_005f1, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f1))
             return true;
           out.write("\n");
           out.write("       ");
@@ -1262,11 +1161,117 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\n");
           out.write("\t\t\t</tbody>\t\n");
           out.write("\t\t</table>\n");
+          out.write("\t\t<div>\n");
+          out.write("\t\t\t<!-- Button to trigger modal for adding a new Catalogue -->\n");
+          out.write("\t\t\t\t\t");
+          if (_jspx_meth_c_005fset_005f10(_jspx_th_c_005fforEach_005f1, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f1))
+            return true;
           out.write("\n");
+          out.write("\t\t\t\t\t<a href=\"#");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${myAddURL}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+          out.write("\" class=\"btn btn-primary\" role=\"button\" data-toggle=\"modal\"> Add Catalogue </a>\n");
+          out.write("\t\t\t\t\t<!-- URL for adding the catalogue; the new values will be available in controller using parameters -->\n");
+          out.write("\t\t\t\t\t");
+          if (_jspx_meth_c_005furl_005f15(_jspx_th_c_005fforEach_005f1, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f1))
+            return true;
+          out.write("\n");
+          out.write("\t\t\t\t    <form method=\"POST\" action=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${addUrl}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+          out.write("\">\n");
+          out.write("\t\t\t\t\t<!-- Modal for adding a new catalogue -->\t\t\t\t\t\t    \n");
+          out.write("\t\t\t\t    <div id=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${myAddURL}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+          out.write("\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n");
+          out.write("\t\t\t\t\t        <div class=\"modal-header\">\n");
+          out.write("\t\t\t\t\t            <a class=\"close\" data-dismiss=\"modal\">×</a>\n");
+          out.write("\t\t\t\t\t\t\t    <h3 id=\"myModalLabel\" style=\"text-align:left\">New Catalog </h3>\n");
+          out.write("\t\t\t\t\t\t    </div>\n");
+          out.write("\t\t\t\t\t\t    \n");
+          out.write("\t\t\t\t\t        <div class=\"modal-body\" style=\"text-align:left;\">\n");
+          out.write("\t\t\t\t\t\t\t\t<br/>\n");
+          out.write("\t\t\t\t\t\t\t\t<table>\n");
+          out.write("\t\t\t\t\t\t\t\t<tr>\n");
+          out.write("\t\t\t\t\t\t            <td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
+          out.write("\t\t\t\t\t\t\t\t\t\t\t<label class=\"control-label\" > Name: </label>\n");
+          out.write("\t\t\t\t\t\t\t\t\t</td>\n");
+          out.write("\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
+          out.write("\t\t\t\t\t\t              <div class=\"control-group\">\n");
+          out.write("\t\t\t\t\t\t              \t<div class=\"controls\">\n");
+          out.write("\t\t\t\t\t\t\t            \t<input name=\"name\" type=\"text\" placeholder=\"Type name...\" required/> \n");
+          out.write("\t\t\t\t\t\t             \t</div>\n");
+          out.write("\t\t\t\t\t\t              </div>\n");
+          out.write("\t\t\t\t\t\t            </td>\n");
+          out.write("\t\t\t\t\t            </tr>\n");
+          out.write("\t\t\t\t\t            <tr>\n");
+          out.write("\t\t\t\t\t            \t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
+          out.write("\t\t\t\t\t\t\t\t\t\tDescription:\n");
+          out.write("\t\t\t\t\t\t\t\t\t</td>\n");
+          out.write("\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\t\t\t\t\t\t              \n");
+          out.write("\t\t\t\t\t\t\t            <textarea name=\"description\" type=\"text\" placeholder=\"Type description...\" rows=\"3\"></textarea>\n");
+          out.write("\t\t\t\t\t\t            </td>\n");
+          out.write("\t\t\t\t\t\t        </tr>\n");
+          out.write("\t\t\t\t\t            <tr style=\"height:55px;vertical-align:top;\">\n");
+          out.write("\t\t\t\t\t\t            <td></td>\n");
+          out.write("\t\t\t\t\t\t            <td>\n");
+          out.write("\t\t\t\t\t\t\t            <input name=\"specialTrunk\" type=\"radio\" value=\"true\" checked=\"checked\" style=\"vertical-align:baseline\"/> Special trunk\n");
+          out.write("\t\t\t\t\t\t\t            <br>\n");
+          out.write("\t\t\t\t\t\t\t            <input name=\"specialTrunk\" type=\"radio\" value=\"false\" style=\"vertical-align:baseline\"> Common trunk\n");
+          out.write("\t\t\t\t\t\t            </td>\n");
+          out.write("\t\t\t\t\t\t        </tr>\n");
+          out.write("\t\t\t\t\t            <tr>\n");
+          out.write("\t\t\t\t\t            \t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
+          out.write("\t\t\t\t\t\t\t\t\t\t\t<label class=\"control-label\" > Number of easy operations: </label>\n");
+          out.write("\t\t\t\t\t\t\t\t\t</td>\n");
+          out.write("\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
+          out.write("\t\t\t\t\t\t              <div class=\"control-group\">\n");
+          out.write("\t\t\t\t\t\t              \t<div class=\"controls\">\n");
+          out.write("\t\t\t\t\t\t              \t\t<input name=\"easy\" type=\"number\" min=\"0\" max=\"150\" placeholder=\"Type nr...\" style=\"width:120px;vertical-align:baseline\" required/>\n");
+          out.write("\t\t\t\t\t\t             \t</div>\n");
+          out.write("\t\t\t\t\t\t              </div>\n");
+          out.write("\t\t\t\t\t\t            </td>\n");
+          out.write("\t\t\t\t\t            </tr>\n");
+          out.write("\t\t\t\t\t            <tr>\n");
+          out.write("\t\t\t\t\t            \t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
+          out.write("\t\t\t\t\t\t\t\t\t\t\t<label class=\"control-label\" > Number of normal operations: </label>\n");
+          out.write("\t\t\t\t\t\t\t\t\t</td>\n");
+          out.write("\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
+          out.write("\t\t\t\t\t\t              <div class=\"control-group\">\n");
+          out.write("\t\t\t\t\t\t              \t<div class=\"controls\">\n");
+          out.write("\t\t\t\t\t\t              \t\t<input name=\"normal\" type=\"number\" min=\"0\" max=\"150\" placeholder=\"Type nr...\" style=\"width:120px;vertical-align:baseline\" required/>\n");
+          out.write("\t\t\t\t\t\t             \t</div>\n");
+          out.write("\t\t\t\t\t\t              </div>\n");
+          out.write("\t\t\t\t\t\t            </td>\n");
+          out.write("\t\t\t\t\t            </tr>\n");
+          out.write("\t\t\t\t\t            <tr>\n");
+          out.write("\t\t\t\t\t            \t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
+          out.write("\t\t\t\t\t\t\t\t\t\t\t<label class=\"control-label\" > Number of hard operations: </label>\n");
+          out.write("\t\t\t\t\t\t\t\t\t</td>\n");
+          out.write("\t\t\t\t\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
+          out.write("\t\t\t\t\t\t              <div class=\"control-group\">\n");
+          out.write("\t\t\t\t\t\t              \t<div class=\"controls\">\n");
+          out.write("\t\t\t\t\t\t              \t\t<input name=\"hard\" type=\"number\" min=\"0\" max=\"150\" placeholder=\"Type nr...\" style=\"width:120px;vertical-align:baseline\" required/>\n");
+          out.write("\t\t\t\t\t\t             \t</div>\n");
+          out.write("\t\t\t\t\t\t              </div>\n");
+          out.write("\t\t\t\t\t\t            </td>\n");
+          out.write("\t\t\t\t\t            </tr>\n");
+          out.write("\t\t\t\t\t            </table>\n");
+          out.write("\t\t\t\t\t        </div>\n");
+          out.write("\t\t\t\t\t        \n");
+          out.write("\t\t\t\t\t        <div class=\"modal-footer\">\n");
+          out.write("\t\t\t\t\t            <a href=\"#\" class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">Cancel</a>\n");
+          out.write("\t\t\t\t\t            <input type=\"submit\" value=\"Add\" class=\"btn btn-primary\" />\n");
+          out.write("\t\t\t\t\t        </div>\n");
+          out.write("\t\t\t\t    </div>\n");
+          out.write("\t\t\t\t    </form>\n");
+          out.write("\t\t</div>\n");
           out.write("      \n");
           out.write("      </div>\n");
           out.write("    </div>\n");
           out.write("  </div>\n");
+          out.write("  ");
+          if (_jspx_meth_c_005fset_005f11(_jspx_th_c_005fforEach_005f1, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f1))
+            return true;
+          out.write('\n');
           int evalDoAfterBody = _jspx_th_c_005fforEach_005f1.doAfterBody();
           if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
             break;
@@ -1294,37 +1299,16 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f4 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
     _jspx_th_c_005fset_005f4.setPageContext(_jspx_page_context);
     _jspx_th_c_005fset_005f4.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f1);
-    // /WEB-INF/jsp/admin/Catalogues.jsp(98,6) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f4.setVar("tName");
-    // /WEB-INF/jsp/admin/Catalogues.jsp(98,6) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f4.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tName + 1}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
+    // /WEB-INF/jsp/admin/Catalogues.jsp(116,6) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005fset_005f4.setVar("count");
+    // /WEB-INF/jsp/admin/Catalogues.jsp(116,6) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005fset_005f4.setValue(new String("0"));
     int _jspx_eval_c_005fset_005f4 = _jspx_th_c_005fset_005f4.doStartTag();
     if (_jspx_th_c_005fset_005f4.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f4);
       return true;
     }
     _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f4);
-    return false;
-  }
-
-  private boolean _jspx_meth_c_005fset_005f5(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f1, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f1)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  c:set
-    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f5 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
-    _jspx_th_c_005fset_005f5.setPageContext(_jspx_page_context);
-    _jspx_th_c_005fset_005f5.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f1);
-    // /WEB-INF/jsp/admin/Catalogues.jsp(116,6) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f5.setVar("count");
-    // /WEB-INF/jsp/admin/Catalogues.jsp(116,6) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f5.setValue(new String("0"));
-    int _jspx_eval_c_005fset_005f5 = _jspx_th_c_005fset_005f5.doStartTag();
-    if (_jspx_th_c_005fset_005f5.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f5);
-      return true;
-    }
-    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f5);
     return false;
   }
 
@@ -1351,7 +1335,7 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\t\t\t\t\t<tr>\n");
           out.write("\t\t\t\t\t\t<td>\n");
           out.write("\t\t\t\t\t\t\t");
-          if (_jspx_meth_c_005fset_005f6(_jspx_th_c_005fforEach_005f2, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
+          if (_jspx_meth_c_005fset_005f5(_jspx_th_c_005fforEach_005f2, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
             return true;
           out.write("\n");
           out.write("\t\t\t\t\t\t\t");
@@ -1399,7 +1383,7 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\t\t\t\t\t\t\t<!-- Button to trigger modal for entering the new block size -->\n");
           out.write("\t\t\t\t\t\t\t<!-- The URL is dynamically set when clicking on the item, this allows a dynamic modal -->\n");
           out.write("\t\t\t\t\t    \t");
-          if (_jspx_meth_c_005fset_005f7(_jspx_th_c_005fforEach_005f2, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
+          if (_jspx_meth_c_005fset_005f6(_jspx_th_c_005fforEach_005f2, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
             return true;
           out.write("\n");
           out.write("\t\t\t\t\t\t\t<a href=\"#");
@@ -1427,7 +1411,7 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\t\t\t\t\t\t\t        <div class=\"modal-body\" style=\"text-align:left;\">\n");
           out.write("\t\t\t\t\t\t\t\t        <br/>\n");
           out.write("\t\t\t\t\t\t\t\t    \t");
-          if (_jspx_meth_c_005fset_005f8(_jspx_th_c_005fforEach_005f2, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
+          if (_jspx_meth_c_005fset_005f7(_jspx_th_c_005fforEach_005f2, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
             return true;
           out.write("\n");
           out.write("\t\t\t\t\t\t\t\t    \t<p> \n");
@@ -1468,7 +1452,7 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\t\t\t\t\t\t<td> \n");
           out.write("\t\t\t\t\t\t\t<!-- Button to trigger modal for configure monthly capacity -->\n");
           out.write("\t\t\t\t\t    \t");
-          if (_jspx_meth_c_005fset_005f9(_jspx_th_c_005fforEach_005f2, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
+          if (_jspx_meth_c_005fset_005f8(_jspx_th_c_005fforEach_005f2, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
             return true;
           out.write("\n");
           out.write("\t\t\t\t\t\t\t<a href=\"#");
@@ -1547,24 +1531,24 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
-  private boolean _jspx_meth_c_005fset_005f6(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f2, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f2)
+  private boolean _jspx_meth_c_005fset_005f5(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f2, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f2)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:set
-    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f6 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
-    _jspx_th_c_005fset_005f6.setPageContext(_jspx_page_context);
-    _jspx_th_c_005fset_005f6.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
+    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f5 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
+    _jspx_th_c_005fset_005f5.setPageContext(_jspx_page_context);
+    _jspx_th_c_005fset_005f5.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
     // /WEB-INF/jsp/admin/Catalogues.jsp(122,7) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f6.setVar("count");
+    _jspx_th_c_005fset_005f5.setVar("count");
     // /WEB-INF/jsp/admin/Catalogues.jsp(122,7) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f6.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${count + 1}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
-    int _jspx_eval_c_005fset_005f6 = _jspx_th_c_005fset_005f6.doStartTag();
-    if (_jspx_th_c_005fset_005f6.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f6);
+    _jspx_th_c_005fset_005f5.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${count + 1}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
+    int _jspx_eval_c_005fset_005f5 = _jspx_th_c_005fset_005f5.doStartTag();
+    if (_jspx_th_c_005fset_005f5.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f5);
       return true;
     }
-    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f6);
+    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f5);
     return false;
   }
 
@@ -1759,24 +1743,24 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
-  private boolean _jspx_meth_c_005fset_005f7(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f2, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f2)
+  private boolean _jspx_meth_c_005fset_005f6(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f2, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f2)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:set
-    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f7 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
-    _jspx_th_c_005fset_005f7.setPageContext(_jspx_page_context);
-    _jspx_th_c_005fset_005f7.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
+    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f6 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
+    _jspx_th_c_005fset_005f6.setPageContext(_jspx_page_context);
+    _jspx_th_c_005fset_005f6.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
     // /WEB-INF/jsp/admin/Catalogues.jsp(142,10) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f7.setVar("myURL");
+    _jspx_th_c_005fset_005f6.setVar("myURL");
     // /WEB-INF/jsp/admin/Catalogues.jsp(142,10) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f7.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("confCatalog${count}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
-    int _jspx_eval_c_005fset_005f7 = _jspx_th_c_005fset_005f7.doStartTag();
-    if (_jspx_th_c_005fset_005f7.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f7);
+    _jspx_th_c_005fset_005f6.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("confCatalog${count}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
+    int _jspx_eval_c_005fset_005f6 = _jspx_th_c_005fset_005f6.doStartTag();
+    if (_jspx_th_c_005fset_005f6.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f6);
       return true;
     }
-    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f7);
+    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f6);
     return false;
   }
 
@@ -1801,24 +1785,24 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
-  private boolean _jspx_meth_c_005fset_005f8(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f2, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f2)
+  private boolean _jspx_meth_c_005fset_005f7(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f2, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f2)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:set
-    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f8 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
-    _jspx_th_c_005fset_005f8.setPageContext(_jspx_page_context);
-    _jspx_th_c_005fset_005f8.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
+    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f7 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
+    _jspx_th_c_005fset_005f7.setPageContext(_jspx_page_context);
+    _jspx_th_c_005fset_005f7.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
     // /WEB-INF/jsp/admin/Catalogues.jsp(158,13) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f8.setVar("totalNrOperations");
+    _jspx_th_c_005fset_005f7.setVar("totalNrOperations");
     // /WEB-INF/jsp/admin/Catalogues.jsp(158,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f8.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${catalgueTrainsSys.leve1OpNo + catalgueTrainsSys.leve2OpNo + catalgueTrainsSys.leve3OpNo}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
-    int _jspx_eval_c_005fset_005f8 = _jspx_th_c_005fset_005f8.doStartTag();
-    if (_jspx_th_c_005fset_005f8.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f8);
+    _jspx_th_c_005fset_005f7.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${catalgueTrainsSys.leve1OpNo + catalgueTrainsSys.leve2OpNo + catalgueTrainsSys.leve3OpNo}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
+    int _jspx_eval_c_005fset_005f7 = _jspx_th_c_005fset_005f7.doStartTag();
+    if (_jspx_th_c_005fset_005f7.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f7);
       return true;
     }
-    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f8);
+    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f7);
     return false;
   }
 
@@ -1879,24 +1863,24 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
-  private boolean _jspx_meth_c_005fset_005f9(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f2, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f2)
+  private boolean _jspx_meth_c_005fset_005f8(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f2, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f2)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:set
-    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f9 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
-    _jspx_th_c_005fset_005f9.setPageContext(_jspx_page_context);
-    _jspx_th_c_005fset_005f9.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
+    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f8 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
+    _jspx_th_c_005fset_005f8.setPageContext(_jspx_page_context);
+    _jspx_th_c_005fset_005f8.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
     // /WEB-INF/jsp/admin/Catalogues.jsp(187,10) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f9.setVar("myConfigureMonthlyURL");
+    _jspx_th_c_005fset_005f8.setVar("myConfigureMonthlyURL");
     // /WEB-INF/jsp/admin/Catalogues.jsp(187,10) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f9.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("configureMonthly${count}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
-    int _jspx_eval_c_005fset_005f9 = _jspx_th_c_005fset_005f9.doStartTag();
-    if (_jspx_th_c_005fset_005f9.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f9);
+    _jspx_th_c_005fset_005f8.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("configureMonthly${count}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
+    int _jspx_eval_c_005fset_005f8 = _jspx_th_c_005fset_005f8.doStartTag();
+    if (_jspx_th_c_005fset_005f8.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f8);
       return true;
     }
-    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f9);
+    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f8);
     return false;
   }
 
@@ -1956,13 +1940,12 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
         out.write("\n");
         out.write("\t\t\t\t\t\t\t<!-- Button to trigger modal for deleting the current catalogue -->\n");
         out.write("\t\t\t\t\t    \t");
-        if (_jspx_meth_c_005fset_005f10(_jspx_th_c_005fif_005f11, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
+        if (_jspx_meth_c_005fset_005f9(_jspx_th_c_005fif_005f11, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
           return true;
         out.write("\n");
         out.write("\t\t\t\t\t\t\t<a href=\"#");
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${myDeleteURL}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
         out.write("\" style=\"font-size:12px;\" role=\"button\" data-toggle=\"modal\"> Delete </a>\n");
-        out.write("\t\t     \n");
         out.write("\t\t\t\t\t\t\t<!-- Generate the URL with the catalogueID -->\n");
         out.write("\t\t\t\t\t\t\t");
         if (_jspx_meth_c_005furl_005f14(_jspx_th_c_005fif_005f11, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
@@ -2012,24 +1995,24 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
-  private boolean _jspx_meth_c_005fset_005f10(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fif_005f11, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f2)
+  private boolean _jspx_meth_c_005fset_005f9(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fif_005f11, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f2)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:set
-    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f10 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
-    _jspx_th_c_005fset_005f10.setPageContext(_jspx_page_context);
-    _jspx_th_c_005fset_005f10.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f11);
+    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f9 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
+    _jspx_th_c_005fset_005f9.setPageContext(_jspx_page_context);
+    _jspx_th_c_005fset_005f9.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f11);
     // /WEB-INF/jsp/admin/Catalogues.jsp(226,10) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f10.setVar("myDeleteURL");
+    _jspx_th_c_005fset_005f9.setVar("myDeleteURL");
     // /WEB-INF/jsp/admin/Catalogues.jsp(226,10) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f10.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("delCatalog${count}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
-    int _jspx_eval_c_005fset_005f10 = _jspx_th_c_005fset_005f10.doStartTag();
-    if (_jspx_th_c_005fset_005f10.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f10);
+    _jspx_th_c_005fset_005f9.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("delCatalog${count}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
+    int _jspx_eval_c_005fset_005f9 = _jspx_th_c_005fset_005f9.doStartTag();
+    if (_jspx_th_c_005fset_005f9.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f9);
       return true;
     }
-    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f10);
+    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f9);
     return false;
   }
 
@@ -2041,9 +2024,9 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f14 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f14.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f14.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f11);
-    // /WEB-INF/jsp/admin/Catalogues.jsp(230,7) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/Catalogues.jsp(229,7) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f14.setVar("deleteUrl");
-    // /WEB-INF/jsp/admin/Catalogues.jsp(230,7) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/Catalogues.jsp(229,7) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f14.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("../administration/catalogues/delete?id=${catalgueTrainsSys.catalogueID}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005furl_005f14 = _jspx_th_c_005furl_005f14.doStartTag();
     if (_jspx_th_c_005furl_005f14.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -2062,7 +2045,7 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_005fout_005f12 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _005fjspx_005ftagPool_005fc_005fout_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
     _jspx_th_c_005fout_005f12.setPageContext(_jspx_page_context);
     _jspx_th_c_005fout_005f12.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f11);
-    // /WEB-INF/jsp/admin/Catalogues.jsp(243,45) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/Catalogues.jsp(242,45) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fout_005f12.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${catalgueTrainsSys.name}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005fout_005f12 = _jspx_th_c_005fout_005f12.doStartTag();
     if (_jspx_th_c_005fout_005f12.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -2073,24 +2056,66 @@ public final class Catalogues_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
-  private boolean _jspx_meth_c_005furl_005f15(PageContext _jspx_page_context)
+  private boolean _jspx_meth_c_005fset_005f10(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f1, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f1)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:set
+    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f10 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
+    _jspx_th_c_005fset_005f10.setPageContext(_jspx_page_context);
+    _jspx_th_c_005fset_005f10.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f1);
+    // /WEB-INF/jsp/admin/Catalogues.jsp(261,5) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005fset_005f10.setVar("myAddURL");
+    // /WEB-INF/jsp/admin/Catalogues.jsp(261,5) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005fset_005f10.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("addCatalog${tName}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
+    int _jspx_eval_c_005fset_005f10 = _jspx_th_c_005fset_005f10.doStartTag();
+    if (_jspx_th_c_005fset_005f10.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f10);
+      return true;
+    }
+    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f10);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_005furl_005f15(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f1, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f1)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:url
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f15 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f15.setPageContext(_jspx_page_context);
-    _jspx_th_c_005furl_005f15.setParent(null);
-    // /WEB-INF/jsp/admin/Catalogues.jsp(270,5) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005furl_005f15.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f1);
+    // /WEB-INF/jsp/admin/Catalogues.jsp(264,5) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f15.setVar("addUrl");
-    // /WEB-INF/jsp/admin/Catalogues.jsp(270,5) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005furl_005f15.setValue("../administration/catalogues/add");
+    // /WEB-INF/jsp/admin/Catalogues.jsp(264,5) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005furl_005f15.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("../administration/catalogues/add?id=${trainSysID[tName]}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005furl_005f15 = _jspx_th_c_005furl_005f15.doStartTag();
     if (_jspx_th_c_005furl_005f15.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _005fjspx_005ftagPool_005fc_005furl_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005furl_005f15);
       return true;
     }
     _005fjspx_005ftagPool_005fc_005furl_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005furl_005f15);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_005fset_005f11(javax.servlet.jsp.tagext.JspTag _jspx_th_c_005fforEach_005f1, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_005fforEach_005f1)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:set
+    org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f11 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
+    _jspx_th_c_005fset_005f11.setPageContext(_jspx_page_context);
+    _jspx_th_c_005fset_005f11.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f1);
+    // /WEB-INF/jsp/admin/Catalogues.jsp(354,2) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005fset_005f11.setVar("tName");
+    // /WEB-INF/jsp/admin/Catalogues.jsp(354,2) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005fset_005f11.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tName + 1}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
+    int _jspx_eval_c_005fset_005f11 = _jspx_th_c_005fset_005f11.doStartTag();
+    if (_jspx_th_c_005fset_005f11.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f11);
+      return true;
+    }
+    _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f11);
     return false;
   }
 }

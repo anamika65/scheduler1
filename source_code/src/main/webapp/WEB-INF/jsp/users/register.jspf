@@ -1,7 +1,7 @@
 <!-- Button to trigger modal for adding a User -->
 <a href="#userRegistration" class="btn btn-primary" role="button" data-toggle="modal">Add User</a>
 <!-- URL for adding the catalogue; the new values will be available in controller using parameters -->
-<c:url var="addUser" value="../login/add" />
+<c:url var="addUser" value="../administration/crud/add" />
 <form method="POST" action="${addUser}">
 		<!-- Modal1 -->
 		<div id="userRegistration" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -53,6 +53,7 @@
 						</div>
 			   		</td>
 			  	</tr>
+			  	
 	   		</table>
    		</div>
    		<div class="modal-footer">
