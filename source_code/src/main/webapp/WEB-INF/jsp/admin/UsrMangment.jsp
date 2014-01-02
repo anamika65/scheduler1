@@ -15,6 +15,11 @@
 <script src="../resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="<c:url value='/scheduler/resources/js/jqBootstrapValidation.js'/>"></script>
 <script src="<c:url value='/scheduler/resources/js/jqEmailValidation.js'/>"></script>
+<script type="text/javascript">
+$(function(){
+	$(".dropdown-toggle").dropdown();
+});  
+</script>
 <head>
         <title>User Management</title>
 </head>
@@ -42,103 +47,104 @@
                             </td>
                                    <td class="buttonRight">
                                           <!-- Button to trigger modal for adding a User -->
-<a href="#userRegistration" class="btn btn-primary" role="button" data-toggle="modal">Add User</a>
-<!-- URL for adding the catalogue; the new values will be available in controller using parameters -->
-<c:url var="addUser" value="../administration/crud/add" />
-<form method="POST" action="${addUser}">
-		<!-- Modal1 -->
-		<div id="userRegistration" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-   		<div class="modal-header">
-  		   	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-     		<h3 id="myModalLabel" style="text-align:left">User Registration</h3>
-   		</div>
-  		 	<div class="modal-body">
-	     	<table>
-				<tr>
-					<td class="tdCatalogueType1" style="vertical-align:baseline;">
-						<label class="control-label" > Username: </label>
-					</td>
-					<td style="vertical-align:baseline;">
-						<div class="control-group">
-							<div class="controls">
-								<input name="username" type="text" placeholder="Enter Username" required/> 
-							</div>
-						</div>
-				   	</td>						
-			  	</tr>
-			  	
-			  	<tr>
-					<td class="tdCatalogueType1" style="vertical-align:baseline;">
-						<label class="control-label" > Password: </label>
-					</td>
-					<td style="vertical-align:baseline;">
-						<div class="control-group">
-							<div class="controls">
-								<input name="password" type="password" placeholder="Enter Password" required/> 
-							</div>
-						</div>
-			   		</td>
-			  	</tr>
-			  	
-			  	<tr>
-					<td class="tdCatalogueType1" style="vertical-align:baseline;">
-						<label class="control-label" > Role: </label>
-					</td>
-					<td style="vertical-align:baseline;">
-						<div class="control-group">
-							<div class="controls">
-								<select class="input-block-level" id="month" name="user_role">
-									<option value="ROLE_ADMIN">ADMIN</option>
-									<option value="ROLE_INSTRUCTOR">INSTRUCTOR</option>
-									<option value="ROLE_USER">USER</option>
-								</select> 
-							</div>
-						</div>
-			   		</td>
-			  	</tr>
-			  	<tr>
-					<td class="tdCatalogueType1" style="vertical-align:baseline;">
-						<label class="control-label" > Speciality: </label>
-					</td>
-					<td style="vertical-align:baseline;">
-						<div class="control-group">
-							<div class="controls">
-								<select   name="specialityID" >
-									  <c:forEach items="${specIality}" var="speciality">  
-									    <option value="${speciality.specialtyID}">
-									         <c:out value="${speciality.name}"/></option>
-										</c:forEach> 
-								</select> 
-							</div>
-						</div>
-			   		</td>
-			  	</tr>
-			  	<tr>
+            <a href="#userRegistration" class="btn btn-primary" role="button" data-toggle="modal">Add User</a>
+                   <!-- URL for adding the catalogue; the new values will be available in controller using parameters -->
+                      <c:url var="addUser" value="../administration/crud/add" />
+                         <form method="POST" action="${addUser}">
+                  <!-- Modal1 -->
+              <div id="userRegistration" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="myModalLabel" style="text-align:left">User Registration</h3>
+            </div>
+            <div class="modal-body">
+             
+                <table>
+                <tr>
+                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+                        <label class="control-label" > Username: </label>
+                    </td>
+                    <td style="vertical-align:baseline;">
+                        <div class="control-group">
+                            <div class="controls">
+                                <input name="username" type="text" placeholder="Enter Username" required/> 
+                            </div>
+                        </div>
+                    </td>                       
+                </tr>
+                
+                <tr>
+                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+                        <label class="control-label" > Password: </label>
+                    </td>
+                    <td style="vertical-align:baseline;">
+                        <div class="control-group">
+                            <div class="controls">
+                                <input name="password" type="password" placeholder="Enter Password" required/> 
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+                        <label class="control-label" > Role: </label>
+                    </td>
+                    <td style="vertical-align:baseline;">
+                        <div class="control-group">
+                            <div class="controls">
+                                <select class="input-block-level" id="month" name="user_role">
+                                    <option value="ROLE_ADMIN">ADMIN</option>
+                                    <option value="ROLE_INSTRUCTOR">INSTRUCTOR</option>
+                                    <option value="ROLE_USER">USER</option>
+                                </select> 
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+                        <label class="control-label" > Speciality: </label>
+                    </td>
+                    <td style="vertical-align:baseline;">
+                        <div class="control-group">
+                            <div class="controls">
+                                <select   name="specialityID" >
+                                      <c:forEach items="${specIality}" var="speciality">  
+                                        <option value="${speciality.specialtyID}">
+                                             <c:out value="${speciality.name}"/></option>
+                                        </c:forEach> 
+                                </select> 
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
 
-			  		<td class="tdCatalogueType1" style="vertical-align:baseline;">
-			  			<label class="control-label" for="email">Email Address</label>
-			  		</td>
-			  		<td style="vertical-align:baseline;">
-			  			 <div class="control-group">
+                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+                        <label class="control-label" for="email">Email Address</label>
+                    </td>
+                    <td style="vertical-align:baseline;">
+                         <div class="control-group">
                           <div class="controls">
                            <input type="email" name="emailAdd" id="email" placeholder="Your email address">
                           </div>
                          </div>
-			  		</td>
-			  		</tr>
-	   				</table>
-   					</div>
-   					<div class="modal-footer">
-    				<a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-					<input type="submit" value="Register" class="btn btn-primary" />
-  										</div>
-									</div>
-								</form>
+                    </td>
+                    </tr>
+                    </table>
+                    </div>
+                    <div class="modal-footer">
+                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+                    <input type="submit" value="Register" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </form>
                                    </td>
                                 <td style="width:50px;"/>
                         </tr>
-                </table>         
-                
+                </table>       
+                <!-- here end -->
                 <table id="zebraTable" class="table table-hover centeredTableNoTop"  style="width:1100px;">
                          <thead>                                 
                                 <tr style="font-size:12px">
@@ -159,20 +165,20 @@
                                                 <td><c:out value="${user.userRole}" /></td>
                                                 <td><c:out value="${user.active == true ? 'Active' : 'Inactive' }" /></td>
                                                 <td>  
-                                                    <ul class="dropdown nav pull-right" style="text-align: left;">
-                                              <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Manage<b class="caret"></b></a>
+                                             	<ul class="dropdown nav pull-right" style="text-align: left;">
+                                              <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown"> Manage <b class="caret"></b></a>
                                               <ul class="dropdown-menu" role="menu">
                                                 <li role="presentation">
                                                 <c:set var="myDeleteURL" value="deleteUser${user.usrId}" />
-                                                                                <a role="menuitem" tabindex="-1" href="#${myDeleteURL}" role="button" data-toggle="modal"> 
-                                                                                DELETE 
-                                                                                </a> 
+                                                      <a role="menuitem" tabindex="-1" href="#${myDeleteURL}" role="button" data-toggle="modal"> 
+                                                           DELETE 
+                                                      </a> 
                                                 </li>
                                                 <li role="presentation">
                                                 <c:set var="myUpdateUserURL" value="updateUser${user.usrId}" />
-                                                                                <a role="menuitem" tabindex="-1" href="#${myUpdateUserURL}" role="button" data-toggle="modal"> 
-                                                                                UPDATE 
-                                                                                </a> 
+                                                       <a role="menuitem" tabindex="-1" href="#${myUpdateUserURL}" role="button" data-toggle="modal"> 
+                                                           UPDATE 
+                                                       </a> 
                                                 </li>
                                                 </ul>
                                          </ul>
@@ -291,9 +297,7 @@
 
                         </tbody>        
                 </table>
-                        
-                         
-                                                
+                                            
                 <div style="height:300px"> </div>
 
                 <jsp:include page="/WEB-INF/jsp/common/footer.jspf"/>        

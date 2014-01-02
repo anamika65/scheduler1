@@ -147,6 +147,11 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_meth_c_005furl_005f9(_jspx_page_context))
         return;
       out.write("\"></script>\n");
+      out.write("<script type=\"text/javascript\">\n");
+      out.write("$(function(){\n");
+      out.write("\t$(\".dropdown-toggle\").dropdown();\n");
+      out.write("});  \n");
+      out.write("</script>\n");
       out.write("<head>\n");
       out.write("        <title>User Management</title>\n");
       out.write("</head>\n");
@@ -218,107 +223,109 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            </td>\n");
       out.write("                                   <td class=\"buttonRight\">\n");
       out.write("                                          <!-- Button to trigger modal for adding a User -->\n");
-      out.write("<a href=\"#userRegistration\" class=\"btn btn-primary\" role=\"button\" data-toggle=\"modal\">Add User</a>\n");
-      out.write("<!-- URL for adding the catalogue; the new values will be available in controller using parameters -->\n");
+      out.write("            <a href=\"#userRegistration\" class=\"btn btn-primary\" role=\"button\" data-toggle=\"modal\">Add User</a>\n");
+      out.write("                   <!-- URL for adding the catalogue; the new values will be available in controller using parameters -->\n");
+      out.write("                      ");
       if (_jspx_meth_c_005furl_005f12(_jspx_page_context))
         return;
       out.write("\n");
-      out.write("<form method=\"POST\" action=\"");
+      out.write("                         <form method=\"POST\" action=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${addUser}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("\">\n");
-      out.write("\t\t<!-- Modal1 -->\n");
-      out.write("\t\t<div id=\"userRegistration\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n");
-      out.write("   \t\t<div class=\"modal-header\">\n");
-      out.write("  \t\t   \t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\n");
-      out.write("     \t\t<h3 id=\"myModalLabel\" style=\"text-align:left\">User Registration</h3>\n");
-      out.write("   \t\t</div>\n");
-      out.write("  \t\t \t<div class=\"modal-body\">\n");
-      out.write("\t     \t<table>\n");
-      out.write("\t\t\t\t<tr>\n");
-      out.write("\t\t\t\t\t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<label class=\"control-label\" > Username: </label>\n");
-      out.write("\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t\t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t\t\t<input name=\"username\" type=\"text\" placeholder=\"Enter Username\" required/> \n");
-      out.write("\t\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t   \t</td>\t\t\t\t\t\t\n");
-      out.write("\t\t\t  \t</tr>\n");
-      out.write("\t\t\t  \t\n");
-      out.write("\t\t\t  \t<tr>\n");
-      out.write("\t\t\t\t\t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<label class=\"control-label\" > Password: </label>\n");
-      out.write("\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t\t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t\t\t<input name=\"password\" type=\"password\" placeholder=\"Enter Password\" required/> \n");
-      out.write("\t\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t   \t\t</td>\n");
-      out.write("\t\t\t  \t</tr>\n");
-      out.write("\t\t\t  \t\n");
-      out.write("\t\t\t  \t<tr>\n");
-      out.write("\t\t\t\t\t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<label class=\"control-label\" > Role: </label>\n");
-      out.write("\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t\t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t\t\t<select class=\"input-block-level\" id=\"month\" name=\"user_role\">\n");
-      out.write("\t\t\t\t\t\t\t\t\t<option value=\"ROLE_ADMIN\">ADMIN</option>\n");
-      out.write("\t\t\t\t\t\t\t\t\t<option value=\"ROLE_INSTRUCTOR\">INSTRUCTOR</option>\n");
-      out.write("\t\t\t\t\t\t\t\t\t<option value=\"ROLE_USER\">USER</option>\n");
-      out.write("\t\t\t\t\t\t\t\t</select> \n");
-      out.write("\t\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t   \t\t</td>\n");
-      out.write("\t\t\t  \t</tr>\n");
-      out.write("\t\t\t  \t<tr>\n");
-      out.write("\t\t\t\t\t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<label class=\"control-label\" > Speciality: </label>\n");
-      out.write("\t\t\t\t\t</td>\n");
-      out.write("\t\t\t\t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t\t\t\t<div class=\"control-group\">\n");
-      out.write("\t\t\t\t\t\t\t<div class=\"controls\">\n");
-      out.write("\t\t\t\t\t\t\t\t<select   name=\"specialityID\" >\n");
-      out.write("\t\t\t\t\t\t\t\t\t  ");
+      out.write("                  <!-- Modal1 -->\n");
+      out.write("              <div id=\"userRegistration\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n");
+      out.write("             <div class=\"modal-header\">\n");
+      out.write("                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\n");
+      out.write("                  <h3 id=\"myModalLabel\" style=\"text-align:left\">User Registration</h3>\n");
+      out.write("            </div>\n");
+      out.write("            <div class=\"modal-body\">\n");
+      out.write("             \n");
+      out.write("                <table>\n");
+      out.write("                <tr>\n");
+      out.write("                    <td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
+      out.write("                        <label class=\"control-label\" > Username: </label>\n");
+      out.write("                    </td>\n");
+      out.write("                    <td style=\"vertical-align:baseline;\">\n");
+      out.write("                        <div class=\"control-group\">\n");
+      out.write("                            <div class=\"controls\">\n");
+      out.write("                                <input name=\"username\" type=\"text\" placeholder=\"Enter Username\" required/> \n");
+      out.write("                            </div>\n");
+      out.write("                        </div>\n");
+      out.write("                    </td>                       \n");
+      out.write("                </tr>\n");
+      out.write("                \n");
+      out.write("                <tr>\n");
+      out.write("                    <td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
+      out.write("                        <label class=\"control-label\" > Password: </label>\n");
+      out.write("                    </td>\n");
+      out.write("                    <td style=\"vertical-align:baseline;\">\n");
+      out.write("                        <div class=\"control-group\">\n");
+      out.write("                            <div class=\"controls\">\n");
+      out.write("                                <input name=\"password\" type=\"password\" placeholder=\"Enter Password\" required/> \n");
+      out.write("                            </div>\n");
+      out.write("                        </div>\n");
+      out.write("                    </td>\n");
+      out.write("                </tr>\n");
+      out.write("                \n");
+      out.write("                <tr>\n");
+      out.write("                    <td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
+      out.write("                        <label class=\"control-label\" > Role: </label>\n");
+      out.write("                    </td>\n");
+      out.write("                    <td style=\"vertical-align:baseline;\">\n");
+      out.write("                        <div class=\"control-group\">\n");
+      out.write("                            <div class=\"controls\">\n");
+      out.write("                                <select class=\"input-block-level\" id=\"month\" name=\"user_role\">\n");
+      out.write("                                    <option value=\"ROLE_ADMIN\">ADMIN</option>\n");
+      out.write("                                    <option value=\"ROLE_INSTRUCTOR\">INSTRUCTOR</option>\n");
+      out.write("                                    <option value=\"ROLE_USER\">USER</option>\n");
+      out.write("                                </select> \n");
+      out.write("                            </div>\n");
+      out.write("                        </div>\n");
+      out.write("                    </td>\n");
+      out.write("                </tr>\n");
+      out.write("                <tr>\n");
+      out.write("                    <td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
+      out.write("                        <label class=\"control-label\" > Speciality: </label>\n");
+      out.write("                    </td>\n");
+      out.write("                    <td style=\"vertical-align:baseline;\">\n");
+      out.write("                        <div class=\"control-group\">\n");
+      out.write("                            <div class=\"controls\">\n");
+      out.write("                                <select   name=\"specialityID\" >\n");
+      out.write("                                      ");
       if (_jspx_meth_c_005fforEach_005f1(_jspx_page_context))
         return;
       out.write(" \n");
-      out.write("\t\t\t\t\t\t\t\t</select> \n");
-      out.write("\t\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t   \t\t</td>\n");
-      out.write("\t\t\t  \t</tr>\n");
-      out.write("\t\t\t  \t<tr>\n");
+      out.write("                                </select> \n");
+      out.write("                            </div>\n");
+      out.write("                        </div>\n");
+      out.write("                    </td>\n");
+      out.write("                </tr>\n");
+      out.write("                <tr>\n");
       out.write("\n");
-      out.write("\t\t\t  \t\t<td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t  \t\t\t<label class=\"control-label\" for=\"email\">Email Address</label>\n");
-      out.write("\t\t\t  \t\t</td>\n");
-      out.write("\t\t\t  \t\t<td style=\"vertical-align:baseline;\">\n");
-      out.write("\t\t\t  \t\t\t <div class=\"control-group\">\n");
+      out.write("                    <td class=\"tdCatalogueType1\" style=\"vertical-align:baseline;\">\n");
+      out.write("                        <label class=\"control-label\" for=\"email\">Email Address</label>\n");
+      out.write("                    </td>\n");
+      out.write("                    <td style=\"vertical-align:baseline;\">\n");
+      out.write("                         <div class=\"control-group\">\n");
       out.write("                          <div class=\"controls\">\n");
       out.write("                           <input type=\"email\" name=\"emailAdd\" id=\"email\" placeholder=\"Your email address\">\n");
       out.write("                          </div>\n");
       out.write("                         </div>\n");
-      out.write("\t\t\t  \t\t</td>\n");
-      out.write("\t\t\t  \t\t</tr>\n");
-      out.write("\t   \t\t\t\t</table>\n");
-      out.write("   \t\t\t\t\t</div>\n");
-      out.write("   \t\t\t\t\t<div class=\"modal-footer\">\n");
-      out.write("    \t\t\t\t<a href=\"#\" class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">Cancel</a>\n");
-      out.write("\t\t\t\t\t<input type=\"submit\" value=\"Register\" class=\"btn btn-primary\" />\n");
-      out.write("  \t\t\t\t\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t\t\t\t\t\t</div>\n");
-      out.write("\t\t\t\t\t\t\t\t</form>\n");
+      out.write("                    </td>\n");
+      out.write("                    </tr>\n");
+      out.write("                    </table>\n");
+      out.write("                    </div>\n");
+      out.write("                    <div class=\"modal-footer\">\n");
+      out.write("                    <a href=\"#\" class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">Cancel</a>\n");
+      out.write("                    <input type=\"submit\" value=\"Register\" class=\"btn btn-primary\" />\n");
+      out.write("                                        </div>\n");
+      out.write("                                    </div>\n");
+      out.write("                                </form>\n");
       out.write("                                   </td>\n");
       out.write("                                <td style=\"width:50px;\"/>\n");
       out.write("                        </tr>\n");
-      out.write("                </table>         \n");
-      out.write("                \n");
+      out.write("                </table>       \n");
+      out.write("                <!-- here end -->\n");
       out.write("                <table id=\"zebraTable\" class=\"table table-hover centeredTableNoTop\"  style=\"width:1100px;\">\n");
       out.write("                         <thead>                                 \n");
       out.write("                                <tr style=\"font-size:12px\">\n");
@@ -338,9 +345,7 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                        </tbody>        \n");
       out.write("                </table>\n");
-      out.write("                        \n");
-      out.write("                         \n");
-      out.write("                                                \n");
+      out.write("                                            \n");
       out.write("                <div style=\"height:300px\"> </div>\n");
       out.write("\n");
       out.write("                ");
@@ -561,11 +566,11 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f0 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fscope_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
     _jspx_th_c_005fset_005f0.setPageContext(_jspx_page_context);
     _jspx_th_c_005fset_005f0.setParent(null);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(26,16) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(31,16) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f0.setVar("headerGoSchedule");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(26,16) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(31,16) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f0.setValue(new String("../schedule/view"));
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(26,16) name = scope type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(31,16) name = scope type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f0.setScope("session");
     int _jspx_eval_c_005fset_005f0 = _jspx_th_c_005fset_005f0.doStartTag();
     if (_jspx_th_c_005fset_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -584,11 +589,11 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f1 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fscope_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
     _jspx_th_c_005fset_005f1.setPageContext(_jspx_page_context);
     _jspx_th_c_005fset_005f1.setParent(null);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(27,16) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(32,16) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f1.setVar("headerViewAdministration");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(27,16) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(32,16) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f1.setValue(new String("../administration/home"));
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(27,16) name = scope type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(32,16) name = scope type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f1.setScope("session");
     int _jspx_eval_c_005fset_005f1 = _jspx_th_c_005fset_005f1.doStartTag();
     if (_jspx_th_c_005fset_005f1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -607,9 +612,9 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f2 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
     _jspx_th_c_005fset_005f2.setPageContext(_jspx_page_context);
     _jspx_th_c_005fset_005f2.setParent(null);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(28,16) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(33,16) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f2.setVar("headerModule");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(28,16) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(33,16) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f2.setValue(new String("User Management"));
     int _jspx_eval_c_005fset_005f2 = _jspx_th_c_005fset_005f2.doStartTag();
     if (_jspx_th_c_005fset_005f2.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -628,9 +633,9 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.common.core.RemoveTag _jspx_th_c_005fremove_005f0 = (org.apache.taglibs.standard.tag.common.core.RemoveTag) _005fjspx_005ftagPool_005fc_005fremove_0026_005fvar_005fscope_005fnobody.get(org.apache.taglibs.standard.tag.common.core.RemoveTag.class);
     _jspx_th_c_005fremove_005f0.setPageContext(_jspx_page_context);
     _jspx_th_c_005fremove_005f0.setParent(null);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(30,16) name = var type = java.lang.String reqTime = false required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(35,16) name = var type = java.lang.String reqTime = false required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fremove_005f0.setVar("headerViewSchedule");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(30,16) name = scope type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(35,16) name = scope type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fremove_005f0.setScope("session");
     int _jspx_eval_c_005fremove_005f0 = _jspx_th_c_005fremove_005f0.doStartTag();
     if (_jspx_th_c_005fremove_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -649,9 +654,9 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.common.core.RemoveTag _jspx_th_c_005fremove_005f1 = (org.apache.taglibs.standard.tag.common.core.RemoveTag) _005fjspx_005ftagPool_005fc_005fremove_0026_005fvar_005fscope_005fnobody.get(org.apache.taglibs.standard.tag.common.core.RemoveTag.class);
     _jspx_th_c_005fremove_005f1.setPageContext(_jspx_page_context);
     _jspx_th_c_005fremove_005f1.setParent(null);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(31,16) name = var type = java.lang.String reqTime = false required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(36,16) name = var type = java.lang.String reqTime = false required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fremove_005f1.setVar("headerGoAdministration");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(31,16) name = scope type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(36,16) name = scope type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fremove_005f1.setScope("session");
     int _jspx_eval_c_005fremove_005f1 = _jspx_th_c_005fremove_005f1.doStartTag();
     if (_jspx_th_c_005fremove_005f1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1159,9 +1164,9 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f12 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f12.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f12.setParent(null);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(47,0) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(52,22) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f12.setVar("addUser");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(47,0) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(52,22) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f12.setValue("../administration/crud/add");
     int _jspx_eval_c_005furl_005f12 = _jspx_th_c_005furl_005f12.doStartTag();
     if (_jspx_th_c_005furl_005f12.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1180,9 +1185,9 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_005fforEach_005f1 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _005fjspx_005ftagPool_005fc_005fforEach_0026_005fvar_005fitems.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
     _jspx_th_c_005fforEach_005f1.setPageContext(_jspx_page_context);
     _jspx_th_c_005fforEach_005f1.setParent(null);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(107,11) name = items type = java.lang.Object reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(113,38) name = items type = java.lang.Object reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fforEach_005f1.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${specIality}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(107,11) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(113,38) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fforEach_005f1.setVar("speciality");
     int[] _jspx_push_body_count_c_005fforEach_005f1 = new int[] { 0 };
     try {
@@ -1190,14 +1195,14 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_eval_c_005fforEach_005f1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
         do {
           out.write("  \n");
-          out.write("\t\t\t\t\t\t\t\t\t    <option value=\"");
+          out.write("                                        <option value=\"");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${speciality.specialtyID}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\">\n");
-          out.write("\t\t\t\t\t\t\t\t\t         ");
+          out.write("                                             ");
           if (_jspx_meth_c_005fout_005f1(_jspx_th_c_005fforEach_005f1, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f1))
             return true;
           out.write("</option>\n");
-          out.write("\t\t\t\t\t\t\t\t\t\t");
+          out.write("                                        ");
           int evalDoAfterBody = _jspx_th_c_005fforEach_005f1.doAfterBody();
           if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
             break;
@@ -1225,7 +1230,7 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_005fout_005f1 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _005fjspx_005ftagPool_005fc_005fout_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
     _jspx_th_c_005fout_005f1.setPageContext(_jspx_page_context);
     _jspx_th_c_005fout_005f1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f1);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(109,18) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(115,45) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fout_005f1.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${speciality.name}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005fout_005f1 = _jspx_th_c_005fout_005f1.doStartTag();
     if (_jspx_th_c_005fout_005f1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1244,9 +1249,9 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_005fforEach_005f2 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _005fjspx_005ftagPool_005fc_005fforEach_0026_005fvar_005fitems.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
     _jspx_th_c_005fforEach_005f2.setPageContext(_jspx_page_context);
     _jspx_th_c_005fforEach_005f2.setParent(null);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(154,24) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(160,24) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fforEach_005f2.setVar("user");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(154,24) name = items type = java.lang.Object reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(160,24) name = items type = java.lang.Object reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fforEach_005f2.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${userDetail}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int[] _jspx_push_body_count_c_005fforEach_005f2 = new int[] { 0 };
     try {
@@ -1276,30 +1281,30 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
             return true;
           out.write("</td>\n");
           out.write("                                                <td>  \n");
-          out.write("                                                    <ul class=\"dropdown nav pull-right\" style=\"text-align: left;\">\n");
-          out.write("                                              <a href=\"#\" id=\"drop3\" role=\"button\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Manage<b class=\"caret\"></b></a>\n");
+          out.write("                                             \t<ul class=\"dropdown nav pull-right\" style=\"text-align: left;\">\n");
+          out.write("                                              <a href=\"#\" id=\"drop3\" role=\"button\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"> Manage <b class=\"caret\"></b></a>\n");
           out.write("                                              <ul class=\"dropdown-menu\" role=\"menu\">\n");
           out.write("                                                <li role=\"presentation\">\n");
           out.write("                                                ");
           if (_jspx_meth_c_005fset_005f3(_jspx_th_c_005fforEach_005f2, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
             return true;
           out.write("\n");
-          out.write("                                                                                <a role=\"menuitem\" tabindex=\"-1\" href=\"#");
+          out.write("                                                      <a role=\"menuitem\" tabindex=\"-1\" href=\"#");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${myDeleteURL}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\" role=\"button\" data-toggle=\"modal\"> \n");
-          out.write("                                                                                DELETE \n");
-          out.write("                                                                                </a> \n");
+          out.write("                                                           DELETE \n");
+          out.write("                                                      </a> \n");
           out.write("                                                </li>\n");
           out.write("                                                <li role=\"presentation\">\n");
           out.write("                                                ");
           if (_jspx_meth_c_005fset_005f4(_jspx_th_c_005fforEach_005f2, _jspx_page_context, _jspx_push_body_count_c_005fforEach_005f2))
             return true;
           out.write("\n");
-          out.write("                                                                                <a role=\"menuitem\" tabindex=\"-1\" href=\"#");
+          out.write("                                                       <a role=\"menuitem\" tabindex=\"-1\" href=\"#");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${myUpdateUserURL}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\" role=\"button\" data-toggle=\"modal\"> \n");
-          out.write("                                                                                UPDATE \n");
-          out.write("                                                                                </a> \n");
+          out.write("                                                           UPDATE \n");
+          out.write("                                                       </a> \n");
           out.write("                                                </li>\n");
           out.write("                                                </ul>\n");
           out.write("                                         </ul>\n");
@@ -1476,7 +1481,7 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_005fout_005f2 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _005fjspx_005ftagPool_005fc_005fout_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
     _jspx_th_c_005fout_005f2.setPageContext(_jspx_page_context);
     _jspx_th_c_005fout_005f2.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(156,52) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(162,52) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fout_005f2.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${user.userName}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005fout_005f2 = _jspx_th_c_005fout_005f2.doStartTag();
     if (_jspx_th_c_005fout_005f2.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1495,7 +1500,7 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_005fout_005f3 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _005fjspx_005ftagPool_005fc_005fout_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
     _jspx_th_c_005fout_005f3.setPageContext(_jspx_page_context);
     _jspx_th_c_005fout_005f3.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(157,56) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(163,56) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fout_005f3.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${user.usrId}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005fout_005f3 = _jspx_th_c_005fout_005f3.doStartTag();
     if (_jspx_th_c_005fout_005f3.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1514,7 +1519,7 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_005fout_005f4 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _005fjspx_005ftagPool_005fc_005fout_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
     _jspx_th_c_005fout_005f4.setPageContext(_jspx_page_context);
     _jspx_th_c_005fout_005f4.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(158,52) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(164,52) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fout_005f4.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${user.password}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005fout_005f4 = _jspx_th_c_005fout_005f4.doStartTag();
     if (_jspx_th_c_005fout_005f4.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1533,7 +1538,7 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_005fout_005f5 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _005fjspx_005ftagPool_005fc_005fout_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
     _jspx_th_c_005fout_005f5.setPageContext(_jspx_page_context);
     _jspx_th_c_005fout_005f5.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(159,52) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(165,52) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fout_005f5.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${user.userRole}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005fout_005f5 = _jspx_th_c_005fout_005f5.doStartTag();
     if (_jspx_th_c_005fout_005f5.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1552,7 +1557,7 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_005fout_005f6 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _005fjspx_005ftagPool_005fc_005fout_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
     _jspx_th_c_005fout_005f6.setPageContext(_jspx_page_context);
     _jspx_th_c_005fout_005f6.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(160,52) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(166,52) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fout_005f6.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${user.active == true ? 'Active' : 'Inactive' }", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005fout_005f6 = _jspx_th_c_005fout_005f6.doStartTag();
     if (_jspx_th_c_005fout_005f6.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1571,9 +1576,9 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f3 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
     _jspx_th_c_005fset_005f3.setPageContext(_jspx_page_context);
     _jspx_th_c_005fset_005f3.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(166,48) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(172,48) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f3.setVar("myDeleteURL");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(166,48) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(172,48) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f3.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("deleteUser${user.usrId}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005fset_005f3 = _jspx_th_c_005fset_005f3.doStartTag();
     if (_jspx_th_c_005fset_005f3.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1592,9 +1597,9 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f4 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
     _jspx_th_c_005fset_005f4.setPageContext(_jspx_page_context);
     _jspx_th_c_005fset_005f4.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(172,48) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(178,48) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f4.setVar("myUpdateUserURL");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(172,48) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(178,48) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f4.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("updateUser${user.usrId}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005fset_005f4 = _jspx_th_c_005fset_005f4.doStartTag();
     if (_jspx_th_c_005fset_005f4.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1613,9 +1618,9 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f13 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f13.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f13.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(181,64) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(187,64) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f13.setVar("updateUserURL");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(181,64) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(187,64) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f13.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("../administration/crud/updateUserInformation?id=${user.usrId}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005furl_005f13 = _jspx_th_c_005furl_005f13.doStartTag();
     if (_jspx_th_c_005furl_005f13.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1634,7 +1639,7 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_005fif_005f9 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _005fjspx_005ftagPool_005fc_005fif_0026_005ftest_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_005fif_005f9.setPageContext(_jspx_page_context);
     _jspx_th_c_005fif_005f9.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(225,108) name = test type = boolean reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(231,108) name = test type = boolean reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fif_005f9.setTest(false);
     int _jspx_eval_c_005fif_005f9 = _jspx_th_c_005fif_005f9.doStartTag();
     if (_jspx_th_c_005fif_005f9.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1653,9 +1658,9 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f14 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f14.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f14.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(263,64) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(269,64) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f14.setVar("DeleteUrl");
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(263,64) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(269,64) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f14.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("../administration/crud/delete?id=${user.usrId}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005furl_005f14 = _jspx_th_c_005furl_005f14.doStartTag();
     if (_jspx_th_c_005furl_005f14.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1674,7 +1679,7 @@ public final class UsrMangment_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.OutTag _jspx_th_c_005fout_005f7 = (org.apache.taglibs.standard.tag.rt.core.OutTag) _005fjspx_005ftagPool_005fc_005fout_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.OutTag.class);
     _jspx_th_c_005fout_005f7.setPageContext(_jspx_page_context);
     _jspx_th_c_005fout_005f7.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f2);
-    // /WEB-INF/jsp/admin/UsrMangment.jsp(276,105) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/jsp/admin/UsrMangment.jsp(282,105) name = value type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fout_005f7.setValue((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${user.userName}", java.lang.Object.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_c_005fout_005f7 = _jspx_th_c_005fout_005f7.doStartTag();
     if (_jspx_th_c_005fout_005f7.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
