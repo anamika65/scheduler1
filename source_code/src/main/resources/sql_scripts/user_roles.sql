@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 21, 2013 at 11:20 AM
+-- Generation Time: Jan 03, 2014 at 11:01 PM
 -- Server version: 5.6.12
 -- PHP Version: 5.5.1
 
@@ -32,18 +32,22 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   `role` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `user_roles`
 --
 
 INSERT INTO `user_roles` (`id`, `user_id`, `role`) VALUES
-(4, 5, 'ROLE_ADMIN'),
-(5, 6, 'ROLE_INSTRUCTOR'),
 (6, 7, 'ROLE_USER'),
-(7, 8, 'ROLE_ADMIN'),
-(8, 9, 'ROLE_ADMIN');
+(8, 9, 'ROLE_ADMIN'),
+(9, 10, 'ROLE_USER'),
+(16, 17, 'ROLE_ADMIN'),
+(18, 19, 'ROLE_ADMIN'),
+(19, 20, 'ROLE_ADMIN'),
+(29, 30, 'ROLE_ADMIN'),
+(30, 31, 'ROLE_ADMIN'),
+(31, 32, 'ROLE_USER');
 
 --
 -- Constraints for dumped tables
