@@ -11,7 +11,7 @@
 
 					<!-- URL for adding the catalogue; the new values will be available in controller using parameters -->
 					<c:url var="addUrl" value="../administration/progress/add" />
-				    <form method="POST" action="${addUrl}">
+				    <form method="POST" action="${addUrl}" id="userRegistrationForm">
 
 					<!-- Modal for adding a new catalogue -->						    
 				    <div id="myAddURL" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -71,6 +71,80 @@
 							            </td>
 							        </tr>
 							        <tr>
+					                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+					                        <label class="control-label" > Username: </label>
+					                    </td>
+					                    <td style="vertical-align:baseline;">
+					                        <div class="control-group">
+					                            <div class="controls">
+					                                <input id="usr_name" name="username" type="text" placeholder="Enter Username" required/> 
+					                            </div>
+					                        </div>
+					                    </td>  
+					                    <td>
+					                    	<span class="mappingSuggestion1 miniSugg" ></span>
+					                    </td>                      
+					                </tr>
+					                <tr>
+					                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+					                        <label class="control-label" > Password: </label>
+					                    </td>
+					                    <td style="vertical-align:baseline;">
+					                        <div class="control-group">
+					                            <div class="controls">
+					                                <input name="password" type="password" placeholder="Enter Password" required/> 
+					                            </div>
+					                        </div>
+					                    </td>
+					                </tr>	       
+									<tr>
+					                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+					                        <label class="control-label" > Speciality: </label>
+					                    </td>
+					                    <td style="vertical-align:baseline;">
+					                        <div class="control-group">
+					                            <div class="controls">
+					                                <select   name="specialityID" >
+					                                      <c:forEach items="${specIality}" var="speciality">  
+					                                        <option value="${speciality.specialtyID}">
+					                                             <c:out value="${speciality.name}"/></option>
+					                                        </c:forEach> 
+					                                </select> 
+					                            </div>
+					                        </div>
+					                    </td>
+					                </tr>
+					                <tr>
+					                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+					                        <label class="control-label" > Training System: </label>
+					                    </td>
+					                    <td style="vertical-align:baseline;">
+					                        <div class="control-group">
+					                            <div class="controls">
+					                                <select   name="trainSysId" >
+					                                      <c:forEach items="${trainSystems}" var="trainSystem">  
+					                                        <option value="${trainSystem.train_system_id}">
+					                                             <c:out value="${trainSystem.train_system_name}"/></option>
+					                                        </c:forEach> 
+					                                </select> 
+					                            </div>
+					                        </div>
+					                    </td>
+					                </tr>
+					                <tr>
+					
+					                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+					                        <label class="control-label" for="email">Email Address</label>
+					                    </td>
+					                    <td style="vertical-align:baseline;">
+					                         <div class="control-group">
+					                          <div class="controls">
+					                           <input type="email" name="emailAdd" id="email" placeholder="Your email address">
+					                          </div>
+					                         </div>
+					                    </td>
+					                    </tr>
+                    					 <tr>
 							        	<td class="tdCatalogueType1" style="vertical-align:baseline;">
 											<label class="control-label" > Function: </label>
 										</td>

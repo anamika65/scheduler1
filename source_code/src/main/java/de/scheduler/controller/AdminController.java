@@ -15,6 +15,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -22,6 +24,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -74,7 +79,9 @@ import de.scheduler.util.SpecialtySelector;
  */
 @Controller
 public class AdminController {
-
+		@Resource(name = "sessionFactory")
+		private SessionFactory sessionFactory;
+		
         protected static Logger logger = Logger.getLogger("base controller");
         
         @Resource(name="personService")
@@ -117,7 +124,7 @@ public class AdminController {
         private String birtURL;
         
         public void setBirtURL(String birtURL) {  
-       this.birtURL = birtURL;  
+        	this.birtURL = birtURL;  
         }  
         
         @Resource(name="dSupportOperationService")
@@ -131,6 +138,8 @@ public class AdminController {
         
         @Resource(name="specialtyService")
         private SpecialtyService specService;
+        
+        private String specialityName;
         
         @Autowired
         private JavaMailSender mailSender;
@@ -189,6 +198,20 @@ public class AdminController {
                 
             // Attach specialties to the Model
             this.mapSpecialties(model);
+            //Attach by Anamika
+            // Retrieve current user activity ;first login activitiy =false otherwise true
+            String username = getSessionUser();
+            
+            if(username.equals("anonymousUser")){
+            	specialityName ="No Speciality";
+            	System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		}
+    		else{
+    			specialityName = specService.getByID(username);
+    			System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		} //
             
             // This will resolve to /WEB-INF/jsp/admin/AdminHome.jsp
                 return "admin/AdminHome";
@@ -222,6 +245,20 @@ public class AdminController {
             
                 // Retrieve list of residents for each catalogue, prioritized -> by delegating the call to DSupportOperationService
             Map<OpCatalogue, List<ProjectCatalogStatus>> residentListByCatalogues = dSupportOperationService.getPrioritizedResidents(specialtyID);
+          //Attach by Anamika
+            // Retrieve current user activity ;first login activitiy =false otherwise true
+            String username = getSessionUser();
+            
+            if(username.equals("anonymousUser")){
+            	specialityName ="No Speciality";
+            	System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		}
+    		else{
+    			specialityName = specService.getByID(username);
+    			System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		} //
                 
             // Attach status to the Model
                 model.addAttribute("residentListForCatalogues", residentListByCatalogues);
@@ -232,7 +269,6 @@ public class AdminController {
             List<OpCatalogue> opCatalogues = opsCodeMappingService.getAllOpCatalogue();
             
             List<OpCatalogue> filteredOpCatalogues = opsCodeMappingService.getFilteredOpCatalogue();
-            
             // Attach OpCatalogues to the Model
             model.addAttribute("opCatalogues", opCatalogues);
             model.addAttribute("filteredOpCatalogues", filteredOpCatalogues);
@@ -241,7 +277,7 @@ public class AdminController {
             // This will resolve to /WEB-INF/jsp/admin/DecisionSupport.jsp
                 return "admin/DecisionSupport";
         }
-    
+
     /**
      * Edits an existing operation by delegating the processing to DSupportOperationService.
      *         
@@ -255,14 +291,48 @@ public class AdminController {
      */
     @RequestMapping(value = "/administration/decisionsupport/editOperation", method = RequestMethod.POST)
     public String editOperation(@RequestParam(value="id", required=true) Integer id, 
-                                                    @RequestParam(value="opsc1", required=true) String opsc1,
-                                                    @RequestParam(value="opsc2", required=false) String opsc2,
-                                                    @RequestParam(value="opDate", required=true) Date opDate,
-                                                    @RequestParam(value="op1", required=true) String op1,
-                                                    @RequestParam(value="op2", required=false) String op2,
-                                                    @RequestParam(value="ass1", required=false) String ass1) {
+					    		@RequestParam(value="opsc1Add", required=true) String opsc1,
+					            @RequestParam(value="opsc2Add", required=false) String opsc2,
+					            @RequestParam(value="opDateAdd", required=true) Date opDate,
+					            @RequestParam(value="op1Add", required=true) String op1,
+					            @RequestParam(value="op2Add", required=false) String op2,
+					            @RequestParam(value="ass1Add", required=false) String ass1,
+					            @RequestParam(value="difficultyForFirstOpscode", required=true) String difficultyForFirstOpscode,
+					            @RequestParam(value="difficultyForSecondOpscode", required=false) String difficultyForSecondOpscode,
+					            @RequestParam(value="opscToCountForOp1", required=false) String opscToCountForOp1,
+					            @RequestParam(value="opscToCountForOp2", required=false) String opscToCountForOp2,
+					            @RequestParam(value="opscToCountForAss1", required=false) String opscToCountForAss1
+					            ) {
             logger.debug("Received request to edit decision support operation");
-
+            
+            // We assign the input fields
+            DSupportOperation dSupportOperation = dSupportOperationService.get(id);
+            dSupportOperation.setOpsc1(opsc1);
+            dSupportOperation.setOpsc2(opsc2);
+            dSupportOperation.setOpDate(opDate);
+            dSupportOperation.setOp1(op1);
+            dSupportOperation.setOp2(op2);
+            dSupportOperation.setAss1(ass1);
+            //dSupportOperation.setEntryDate(new Date());
+            dSupportOperation.setOPSC01Difficulty(Integer.parseInt(difficultyForFirstOpscode));
+            dSupportOperation.setOP1Credit(opscToCountForOp1);
+            if(!opsc2.isEmpty() ) {
+                    dSupportOperation.setOPSC02Difficulty(Integer.parseInt(difficultyForSecondOpscode));
+            }
+            if(!op2.isEmpty() ) {
+                    dSupportOperation.setOP2Credit(opscToCountForOp2);
+            }
+            if(!ass1.isEmpty() ) {
+                    dSupportOperation.setAss1Credit(opscToCountForAss1);
+            }
+            
+            
+            
+            /*//System.out.println(opscToCountForOp1);
+            // Delegate to DSupportOperationService to do the mapping of the OPSCode to a catalogue
+            // and the actual add
+            dSupportOperationService.add(dSupportOperation);
+            
             // We load the existing operation
             DSupportOperation dSupportOperation = dSupportOperationService.get(id);
             
@@ -273,16 +343,45 @@ public class AdminController {
             dSupportOperation.setOp1(op1);
             dSupportOperation.setOp2(op2);
             dSupportOperation.setAss1(ass1);
+            */
+            // Delegate to DSupportOperationService for editing
+            dSupportOperationService.edit(dSupportOperation);
+            
+            // This will redirect to /WEB-INF/jsp/admin/DecisionSupport.jsp
+            return "redirect:../decisionsupport";
+        }
+
+    /**
+     * Edits an existing operation to update the chosen difficult operation for a resident
+     *         
+         * @param diffSuppOpId                the id of the current operation to be modified
+         * @param operatedAs                  the position of the resident in the operation : Op1, Op2, Ass1
+         * @param opscToCount                the value indicating if which opsc will be counted as difficult
+     */
+    @RequestMapping(value = "/administration/decisionsupport/updateChosenDiffOp", method = RequestMethod.POST)
+    public String updateChosenDiffOp(@RequestParam(value="diffSuppOpId", required=true) String diffSuppOpId, 
+                                                    @RequestParam(value="operatedAs", required=true) String operatedAs,
+                                                    @RequestParam(value="opscToCount", required=false) String opscToCount) {
+            logger.debug("Received request to edit decision support operation");
+
+            // We load the existing operation
+            DSupportOperation dSupportOperation = dSupportOperationService.get(Integer.parseInt(diffSuppOpId));
+            
+            //System.out.println("Update Difficult : " + diffSuppOpId + " : " + operatedAs + " : " + opscToCount);
+            //set the values
+            if(operatedAs.equals("Op1")) dSupportOperation.setOP1ChosenDifficult(opscToCount);
+            if(operatedAs.equals("Op2")) dSupportOperation.setOP2ChosenDifficult(opscToCount);
+            if(operatedAs.equals("Ass1")) dSupportOperation.setAss1ChosenDifficult(opscToCount);
             
             // Delegate to DSupportOperationService for editing
             dSupportOperationService.edit(dSupportOperation);
             
                 // This will redirect to /WEB-INF/jsp/admin/DecisionSupport.jsp
-                return "redirect:../decisionsupport";
+                return "redirect:../progress";
         }
     
     /**
-     * Edits an existing operation by delegating the processing to DSupportOperationService.
+     * Adds an decision support operation by delegating the processing to DSupportOperationService.
      *         
          * @param id                        the id of the current operation to be added
          * @param opsc1                        the value for the operation code1
@@ -355,33 +454,108 @@ public class AdminController {
         }
     
     @RequestMapping(value = "/administration/progress", method = RequestMethod.GET)
-    public String showTrainingProgress(@CookieValue(value="selectedSpeciality", defaultValue="") String cookie, Model model) {
-                logger.debug("Received request to show training progress");
+    public String showTrainingProgress(@CookieValue(value="selectedSpeciality", defaultValue="") String cookie, Model model, Principal principal) {
+            logger.debug("Received request to show training progress");
             // Attach specialties to the Model
             this.mapSpecialties(model);
                 
             //load the specialty id from the cookie 
             int specialtyId = SpecialtySelector.getSpecialtyId(cookie, specialtyLoader.getFirstSpecialtyID());
             
-                // try to reactivate residents that are in vacation.
-                projectService.reactivateOnVacationUsers(new Date(), specialtyId);
-                // Retrieve status for projects, for each catalogue by delegating the call to ProjectService
-            Map<ProjectPersonInfo, List<ProjectCatalogStatus>> projectsInfo = projectService.getProjectsInformation(specialtyId);
-            Map<ProjectPersonInfo, List<ProjectCatalogStatus>> activeResidents = new TreeMap<ProjectPersonInfo, List<ProjectCatalogStatus>>(ProjectPersonInfoCmp.INSTANCE);
-            Map<ProjectPersonInfo, List<ProjectCatalogStatus>> inactiveResidents = new TreeMap<ProjectPersonInfo, List<ProjectCatalogStatus>>(ProjectPersonInfoCmp.INSTANCE);
+            // try to reactivate residents that are in vacation.
+            projectService.reactivateOnVacationUsers(new Date(), specialtyId);
+            // Retrieve status for projects, for each catalogue by delegating the call to ProjectService
             
-            for(Entry<ProjectPersonInfo, List<ProjectCatalogStatus>> entry : projectsInfo.entrySet()) {
-                    if(entry.getKey().getProject().isActive()) {
-                            activeResidents.put(entry.getKey(), entry.getValue());
-                    } else {
-                            inactiveResidents.put(entry.getKey(), entry.getValue());
-                    }
+            Map<ProjectPersonInfo, List<ProjectCatalogStatus>> projectsInfo = projectService.getProjectsInformation(specialtyId);
+            
+            // Retrieve current user and role
+            String username = principal.getName(); //"Dirk"; // This will be fixed after registration process is complete
+            User currentUser = usrMngmentCRUDServiceIntrface.getUserFromUsername(username);
+            UserRole currentUserRole = usrMngmentCRUDServiceIntrface.getUserRole(usrMngmentCRUDServiceIntrface.getRoleId(currentUser.getId()));
+            String loggedUserRole = currentUserRole.getRole();
+            
+            //User ur = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            //String nme = ur.getUsername(); //get logged in username
+            
+            //System.out.println("currentUsr = " + username);
+            //System.out.println("USer_id = " + currentUser.getId());
+            //System.out.println("USer_role_id = " + usrMngmentCRUDServiceIntrface.getRoleId(currentUser.getId()));
+            //System.out.println("USer_role = " + loggedUserRole);
+            if(loggedUserRole.equals("ROLE_ADMIN") ) {
+            
+            	Map<ProjectPersonInfo, List<ProjectCatalogStatus>> activeResidents = new TreeMap<ProjectPersonInfo, List<ProjectCatalogStatus>>(ProjectPersonInfoCmp.INSTANCE);
+                Map<ProjectPersonInfo, List<ProjectCatalogStatus>> inactiveResidents = new TreeMap<ProjectPersonInfo, List<ProjectCatalogStatus>>(ProjectPersonInfoCmp.INSTANCE);
+                
+	            for(Entry<ProjectPersonInfo, List<ProjectCatalogStatus>> entry : projectsInfo.entrySet()) {
+	                    if(entry.getKey().getProject().isActive()) {
+	                            activeResidents.put(entry.getKey(), entry.getValue());
+	                    } else {
+	                            inactiveResidents.put(entry.getKey(), entry.getValue());
+	                    }
+	            }
+            
+	            // Attach status to the Model
+	            model.addAttribute("activeProjects", activeResidents);
+	            model.addAttribute("inactiveProjects", inactiveResidents);
+	            //System.out.println("Total number of active projects = " + activeResidents.size());
+	            //System.out.println("Total number of inactive projects = " + inactiveResidents.size());
+	            
+            } else { //ROLE_USER :resident
+            	Map<ProjectPersonInfo, List<ProjectCatalogStatus>> thisResident = new TreeMap<ProjectPersonInfo, List<ProjectCatalogStatus>>(ProjectPersonInfoCmp.INSTANCE);
+                
+	            for(Entry<ProjectPersonInfo, List<ProjectCatalogStatus>> entry : projectsInfo.entrySet()) {
+	            	//System.out.println("a = " + entry.getKey().getProject().getNickname() + " b = " + personService.getPersonForUserId(currentUser.getId()).getNickname());
+	            	if(entry.getKey().getProject().getNickname().equals(personService.getPersonForUserId(currentUser.getId()).getNickname()) && entry.getKey().getProject().isActive()) {
+	            		thisResident.put(entry.getKey(), entry.getValue());
+	            		//System.out.println("equal!");
+	                } 
+	            }
+            
+	            // Attach status to the Model
+	            model.addAttribute("thisProject", thisResident);
+	            //System.out.println("Total number of projects = " + thisProject.size());
+	            
+	            //For difficult operations
+	            List<DSupportOperation> difficultOperations = dSupportOperationService.getAllForUser(username);
+	            model.addAttribute("difficultOperations", difficultOperations);
+	            
+	            List<String> operatedAs = new ArrayList<String>();
+	            for(DSupportOperation difficultOperation : difficultOperations) { 
+	            	if(difficultOperation.getOp1() == username) {
+	            		operatedAs.add("Op1");
+	                } else if(difficultOperation.getOp2() == username) {
+	                    operatedAs.add("Op2");
+	                } else {
+	                    operatedAs.add("Ass1");
+	                }
+	            }
+	            
+	            model.addAttribute("nameUser", username);
             }
-                // Attach status to the Model
-                model.addAttribute("activeProjects", activeResidents);
-                model.addAttribute("inactiveProjects", inactiveResidents);
-                model.addAttribute("birtURL", birtURL);
-                // This will resolve to /WEB-INF/jsp/admin/TrainingProgress.jsp
+            List<Specialty> specialityID = specService.getAll();
+            //Attach by Anamika
+            // Retrieve current user activity ;first login activitiy =false otherwise true
+            String userName = getSessionUser();
+            
+            if(userName.equals("anonymousUser")){
+            	specialityName ="No Speciality";
+            	System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		}
+    		else{
+    			specialityName = specService.getByID(username);
+    			System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		} //
+            
+            List<TrainingSystem> trainSystems = trSystemService.getAllTrainSystem();
+            model.addAttribute("trainSystems", trainSystems); 
+            //System.out.println(specialityID);
+            //Attach specialities to the Model 
+            model.addAttribute("specIality", specialityID);  
+            model.addAttribute("userRole", loggedUserRole);
+            model.addAttribute("birtURL", birtURL);
+            // This will resolve to /WEB-INF/jsp/admin/TrainingProgress.jsp
             return "admin/TrainingProgress";
         }
 
@@ -398,6 +572,11 @@ public class AdminController {
                                     @RequestParam(value="name", required=true) String name,
                                         @RequestParam(value="firstName", required=true) String firstName,
                                         @RequestParam(value="nickname", required=true) String nickname,
+                                        @RequestParam(value="username", required=true) String username,
+                                        @RequestParam(value="password", required=true) String password,
+                                        @RequestParam(value="specialityID", required=true) Integer specialityID,
+                                        @RequestParam(value="trainSysId", required=true) Integer trainSysId,
+                                        @RequestParam(value="emailAdd", required=true) final String emailID,
                                         @RequestParam(value="function", required=true) String function,
                                         @RequestParam(value="startDate", required=true) Date startDate,
                                         @RequestParam(value="duration", required=true) Integer duration,
@@ -406,7 +585,48 @@ public class AdminController {
                 
                 //load the specialty id from the cookie 
             int specialtyId = SpecialtySelector.getSpecialtyId(cookie, specialtyLoader.getFirstSpecialtyID());
-                
+            
+          //Add a new User
+            User user = new User();
+            user.setActive(true); //sets false on registration;Updates on first login
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setSpecialityID(specialityID);
+            user.setTrainingSystemID(trainSysId);
+            user.setEmailID(emailID);
+            user.setRegular(0);//added later
+            userRgistrationService.addUser(user);
+            
+            Integer userNewId = user.getId();
+            //Add User Roles
+            UserRole user_Role = new UserRole();
+            user_Role.setRole("ROLE_RESIDENT");
+            user_Role.setUser(user);
+            userRgistrationService.addUserRole(user_Role);
+            
+            
+            //Create a simple Email Object
+            SimpleMailMessage email = new SimpleMailMessage();
+            email.setTo(emailID);
+            email.setSubject("Welcome TO MRI");
+            email.setText("Welcome User....You are now Registered.Thank you for your Consideration");
+            
+            //sends the email
+            //mailSender.send(email);
+            //////
+            mailSender.send(new MimeMessagePreparator() {
+
+            	@Override
+            	public void prepare(MimeMessage mimeMessage) throws Exception {
+            	MimeMessageHelper messageHelper = new MimeMessageHelper(
+            	mimeMessage, true, "UTF-8");
+            	messageHelper.setTo(emailID);
+            	messageHelper.setSubject("Welcome TO MRI");
+            	messageHelper.setText("Welcome User....You are now Registered.Thank you for your Consideration");
+            	}
+
+            	});
+                     
             if(opCatalogueService.isAddPersonAllowed(specialtyId)) {
                     Person person = new Person();
                     person.setFirstName(firstName);
@@ -414,16 +634,17 @@ public class AdminController {
                     person.setFunction(function);
                     person.setTitle(title);
                     person.setNickname(nickname);
+                    person.setUsername(username);
                     // Call PersonService to do the actual adding of a person
                     personService.add(person);
                     
                     Integer newPersID = person.getPersID();
                     
                     Project project = new Project();
+                    project.setPersID(newPersID);
                     project.setStartDate(startDate);
                     project.setDuration(duration);
                     project.setCapacity(capacity);
-                    project.setPersID(newPersID);
                     project.setActive(true);
                     project.setNickname(nickname);
                     project.setSpecialtyID(specialtyId);
@@ -436,8 +657,9 @@ public class AdminController {
                     //delegates the creation of DUMMY opBlock to OperationBlockGenerator
                     operationBlockGeneratorService.generateDummyOpBlockForProject(newProjectID);
                     
+                    
                     //delegates the creation of NORMAL opBlocks to OperationBlockGenerator
-                    operationBlockGeneratorService.generateInitialOpBlocks(newProjectID, specialtyId);
+                    operationBlockGeneratorService.generateInitialOpBlocks(newProjectID, specialtyId, trainSysId);
             }
 
             // This will redirect to /WEB-INF/jsp/admin/TrainingProgress.jsp
@@ -551,6 +773,20 @@ public class AdminController {
 
                 UploadForm form = new UploadForm();
                 model.addAttribute("uploadForm", form);
+              //Attach by Anamika
+                // Retrieve current user activity ;first login activitiy =false otherwise true
+                String username = getSessionUser();
+                
+                if(username.equals("anonymousUser")){
+                	specialityName ="No Speciality";
+                	System.out.println("Sp:" +specialityName);
+        			model.addAttribute("specialityName",specialityName);
+        		}
+        		else{
+        			specialityName = specService.getByID(username);
+        			System.out.println("Sp:" +specialityName);
+        			model.addAttribute("specialityName",specialityName);
+        		} //
                 return "admin/Import";
         }
     
@@ -576,7 +812,21 @@ public class AdminController {
             List<String> TrainSysNameCatalogue = trSystemService.getTrainSystemNameForCatalogue();
                 //List<TrainingSystem> TrainSysNameCatalogue = trSystemService.getTrainSystemNameForCatalogue();
             List<Integer> TrainSysIDCatalogue = trSystemService.getTrainSystemIDForCatalogue(TrainSysNameCatalogue);
-            System.out.println(TrainSysNameCatalogue);
+            //System.out.println(TrainSysNameCatalogue);
+            //Attach by Anamika
+            // Retrieve current user activity ;first login activitiy =false otherwise true
+            String username = getSessionUser();
+            
+            if(username.equals("anonymousUser")){
+            	specialityName ="No Speciality";
+            	System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		}
+    		else{
+    			specialityName = specService.getByID(username);
+    			System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		} //
                 // Attach catalogues by TrainSystem to the Model 
                 model.addAttribute("opCataloguesByTrain_ID", catalogueByTrainSystem);
                 
@@ -722,35 +972,33 @@ public class AdminController {
             trSystemService.addTrSystem(trSystem);
                 
                 // This will redirect to /WEB-INF/jsp/admin/Catalogues.jsp
-                return "redirect:../catalogues";
-        }
+            return "redirect:../catalogues";
+    }
     @RequestMapping(value = "/administration/settings", method = RequestMethod.GET)
     public String showSettings(Model model) {
             logger.debug("Received request to show settings");
+            //Attach by Anamika
+            // Retrieve current user activity ;first login activitiy =false otherwise true
+            String username = getSessionUser();
+            
+            if(username.equals("anonymousUser")){
+            	specialityName ="No Speciality";
+            	System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		}
+    		else{
+    			specialityName = specService.getByID(username);
+    			System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		} //
             
             List<Configuration> configs = configurationService.getAll();
             for(Configuration config : configs) { 
                     model.addAttribute(config.getName(), config.getValue());
             }
             
-            String username = "Dirk"; // This will be fixed after registration process is complete
-            List<DSupportOperation> difficultOperations = dSupportOperationService.getAllForUser(username);
-            model.addAttribute("difficultOperations", difficultOperations);
-            
-            List<String> operatedAs = new ArrayList<String>();
-            for(DSupportOperation difficultOperation : difficultOperations) { 
-                    if(difficultOperation.getOp1() == username) {
-                            operatedAs.add("Op1");
-                    } else if(difficultOperation.getOp2() == username) {
-                            operatedAs.add("Op2");
-                    } else {
-                            operatedAs.add("Ass1");
-                    }
-            }
-            
-            model.addAttribute("nameUser", username);
-                // This will resolve to /WEB-INF/jsp/admin/Settings.jsp
-                return "admin/Settings";
+            // This will resolve to /WEB-INF/jsp/admin/Settings.jsp
+            return "admin/Settings";
         }
     
     @RequestMapping(value = "/administration/settings/save", method = RequestMethod.POST)
@@ -798,8 +1046,23 @@ public class AdminController {
             List<UserInfo> userDetail = usrMngmentCRUDServiceIntrface.getAllUsers(currentUser);
             
             List<Specialty> specialityID = specService.getAll();
+            //Attach by Anamika
+            // Retrieve current user activity ;first login activitiy =false otherwise true
+            String username = getSessionUser();
             
-            System.out.println(specialityID);
+            if(username.equals("anonymousUser")){
+            	specialityName ="No Speciality";
+            	System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		}
+    		else{
+    			specialityName = specService.getByID(username);
+    			System.out.println("Sp:" +specialityName);
+    			model.addAttribute("specialityName",specialityName);
+    		} //
+            
+            List<TrainingSystem> trainSystems = trSystemService.getAllTrainSystem();
+            model.addAttribute("trainSystems", trainSystems); 
             //Attach specialities to the Model 
             model.addAttribute("specIality", specialityID);
             // Attach Users to the Model
@@ -838,18 +1101,21 @@ public class AdminController {
                         @RequestParam(value="password", required=true) String password,
                         @RequestParam(value="user_role", required=true) String user_role,
                         @RequestParam(value="specialityID", required=true)Integer specialityID,
+                        @RequestParam(value="trainSysId", required=true)Integer trainSysId,
                         @RequestParam(value="emailAdd", required=true,defaultValue="") final String emailID
                         ) {
                 logger.debug("Received request for registration");
                 
-                //System.out.println(specialityID);
+                System.out.println("SpecialityId"+specialityID);
                 //Add a new User
                 User user = new User();
-                user.setActive(true);
+                user.setActive(true); //sets false on registration;Updates on first login
                 user.setUsername(username);
                 user.setPassword(password);
                 user.setSpecialityID(specialityID);
+                user.setTrainingSystemID(trainSysId);
                 user.setEmailID(emailID);
+                user.setRegular(0);//added later
                 userRgistrationService.addUser(user);
                 
                 Integer userNewId = user.getId();
@@ -985,5 +1251,36 @@ public class AdminController {
                 if(updateSuccess) return clValue.toString();
                 else return "-1";
         }
+    /**
+     * Check Existing User Name
+     * @param userName
+     * @return
+     */
+    @RequestMapping(value = "/administration/crud/checkUser", method = RequestMethod.POST)
+    public @ResponseBody String checkExistingUser(String usrNameValue) { 	
+    	String exists = usrMngmentCRUDServiceIntrface.getIdFromUserName(usrNameValue);
+    	//System.out.println("Existing"+ exists);
+    	return exists;	
+    }
+    
+    /**
+     * Get the current user information from context
+     * @return username
+     */
+    public static String getSessionUser() {
+ 	    String userName = null;
+ 	    SecurityContext securityContext = SecurityContextHolder.getContext();
+ 	    if(securityContext != null) {
+ 	        Authentication authentication = securityContext.getAuthentication();
+ 	        if(authentication != null) {
+ 	            String authenticationName = authentication.getName();
+ 	            if(authenticationName != null) {
+ 	                userName = authenticationName;
+ 	            }
+ 	        }
+ 	    }
+
+ 	    return userName;
+ 	}
 
 }

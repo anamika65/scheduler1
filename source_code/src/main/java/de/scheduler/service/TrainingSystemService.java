@@ -28,7 +28,11 @@ protected static Logger logger = Logger.getLogger("service");
 	public static String GET_ALLOW_DELETE = " SELECT count(*) as allowed" +
 			" FROM opblocks" +
 			" WHERE CatalogID = :catalogID";
+
+	public static String GET_ALL_TRAINING_SYSTEM = " SELECT *" + 
+                                                " FROM training_systems ts";
 	
+
 	public static String GET_ALL_TRAIN_SYSTEM = " SELECT ts.train_system_id as trainID" + 
                                                 " FROM training_systems ts" + " ,opcatalogues op " + 
                                                 " WHERE ts.train_system_id = op.TrainSystemID" ;
@@ -94,7 +98,7 @@ protected static Logger logger = Logger.getLogger("service");
 		return OpCatalogueByTrainSys;
 		
 	}
-	
+
 	/**
 	 * 
 	 * @return List of Training System Name
@@ -108,6 +112,21 @@ protected static Logger logger = Logger.getLogger("service");
 				List<String> train_Sys_name = query1.list();
 	
 	return train_Sys_name;	
+	}
+
+	/**
+	 * 
+	 * @return List of Training System Name
+	 */
+	public List<TrainingSystem> getAllTrainSystem(){
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+
+		// Create a Hibernate query (HQL)
+		Query query = session.createQuery("FROM TrainingSystem");
+
+		// Retrieve all
+		return query.list();	
 	}
 	/**
 	 * 

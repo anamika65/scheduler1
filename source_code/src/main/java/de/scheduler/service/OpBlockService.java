@@ -156,7 +156,8 @@ public class OpBlockService {
 		
 		// Retrieve session from Hibernate
 		Session session = sessionFactory.getCurrentSession();
-
+		
+		System.out.println("Project ID:"+projectID);
 		// Create a query (HQL)
 		Query query = session
 				.createQuery("FROM  OpBlock WHERE ProjID = :projectID AND Type like :type");

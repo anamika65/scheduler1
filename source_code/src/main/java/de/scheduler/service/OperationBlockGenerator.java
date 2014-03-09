@@ -127,7 +127,9 @@ public class OperationBlockGenerator {
 		// compute the new block size for operations
 		int[] newOperationBlockSizes = getNoOfOpBlocks(opBlocksSize,
 				newDesiredSize);
+		System.out.println("newOperationBlockSizes 1 "+newOperationBlockSizes);
 		if(newOperationBlockSizes != null) {
+			System.out.println("newOperationBlockSizes 2 "+newOperationBlockSizes);
 			// generate the actual block operations
 			List<OpBlock> easyBlocks = generateNewOpBlockSizes(
 					newOperationBlockSizes, p, catalogID, levelOfDifficulty);
@@ -287,9 +289,12 @@ public class OperationBlockGenerator {
 	 * 
 	 * @return 		true, if successful
 	 */
-	public boolean generateInitialOpBlocks(int projectID, int specialtyID) {
+	//public boolean generateInitialOpBlocks(int projectID, int specialtyID) {
+	public boolean generateInitialOpBlocks(int projectID, int specialtyID, int trainSysId) {
 		Project project = projectService.get(projectID);		
-		List<OpCatalogue> opCatalogues = catalogService.getAllForSpecialty(specialtyID);
+		//List<OpCatalogue> opCatalogues = catalogService.getAllForSpecialty(specialtyID);
+		List<OpCatalogue> opCatalogues = catalogService.getAllForSpecialtyAndTrainSystem(specialtyID, trainSysId);
+		System.out.println("******************"+opCatalogues.size());
 		
 		if (opCatalogues == null) {
 			throw new IllegalArgumentException("No catalogues found!");
@@ -313,6 +318,7 @@ public class OperationBlockGenerator {
 				// generates the easy op blocks and the predecessors
 				int easyOpBlocks = cat.getLeve1OpNo();
 				if (easyOpBlocks != 0) {
+					System.out.println("Level1 "+opCatalogues.size());
 						generateAndInsertOperationBlocks(catalogID, blockSize,
 								isSpecialTrunk, project, dummyOperation, easyOpBlocks,
 								DifficultyLevel.EASY);
@@ -321,6 +327,7 @@ public class OperationBlockGenerator {
 				// generates the normal op blocks and the predecessors
 				int normalOpBlocks = cat.getLeve2OpNo();
 				if (normalOpBlocks != 0) {
+					System.out.println("Level2 "+opCatalogues.size());
 					generateAndInsertOperationBlocks(catalogID, blockSize,
 							isSpecialTrunk, project, dummyOperation, normalOpBlocks,
 							DifficultyLevel.NORMAL);

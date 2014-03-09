@@ -37,6 +37,11 @@ public class PersonService {
 																	" personnel pers inner join project prj ON pers.PersID = prj.PersID" +
 															  " WHERE prj.SpecialtyID = :specialtyID" +
 															  " AND prj.Active = 1";
+	
+	public static String GET_PERSON_FOR_USERID =  " SELECT * " +
+			  " FROM " +
+					" personnel " +
+			  " WHERE UserID = :userId";
 
 	/**
 	 * Retrieves all persons
@@ -106,7 +111,7 @@ public class PersonService {
 		// Retrieve all
 		return activePersonsForSpecialty;
 	}
-	
+
 	/**
 	 * Retrieves a single person
 	 * 
@@ -124,6 +129,30 @@ public class PersonService {
 		Person person = (Person) session.get(Person.class, id);
 		
 		return person;
+	}
+
+	/**
+	 * Retrieves a single person
+	 * 
+	 * @param id		the user id
+	 * 
+	 * @return 		a person
+	 */
+	public Person getPersonForUserId( Integer id ) {
+		logger.debug("Retrieving person by user id");
+
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+		
+		// Create a Hibernate query (HQL)
+		Query query = session.createSQLQuery(GET_PERSON_FOR_USERID)
+											.addEntity(Person.class)
+											.setParameter("userId", id);
+				
+		List<Person> activePersonsForSpecialty = query.list();
+		if (activePersonsForSpecialty.isEmpty()) return null;
+
+		return activePersonsForSpecialty.get(0);
 	}
 	
 	/**
@@ -171,5 +200,6 @@ public class PersonService {
 		// Save updates
 		session.update(person);
 	}
+
 
 }

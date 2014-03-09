@@ -29,10 +29,16 @@ public class OpCatalogueService {
 	@Resource(name="sessionFactory")
 	private SessionFactory sessionFactory;
 	
-	
+
 	public static String GET_ALL_CATALOGUES_FOR_SPECIALTY = " SELECT * " +
 														  " FROM opcatalogues" +
 														  " WHERE SpecialtyID = :specialtyID"  +
+														  " ORDER BY opcatalogues.Name ASC";
+
+	public static String GET_ALL_CATALOGUES_FOR_SPECIALTY_AND_TRAINING_SYSTEM = " SELECT * " +
+														  " FROM opcatalogues" +
+														  " WHERE SpecialtyID = :specialtyID"  +
+														  " AND TrainSystemID = :trainSystemID"  +
 														  " ORDER BY opcatalogues.Name ASC";
 	
 	public static String GET_ALLOW_DELETE = " SELECT count(*) as allowed" +
@@ -60,7 +66,7 @@ public class OpCatalogueService {
 		// Retrieve all
 		return query.list();
 	}
-	
+
 	/**
 	 * Retrieves all OpCatalogues for a specialty
 	 * 
@@ -79,6 +85,37 @@ public class OpCatalogueService {
 		Query query = session.createSQLQuery(GET_ALL_CATALOGUES_FOR_SPECIALTY)
 									.addEntity(OpCatalogue.class)
 									.setParameter("specialtyID", specialtyID);
+		
+		List<OpCatalogue> cataloguesForSpecialty = query.list();
+		//Sakib
+		/*for (OpCatalogue opCat : cataloguesForSpecialty) {
+			this.setAllowDelete(opCat);
+		}*/
+		
+		// Retrieve all
+		return cataloguesForSpecialty;
+	}
+
+	/**
+	 * Retrieves all OpCatalogues for a specialty
+	 * 
+	 * @param specialtyID		the specialty id
+	 * @param trainSysId		the Training system id
+	 * 
+	 * @return 		a list
+	 */
+	public List<OpCatalogue> getAllForSpecialtyAndTrainSystem(Integer specialtyID, Integer trainSysId) {
+		
+		logger.debug("Retrieving all opcatalogues for specialty");
+		
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+		
+		// Create a Hibernate query
+		Query query = session.createSQLQuery(GET_ALL_CATALOGUES_FOR_SPECIALTY_AND_TRAINING_SYSTEM)
+									.addEntity(OpCatalogue.class)
+									.setParameter("specialtyID", specialtyID)
+									.setParameter("trainSystemID", trainSysId);
 		
 		List<OpCatalogue> cataloguesForSpecialty = query.list();
 		for (OpCatalogue opCat : cataloguesForSpecialty) {

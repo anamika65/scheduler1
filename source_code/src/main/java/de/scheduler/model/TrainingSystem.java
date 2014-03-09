@@ -15,10 +15,10 @@ public class TrainingSystem {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "train_system_id")
 	private Integer train_system_id;
-	
+
 	@Column(name = "train_system_name")
 	private String train_system_name;
-
+	
 	public Integer getTrain_system_id() {
 		return train_system_id;
 	}
@@ -34,7 +34,7 @@ public class TrainingSystem {
 	public void setTrain_system_name(String train_system_name) {
 		this.train_system_name = train_system_name;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

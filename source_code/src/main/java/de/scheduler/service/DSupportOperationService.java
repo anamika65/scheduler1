@@ -54,6 +54,9 @@ public class DSupportOperationService {
 								", dsop.OP1Credit" +
 								", dsop.OP2Credit" +
 								", dsop.Ass1Credit" +
+								", dsop.OP1ChosenDifficult" +
+								", dsop.OP2ChosenDifficult" +
+								", dsop.Ass1ChosenDifficult" +
 						" FROM " +
 								" dSupportOperations dsop inner join project prj ON dsop.Op1 = prj.Nickname" +
 						" WHERE " +
@@ -77,6 +80,9 @@ public class DSupportOperationService {
 								", dsop.OP1Credit" +
 								", dsop.OP2Credit" +
 								", dsop.Ass1Credit" +
+								", dsop.OP1ChosenDifficult" +
+								", dsop.OP2ChosenDifficult" +
+								", dsop.Ass1ChosenDifficult" +
 						" FROM " +
 								" dSupportOperations dsop " +
 						" WHERE " +
@@ -307,6 +313,8 @@ public class DSupportOperationService {
 		// Retrieve existing decision support operation via id
 		DSupportOperation existingDSupportOperation = (DSupportOperation) session.get(DSupportOperation.class, dSupportOperation.getdSuppOpId());
 		
+		//System.out.println("++++++"+dSupportOperation.getOpDate());
+		
 		// Assign updated values to this decision support operation
 		existingDSupportOperation.setOpsc1(dSupportOperation.getOpsc1());
 		existingDSupportOperation.setOpsc2(dSupportOperation.getOpsc2());
@@ -314,7 +322,18 @@ public class DSupportOperationService {
 		existingDSupportOperation.setOp1(dSupportOperation.getOp1());
 		existingDSupportOperation.setOp2(dSupportOperation.getOp2());
 		existingDSupportOperation.setAss1(dSupportOperation.getAss1());
-		existingDSupportOperation.setEntryDate(dSupportOperation.getEntryDate());
+		
+		//Sakib added later for extra fields of difficulty
+		existingDSupportOperation.setOPSC01Difficulty(dSupportOperation.getOPSC01Difficulty());
+		existingDSupportOperation.setOPSC02Difficulty(dSupportOperation.getOPSC02Difficulty());
+		existingDSupportOperation.setOP1Credit(dSupportOperation.getOP1Credit());
+		existingDSupportOperation.setOP2Credit(dSupportOperation.getOP2Credit());
+		existingDSupportOperation.setAss1Credit(dSupportOperation.getAss1Credit());
+		existingDSupportOperation.setOP1ChosenDifficult(dSupportOperation.getOP1ChosenDifficult());
+		existingDSupportOperation.setOP2ChosenDifficult(dSupportOperation.getOP2ChosenDifficult());
+		existingDSupportOperation.setAss1ChosenDifficult(dSupportOperation.getAss1ChosenDifficult());
+                
+        //existingDSupportOperation.setEntryDate(dSupportOperation.getEntryDate());
 		
 		// Map OPSCode to Catalogue
     	String catalogueInformation = this.getCatalogueForOpscode(dSupportOperation.getOpsc1());

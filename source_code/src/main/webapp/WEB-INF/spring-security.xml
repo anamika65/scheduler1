@@ -19,7 +19,7 @@
 		<security:intercept-url pattern="/scheduler/persons"
 			access="hasRole('ROLE_ADMIN')" />	
 		<security:intercept-url pattern="/scheduler/administration/*"
-			access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />	
+			access="hasAnyRole('ROLE_ADMIN','ROLE_RESIDENT','ROLE_INSTRUCTOR')" />	
 			
 			
 		<security:form-login login-page="/scheduler/login"

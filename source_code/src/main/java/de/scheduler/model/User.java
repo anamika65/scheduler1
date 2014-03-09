@@ -34,6 +34,20 @@ public class User {
 	
 	@Column(name= "SpecialtyID")
 	private Integer specialityID;
+	
+	@Column(name= "TrainingSystemID")
+	private Integer trainingSystemID;
+	
+	@Column(name= "regular")
+	private Integer regular;
+	
+	public Integer getRegular() {
+		return regular;
+	}
+
+	public void setRegular(Integer regular) {
+		this.regular = regular;
+	}
 
 	public String getEmailID() {
 		return emailID;
@@ -42,7 +56,15 @@ public class User {
 	public void setEmailID(String emailID) {
 		this.emailID = emailID;
 	}
-	
+
+	public Integer getTrainingSystemID() {
+		return trainingSystemID;
+	}
+
+	public void setTrainingSystemID(Integer trainingSystemID) {
+		this.trainingSystemID = trainingSystemID;
+	}
+
 	public Integer getSpecialityID() {
 		return specialityID;
 	}
@@ -82,6 +104,5 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 
 }

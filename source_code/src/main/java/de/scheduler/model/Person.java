@@ -31,6 +31,9 @@ public class Person {
 	@Column(name = "Nickname")
 	private String nickname;
 	
+	@Column(name = "Username")
+	private String username;
+	
 	public Integer getPersID() {
 		return persID;
 	}
@@ -77,6 +80,14 @@ public class Person {
 
 	public String getNickname() {
 		return nickname;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 

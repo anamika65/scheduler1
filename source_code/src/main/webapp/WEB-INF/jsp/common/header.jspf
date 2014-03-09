@@ -7,15 +7,9 @@
 				<img align="left" src = "../../resources/images/header.png"/>			
 			</c:if>
 			
-			<p style = "padding: 7px 0px 0px 0px; height: 110px; font-size: 13px; color: #FFFFFF; font-weight: normal">
-				<c:if test="${specialties != null}">
-					Specialization
-					<select id="chosenSpecialty" name="chosenSpecialty">
-						<c:forEach items="${specialties}" var="specialty">  
-				            <option value="${specialty.specialtyID}"><c:out value="${specialty.name}"/></option>  
-				     	</c:forEach> 
-			     	</select> 
-		     	</c:if>
+			<p style = "padding: 7px 0px 0px 0px; height: 110px; font-size: 15px; color: #FFFFFF; font-weight: normal">
+			<em>Specialization</em> </br>
+				<input type="text" style="width: 120px; vertical-align: baseline" value="${specialityName}" disabled/>
 			</p>
 		</h1>		
 		
@@ -47,10 +41,10 @@
 					   	<c:if test="${headerGoSchedule != null}">
    					   		<li><a href="${headerGoSchedule}">Go to schedule view</a></li>
 					   	</c:if>
-					   	<sec:authorize ifNotGranted="ROLE_ADMIN,ROLE_USER,ROLE_INSTRUCTOR">
+					   	<sec:authorize ifNotGranted="ROLE_ADMIN,ROLE_RESIDENT,ROLE_INSTRUCTOR">
 					   		<li><a href="<c:url value='/scheduler/login'/>">Login</li> 
 					   	</sec:authorize>
-					   	<sec:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER" >
+					   	<sec:authorize ifAnyGranted="ROLE_ADMIN,ROLE_RESIDENT,ROLE_INSTRUCTOR" >
 					   		<c:url value="/j_spring_security_logout" var="logOutUrl" />
 					   		<li><a href="${logOutUrl}">Logout</a></li>
 					   	</sec:authorize>

@@ -57,6 +57,15 @@ public class DSupportOperation {
 	@Column(name = "Ass1Credit")
 	private String ass1Credit;
 
+	@Column(name = "OP1ChosenDifficult")
+	private String oP1ChosenDifficult;
+
+	@Column(name = "OP2ChosenDifficult")
+	private String oP2ChosenDifficult;
+	
+	@Column(name = "Ass1ChosenDifficult")
+	private String ass1ChosenDifficult;
+
 	@Column(name = "EntryDate")
 	private Date entryDate;
 	
@@ -165,6 +174,30 @@ public class DSupportOperation {
 
 	public void setAss1Credit(String ass1Credit) {
 		this.ass1Credit = ass1Credit;
+	}
+
+	public String getOP1ChosenDifficult() {
+		return oP1ChosenDifficult;
+	}
+
+	public void setOP1ChosenDifficult(String oP1ChosenDifficult) {
+		this.oP1ChosenDifficult = oP1ChosenDifficult;
+	}
+
+	public String getOP2ChosenDifficult() {
+		return oP2ChosenDifficult;
+	}
+
+	public void setOP2ChosenDifficult(String oP2ChosenDifficult) {
+		this.oP2ChosenDifficult = oP2ChosenDifficult;
+	}
+
+	public String getAss1ChosenDifficult() {
+		return ass1ChosenDifficult;
+	}
+
+	public void setAss1ChosenDifficult(String ass1ChosenDifficult) {
+		this.ass1ChosenDifficult = ass1ChosenDifficult;
 	}
 
 	public Date getEntryDate() {

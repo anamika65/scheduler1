@@ -14,6 +14,10 @@ public interface UsrMngmentCRUDServiceIntrface {
 	
 	public User get( Integer id );
 	
+	public User getUserFromUsername( String username );
+	
+	public String getIdFromUserName(String userName); 
+	
 	public void updateUsers(User user);
 	
 	public void updateUserRole(UserRole usrRole);
@@ -21,6 +25,11 @@ public interface UsrMngmentCRUDServiceIntrface {
 	public Integer getRoleId( Integer id );
 	
 	public UserRole getUserRole( Integer id );
+	
+	public boolean getUserActivity(String userName);
+	
+	public String checkCurrentPassword(String currPassValue, String userName);
+	
 	
 	
 }

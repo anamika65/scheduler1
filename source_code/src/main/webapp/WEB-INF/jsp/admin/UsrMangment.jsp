@@ -17,8 +17,41 @@
 <script src="<c:url value='/scheduler/resources/js/jqEmailValidation.js'/>"></script>
 <script type="text/javascript">
 $(function(){
+	var OK = 0;
 	$(".dropdown-toggle").dropdown();
-});  
+	//check already exist username
+	$("#usr_name").blur(function(){
+		if($.trim($("#usr_name").val()).length >0){
+			var userName = $.trim($(this).val());
+			$.ajax({
+				url : "../administration/crud/checkUser",//servlet URL that gets first option as parameter and returns JSON of to-be-populated options
+				data : "usrNameValue="+ userName,
+				type : "POST",//request type, can be GET
+				cache : false,//do not cache returned data
+			}).done(function(data) {
+				// -1,0 : Password doesn't exist, others : Password found
+				if (data == "1") {
+					// ask user to enter passwords
+					$(".mappingSuggestion1").html("User Name Already Exist.Choose Another")
+											.css("color","#aa0000");	
+				}
+				else{
+					$(".mappingSuggestion1").html("User Name Available")
+					.css("color","#00aa00");
+					OK = 1;
+				}
+			});
+		}
+	});
+	$( "#userRegistrationForm" ).submit(function( event ) {
+		  if ( OK == 1 ) { //all are ok
+		    return;
+		  }
+		  event.preventDefault();
+		});
+	
+}); 
+ 
 </script>
 <head>
         <title>User Management</title>
@@ -67,10 +100,13 @@ $(function(){
                     <td style="vertical-align:baseline;">
                         <div class="control-group">
                             <div class="controls">
-                                <input name="username" type="text" placeholder="Enter Username" required/> 
+                                <input id="usr_name" name="username" type="text" placeholder="Enter Username" required/> 
                             </div>
                         </div>
-                    </td>                       
+                    </td>  
+                    <td>
+                    	<span class="mappingSuggestion1 miniSugg" ></span>
+                    </td>                      
                 </tr>
                 
                 <tr>
@@ -96,7 +132,6 @@ $(function(){
                                 <select class="input-block-level" id="month" name="user_role">
                                     <option value="ROLE_ADMIN">ADMIN</option>
                                     <option value="ROLE_INSTRUCTOR">INSTRUCTOR</option>
-                                    <option value="ROLE_USER">USER</option>
                                 </select> 
                             </div>
                         </div>
@@ -113,6 +148,23 @@ $(function(){
                                       <c:forEach items="${specIality}" var="speciality">  
                                         <option value="${speciality.specialtyID}">
                                              <c:out value="${speciality.name}"/></option>
+                                        </c:forEach> 
+                                </select> 
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
+                        <label class="control-label" > Training System: </label>
+                    </td>
+                    <td style="vertical-align:baseline;">
+                        <div class="control-group">
+                            <div class="controls">
+                                <select   name="trainSysId" >
+                                      <c:forEach items="${trainSystems}" var="trainSystem">  
+                                        <option value="${trainSystem.train_system_id}">
+                                             <c:out value="${trainSystem.train_system_name}"/></option>
                                         </c:forEach> 
                                 </select> 
                             </div>
@@ -231,7 +283,6 @@ $(function(){
                                                                                                             <c:if test=""></c:if>
                                                                                                                                         <option value="ROLE_ADMIN" ${user.userRole == "ROLE_ADMIN" ? 'selected' : ''}>ADMIN</option>
                                                                                                                                         <option value="ROLE_INSTRUCTOR" ${user.userRole == "ROLE_INSTRUCTOR" ? 'selected' : ''}>INSTRUCTOR</option>
-                                                                                                                                        <option value="ROLE_USER" ${user.userRole == "ROLE_USER" ? 'selected' : ''}>USER</option>
                                                                                                                         </select> 
                                                                                                      </div>
                                                                                               </div>

@@ -18,8 +18,7 @@
 <script src="../resources/js/date.format.js"></script>
 <script src="<c:url value='/scheduler/resources/js/specialty.js'/>"></script>
 <script src="<c:url value='/scheduler/resources/js/jquery.cookie.js'/>"></script>
-<script src="<c:url value='/scheduler/resources/js/guest.home.js'/>"></script>
-
+<script src="<c:url value='/scheduler/resources/js/guest.home.js'/>"></script> 
 <head>
 	<title>Schedule View</title>
 </head>
@@ -142,10 +141,7 @@
 
 			<tr style="height:50px;"/>
 		</table>
-		
 		<jsp:include page="/WEB-INF/jsp/common/footer.jspf"/>	
-						
-	</div>
 	<div style = "height:30px"></div>
 </body>
 
