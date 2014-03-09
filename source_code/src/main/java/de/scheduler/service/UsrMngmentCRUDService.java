@@ -45,6 +45,8 @@ public class UsrMngmentCRUDService implements UsrMngmentCRUDServiceIntrface{
 	public static String SELECT_FROM_USERNAME = "SELECT "+ "id FROM "+ "user "+"WHERE USERNAME = :username "+ "AND "+ "password = :password";
 	
 	public static String SELECT_ID_FROM_USERNAME = "SELECT "+ "id FROM "+ "user "+"WHERE USERNAME = :username ";
+	
+	public static String SELECT_PASS_FROM_USERNAME = "SELECT "+ "password FROM "+ "user "+"WHERE USERNAME = :username ";
 	@Resource(name = "sessionFactory")
 	private SessionFactory sessionFactory;
 	
@@ -238,6 +240,24 @@ public class UsrMngmentCRUDService implements UsrMngmentCRUDServiceIntrface{
 			count ="1";
 		return count;
 		}
+		else  return "0";
+	}
+	public String passwordMapping(String newPassValue, String userNameValue) {
+		String count = "1";
+		String pass = null;
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();	
+		//System.out.println("Username"+ userName);
+		
+		Query query = session.createSQLQuery(SELECT_PASS_FROM_USERNAME)
+											.addScalar("password",Hibernate.STRING)
+											.setParameter("username", userNameValue)
+											;
+		if(query.list().size()==1)
+			pass = (String)query.list().get(0);
+		if (pass.equalsIgnoreCase(newPassValue))
+		return count;
+		
 		else  return "0";
 	}
 	

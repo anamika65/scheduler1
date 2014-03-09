@@ -1163,7 +1163,6 @@ public class AdminController {
      */
     @RequestMapping(value = "/administration/crud/updateUserInformation", method = RequestMethod.POST)
     public String updateUser(@RequestParam(value="id", required=true) Integer id,
-                                                     @RequestParam(value="username" , required=true) String username,
                                                      @RequestParam(value="password" , required=true) String password,
                                                      @RequestParam(value="activity") Boolean activity,
                                                      @RequestParam(value="user_role") String user_role
@@ -1172,7 +1171,6 @@ public class AdminController {
                 
                 //Find User by id
                 User user = usrMngmentCRUDServiceIntrface.get(id);
-                user.setUsername(username);
                 user.setPassword(password);
                 user.setActive(activity);
                         
@@ -1187,6 +1185,25 @@ public class AdminController {
                 
                 //Update User Role
                 usrMngmentCRUDServiceIntrface.updateUserRole(usrRole);
+                // This will redirect to /WEB-INF/jsp/admin/crud.jsp
+                return "redirect:../crud";
+        }
+    /**
+     * Updating an existing User 
+     * 
+     * @param id                the id of the current resident to be updated
+     */
+    @RequestMapping(value = "/administration/crud/updatePassword", method = RequestMethod.POST)
+    public String updateUser(@RequestParam(value="id", required=true) Integer id,
+                                                     @RequestParam(value="username" ) String username,
+                                                     @RequestParam(value="curr_password" ) String currPass,
+                                                     @RequestParam(value="newPassword" , required=true) String password) {   
+                logger.debug("Received request to updating existing user");               
+                //Find User by id
+                User user = usrMngmentCRUDServiceIntrface.get(id);
+                user.setPassword(password);                       
+                //Update User
+                usrMngmentCRUDServiceIntrface.updateUsers(user);
                 // This will redirect to /WEB-INF/jsp/admin/crud.jsp
                 return "redirect:../crud";
         }
@@ -1263,6 +1280,30 @@ public class AdminController {
     	return exists;	
     }
     
+    /**
+     * Check Existing Password for new Password
+     * @param newPassValue
+     * @param userName
+     * @return
+     */
+    @RequestMapping(value = "/administration/crud/checkNewPassword", method = RequestMethod.POST)
+    public @ResponseBody String checkNewPassword(String newPassValue, String userNameValue) { 	
+    	String matches = usrMngmentCRUDServiceIntrface.passwordMapping(newPassValue, userNameValue);
+    	System.out.println("Matches"+ matches);
+    	return matches;	
+    }
+    /**
+	 * Check current password is same with given password by delegating to check password service
+	 * @return true/false
+	 */
+	@RequestMapping(value = "/administration/crud/checkCurrentPassWithUserName", method = RequestMethod.POST)
+	public @ResponseBody String checkCurrentPassword(String currPassValue, String userNameValue){
+		// Retrieve current user activity ;first login activitiy =false otherwise true
+		String res = null;
+		res = usrMngmentCRUDServiceIntrface.checkCurrentPassword(currPassValue, userNameValue);
+		//System.out.println("Result: "+res);
+		return res;
+	}
     /**
      * Get the current user information from context
      * @return username

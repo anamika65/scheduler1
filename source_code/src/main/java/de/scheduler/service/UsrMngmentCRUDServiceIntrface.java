@@ -30,6 +30,8 @@ public interface UsrMngmentCRUDServiceIntrface {
 	
 	public String checkCurrentPassword(String currPassValue, String userName);
 	
+	public String passwordMapping(String newPassValue, String userNameValue);
+	
 	
 	
 }
