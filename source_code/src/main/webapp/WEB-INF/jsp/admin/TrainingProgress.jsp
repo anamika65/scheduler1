@@ -28,6 +28,10 @@
 
 <script src="<c:url value='/scheduler/resources/js/specialty.js'/>"></script>
 <script src="<c:url value='/scheduler/resources/js/jquery.cookie.js'/>"></script>
+
+<script src="<c:url value='/scheduler/resources/js/admin.usrmngement.js'/>"></script>
+
+
 <script type="text/javascript">
 $(function(){
 	var OK = 0;
@@ -171,6 +175,11 @@ $(function(){
 											<a role="menuitem" tabindex="-1" href="#${myEditPersonURL}" role="button" data-toggle="modal">Edit</a>
 				                        </li>
 				                        <li role="presentation">
+				                       		<!-- Button to trigger modal to edit Person Information -->
+									    	<c:set var="myUpdatePasswordURL" value="changePassPerson${count}" />
+											<a role="menuitem" tabindex="-1" href="#${myUpdatePasswordURL}" role="button" data-toggle="modal">Change Password</a>
+				                        </li>
+				                        <li role="presentation">
 				                       		<!-- Button to trigger modal for entering the vacation for the current project -->
 									    	<c:set var="myOnVacationUrl" value="onVacationResident${count}" />
 											<a role="menuitem" tabindex="-1" href="#${myOnVacationUrl}" role="button" data-toggle="modal"> 
@@ -302,6 +311,60 @@ $(function(){
 								    </div>
 								    </form>
 								    <!------------------------------------- End Modal for editing the current person ------------------------------------------------>
+	
+									
+	
+									<!-- Update Password for Resident -->
+                                    <c:url var="updatePasswordURL" value="../administration/crud/updatePassword?id=${project.key.project.projectID}&fromPage=residentProgress" />
+                                    <form method="POST" action="${updatePasswordURL}" class="passwordChangeForm">
+
+                                    <!------------------------------------- Modal  for Updating Password for Resident ------------------------------------------------>
+                                    <div id="${myUpdatePasswordURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                         <div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3 id="myModalLabel">Change Password</h3></div>
+                                         <div class="modal-body" style="text-align:left;">
+                                         	<br/>
+                                         	<table> 
+                                                <tr>
+                                                     <td class="tdCatalogueType1" style="vertical-align:baseline;">
+                                                          <label class="control-label" >Current Password: </label>
+                                                     </td>
+                                                     <td style="vertical-align:baseline;">
+                                             				<div class="control-group">
+                                                     			<div class="controls">
+                                                           		<input class="curr_password" name="curr_password" type="password" required/> 
+                                                    			<input class="upid" name="upid" type="hidden" value = "${project.key.project.projectID}"/> <!-- Necessary for ajax validation -->
+                                                    			<input class="pageType" name="pageType" type="hidden" value = "residentProgress"/> <!-- Necessary for ajax validation -->
+                                                    			</div>
+                                             				</div>
+                                           			</td>
+                                           			<td><span class="mappingSuggestionPass miniSugg" ></span></td> 	
+                                      			</tr> 
+                                      			<tr>
+                                                     <td class="tdCatalogueType1" style="vertical-align:baseline;">
+                                                          <label class="control-label" >New Password: </label>
+                                                     </td>
+                                                     <td style="vertical-align:baseline;">
+                                             				<div class="control-group">
+                                                     			<div class="controls">
+                                                           		<input class="newPassword" name="newPassword" type="password" required/> 
+                                                    			</div>
+                                             				</div>
+                                            			</td>
+                                          			<td>&nbsp;</td> 
+                                         		</tr>
+                                     	 	</table>
+                                         </div>
+                                         <div class="modal-footer">
+                                             <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+                                             <input type="submit" value="Save" class="btn btn-primary" />
+                                         </div>
+                                    </div>
+                                    </form>
+                                    <!------------------------------------- End Modal for Updating Password for Resident ------------------------------------------------>
+                   
+	
+	
+	
 	
 									<!-- Deactivate for each project -->
 									<!-- Generate the URL with the projectID -->
@@ -595,7 +658,7 @@ $(function(){
         
         
         
-        <c:if test="${userRole == 'ROLE_USER' }"> 	
+        <c:if test="${userRole == 'ROLE_RESIDENT' }"> 	
         	<table  class="homepageTable" style="width:100%;">
         		<tr>
         		<td style="width:50px;"></td>
@@ -616,13 +679,13 @@ $(function(){
 					  <c:set var="generateProgress" value="generateProgress${count}" />
 					  <script>
 						$(document).ready(function() {
-					       	$('#${generateProgress}').on('click', function(event) {        	
-					       		$('#${collapseResident} .progress .bar.text-centered-1').progressbar({
+					       	//$('#forRoleResident').on('click', function(event) {        	
+					       		$('#forRoleResident .progress .bar.text-centered-1').progressbar({
 					       			update: function(current_percentage) { $('#v-callback-update-1').text(current_percentage); },
 					       			done: function(current_percentage) { $('#v-callback-done-1').text('done!'); },
 					       			display_text: 2
 					       			}); 
-					       	}); 
+					       	//}); 
 					 	});
 					  </script>
 					
@@ -855,14 +918,14 @@ $(function(){
 					
 					    			<c:set var="totalProgressPercent" value="0"/>
 					    			<c:set var="expectedProgressPercent" value="0"/>
-					      	<table>
+					      	<table id="forRoleResident">
 						      <tbody> 
 					
 							      <tr style="border-top:2px solid white">
 								    <c:forEach items="${project.value}" var="items" begin="0" step="2">
 								      <td style = "padding-right:15px">
 										<c:out value="${items.catalogueName}" />
-											        <c:set var="totalProgressPercent" value="${items.progressPercentIs + totalProgressPercent}"/>
+										<c:set var="totalProgressPercent" value="${items.progressPercentIs + totalProgressPercent}"/>
 								        <c:set var="expectedProgressPercent" value="${items.progressPercentShouldBe + expectedProgressPercent}"/>
 								        <div class="progress horizontal wide">
 											<div id="myProgress" class="bar text-centered-1" data-percentage="${items.progressPercentIs}"></div>

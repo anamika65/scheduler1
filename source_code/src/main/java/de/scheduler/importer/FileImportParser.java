@@ -19,6 +19,9 @@ import de.scheduler.model.Operation;
 
 public class FileImportParser {
 	protected static Logger logger = Logger.getLogger("ImportParser");
+	protected static int defaultColumnNumber = 6;
+	protected static String[] defaultColumns = {"OPSC01","OPSC02","OPDatum","OP1","OP2","ASS1"};
+	protected static Integer[] allowedColumnNumbers = new Integer[defaultColumnNumber];
 
 	/**
 	 * Process excel file that contains the performed operations. Can handle xls
@@ -38,7 +41,28 @@ public class FileImportParser {
 			// create an Workbook based on an xls or xslx file.
 			Workbook wb = WorkbookFactory.create(inputFile); // Or InputStream
 			Sheet sheet = wb.getSheetAt(0);
-
+			
+			//Sakib Anamika - start
+			//extract the row from the worksheet
+			Row r0 = sheet.getRow(0);
+			//get the last column so that we now how many columns should be looped
+			int lastColumn0 = r0.getLastCellNum();
+			String cellNameBefore;
+			String cellName;
+			
+			for (int cn = 0; cn < lastColumn0; cn++) {
+				Cell cell = r0.getCell(cn, Row.RETURN_BLANK_AS_NULL);
+				cellNameBefore = cell.getStringCellValue();
+				cellName = cellNameBefore.replaceAll("\\s+","");
+				for(int in = 0; in < defaultColumns.length; in++) {
+					if(cellName.equalsIgnoreCase(defaultColumns[in])) {
+						allowedColumnNumbers[in]=cn;
+					}
+				}
+				
+			}
+			//Sakib Anamika - end
+			
 			// start from the second row, since the first row contains only info
 			int rowStart = sheet.getFirstRowNum() + 1;
 			int rowEnd = sheet.getLastRowNum();
@@ -53,47 +77,51 @@ public class FileImportParser {
 				//fill the op object with the required data from the excel
 				for (int cn = 0; cn < lastColumn; cn++) {
 					Cell cell = r.getCell(cn, Row.RETURN_BLANK_AS_NULL);
-					switch (cn) {
-					case 0:
-						// setting the OP1
+					//Sakib Anamika - start
+					if(cn == allowedColumnNumbers[0]) {
 						if (cell != null) {
 							op.setOpsc1(cell.getStringCellValue());
 						} else {
 							// TODO handle null case of OP1
+							op.setOpsc1("");
 						}
-						break;
-					case 1:
-						// setting OP2
+					} else if(cn == allowedColumnNumbers[1]) {
 						if (cell != null) {
 							op.setOpsc2(cell.getStringCellValue());
+						} else {
+							// TODO handle null case of OP1
+							op.setOpsc2("");
 						}
-						break;
-					case 2:
-						// setting opDatum
+					} else if(cn == allowedColumnNumbers[2]) {
 						if (cell != null
 								&& HSSFDateUtil.isCellDateFormatted(cell)) {
 							op.setOpDate(cell.getDateCellValue());
+						} else {
+							// TODO handle null case of OP1
 						}
-						break;
-					case 3:
-						// setting Op1
+					} else if(cn == allowedColumnNumbers[3]) {
 						if (cell != null) {
 							op.setOp1(cell.getStringCellValue());
+						} else {
+							// TODO handle null case of OP1
+							op.setOp1("");
 						}
-						break;
-					case 4:
-						// setting Op2
+					} else if(cn == allowedColumnNumbers[4]) {
 						if (cell != null) {
 							op.setOp2(cell.getStringCellValue());
+						} else {
+							// TODO handle null case of OP1
+							op.setOp2("");
 						}
-						break;
-					case 5:
-						// setting Ass1
+					} else if(cn == allowedColumnNumbers[5]) {
 						if (cell != null) {
 							op.setAss1(cell.getStringCellValue());
+						} else {
+							// TODO handle null case of OP1
+							op.setAss1("");
 						}
-						break;
 					}
+					//Sakib Anamika - end
 				}
 				operations.add(op);
 			}

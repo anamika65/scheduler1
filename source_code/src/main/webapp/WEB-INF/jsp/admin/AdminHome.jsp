@@ -137,6 +137,7 @@
 				</td>
 				
 				<td class="textAlignCenter"> 
+				<sec:authorize ifAllGranted="ROLE_ADMIN">
 					<a href="../administration/settings">
 						<div id="cf" class="resizeImgContainer">
 						  <img class="bottom resizeImg" src="../resources/images/settings.png"/>
@@ -145,7 +146,8 @@
 					</a>
 					<br>
 					Settings
-				</td>					
+				</td>	
+			</sec:authorize>				
 			</tr>
 			
 			<tr style="height:30px;"/>

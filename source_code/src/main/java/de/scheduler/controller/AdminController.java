@@ -500,14 +500,14 @@ public class AdminController {
 	            //System.out.println("Total number of active projects = " + activeResidents.size());
 	            //System.out.println("Total number of inactive projects = " + inactiveResidents.size());
 	            
-            } else { //ROLE_USER :resident
+            } else { //ROLE_RESIDENT :resident
             	Map<ProjectPersonInfo, List<ProjectCatalogStatus>> thisResident = new TreeMap<ProjectPersonInfo, List<ProjectCatalogStatus>>(ProjectPersonInfoCmp.INSTANCE);
-                
+            	
 	            for(Entry<ProjectPersonInfo, List<ProjectCatalogStatus>> entry : projectsInfo.entrySet()) {
 	            	//System.out.println("a = " + entry.getKey().getProject().getNickname() + " b = " + personService.getPersonForUserId(currentUser.getId()).getNickname());
-	            	if(entry.getKey().getProject().getNickname().equals(personService.getPersonForUserId(currentUser.getId()).getNickname()) && entry.getKey().getProject().isActive()) {
+	            	if(entry.getKey().getProject().getNickname().equals(personService.getPersonForUserName(currentUser.getUsername()).getNickname()) && entry.getKey().getProject().isActive()) {
 	            		thisResident.put(entry.getKey(), entry.getValue());
-	            		//System.out.println("equal!");
+	            		System.out.println("equal!");
 	                } 
 	            }
             
@@ -518,6 +518,7 @@ public class AdminController {
 	            //For difficult operations
 	            List<DSupportOperation> difficultOperations = dSupportOperationService.getAllForUser(username);
 	            model.addAttribute("difficultOperations", difficultOperations);
+	            System.out.println("operation count " + difficultOperations.size());
 	            
 	            List<String> operatedAs = new ArrayList<String>();
 	            for(DSupportOperation difficultOperation : difficultOperations) { 
@@ -571,7 +572,6 @@ public class AdminController {
                                     @RequestParam(value="title", required=true) String title,
                                     @RequestParam(value="name", required=true) String name,
                                         @RequestParam(value="firstName", required=true) String firstName,
-                                        @RequestParam(value="nickname", required=true) String nickname,
                                         @RequestParam(value="username", required=true) String username,
                                         @RequestParam(value="password", required=true) String password,
                                         @RequestParam(value="specialityID", required=true) Integer specialityID,
@@ -605,7 +605,43 @@ public class AdminController {
             userRgistrationService.addUserRole(user_Role);
             
             
-            //Create a simple Email Object
+                    
+            if(opCatalogueService.isAddPersonAllowed(specialtyId)) {
+                    Person person = new Person();
+                    person.setFirstName(firstName);
+                    person.setName(name);
+                    person.setFunction(function);
+                    person.setTitle(title);
+                    person.setNickname(username);
+                    person.setUsername(username);
+                    // Call PersonService to do the actual adding of a person
+                    personService.add(person);
+                    
+                    Integer newPersID = person.getPersID();
+                    
+                    Project project = new Project();
+                    project.setPersID(newPersID);
+                    project.setStartDate(startDate);
+                    project.setDuration(duration);
+                    project.setCapacity(capacity);
+                    project.setActive(true);
+                    project.setNickname(username);
+                    project.setSpecialtyID(specialityID);
+                    
+                    // Call ProjectService to do the actual adding of the project
+                    projectService.add(project);
+                    
+                    Integer newProjectID = project.getProjectID();
+                    
+                    //delegates the creation of DUMMY opBlock to OperationBlockGenerator
+                    operationBlockGeneratorService.generateDummyOpBlockForProject(newProjectID);
+                    
+                    
+                    //delegates the creation of NORMAL opBlocks to OperationBlockGenerator
+                    operationBlockGeneratorService.generateInitialOpBlocks(newProjectID, specialtyId, trainSysId);
+            }
+            
+          //Create a simple Email Object
             SimpleMailMessage email = new SimpleMailMessage();
             email.setTo(emailID);
             email.setSubject("Welcome TO MRI");
@@ -626,42 +662,7 @@ public class AdminController {
             	}
 
             	});
-                     
-            if(opCatalogueService.isAddPersonAllowed(specialtyId)) {
-                    Person person = new Person();
-                    person.setFirstName(firstName);
-                    person.setName(name);
-                    person.setFunction(function);
-                    person.setTitle(title);
-                    person.setNickname(nickname);
-                    person.setUsername(username);
-                    // Call PersonService to do the actual adding of a person
-                    personService.add(person);
-                    
-                    Integer newPersID = person.getPersID();
-                    
-                    Project project = new Project();
-                    project.setPersID(newPersID);
-                    project.setStartDate(startDate);
-                    project.setDuration(duration);
-                    project.setCapacity(capacity);
-                    project.setActive(true);
-                    project.setNickname(nickname);
-                    project.setSpecialtyID(specialtyId);
-                    
-                    // Call ProjectService to do the actual adding of the project
-                    projectService.add(project);
-                    
-                    Integer newProjectID = project.getProjectID();
-                    
-                    //delegates the creation of DUMMY opBlock to OperationBlockGenerator
-                    operationBlockGeneratorService.generateDummyOpBlockForProject(newProjectID);
-                    
-                    
-                    //delegates the creation of NORMAL opBlocks to OperationBlockGenerator
-                    operationBlockGeneratorService.generateInitialOpBlocks(newProjectID, specialtyId, trainSysId);
-            }
-
+             
             // This will redirect to /WEB-INF/jsp/admin/TrainingProgress.jsp
                 return "redirect:../progress";
         }
@@ -808,25 +809,12 @@ public class AdminController {
             //Map<Integer, List<OpCatalogue>> catalogues = opCatalogueService.getAllForSpecialty(specialtyId);
                 
                 //Retrieve all Catalogue according to the Training System Added by Anamika
-                Map<Integer, List<OpCatalogue>> catalogueByTrainSystem = trSystemService.getCatalogueInfoByTrainSys(specialtyId);
+                
             List<String> TrainSysNameCatalogue = trSystemService.getTrainSystemNameForCatalogue();
                 //List<TrainingSystem> TrainSysNameCatalogue = trSystemService.getTrainSystemNameForCatalogue();
             List<Integer> TrainSysIDCatalogue = trSystemService.getTrainSystemIDForCatalogue(TrainSysNameCatalogue);
             //System.out.println(TrainSysNameCatalogue);
-            //Attach by Anamika
-            // Retrieve current user activity ;first login activitiy =false otherwise true
-            String username = getSessionUser();
-            
-            if(username.equals("anonymousUser")){
-            	specialityName ="No Speciality";
-            	System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		}
-    		else{
-    			specialityName = specService.getByID(username);
-    			System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		} //
+            Map<Integer, List<OpCatalogue>> catalogueByTrainSystem = trSystemService.getCatalogueInfoByTrainSys(specialtyId);
                 // Attach catalogues by TrainSystem to the Model 
                 model.addAttribute("opCataloguesByTrain_ID", catalogueByTrainSystem);
                 
@@ -930,6 +918,8 @@ public class AdminController {
                                             @RequestParam(value="easy", required=true) Integer easy,
                                             @RequestParam(value="normal", required=true) Integer normal,
                                             @RequestParam(value="hard", required=true) Integer hard,
+                                            @RequestParam(value="blockSize", required=true) Integer blockSize,
+                                            @RequestParam(value="capacity", required=true) Integer capacity,
                                             @RequestParam(value="id", required=true)Integer id) {            
                 logger.debug("Received request to add new catalog");
                 
@@ -944,8 +934,8 @@ public class AdminController {
             opCatalogue.setLeve1OpNo(easy);
             opCatalogue.setLeve2OpNo(normal);
             opCatalogue.setLeve3OpNo(hard);
-            opCatalogue.setBlockSize(0);
-            opCatalogue.setMonthlyCapacity(0);
+            opCatalogue.setBlockSize(blockSize);
+            opCatalogue.setMonthlyCapacity(capacity);
             opCatalogue.setSpecialtyID(specialtyId);
             opCatalogue.setTrainSystemID(id);
                 
@@ -976,22 +966,7 @@ public class AdminController {
     }
     @RequestMapping(value = "/administration/settings", method = RequestMethod.GET)
     public String showSettings(Model model) {
-            logger.debug("Received request to show settings");
-            //Attach by Anamika
-            // Retrieve current user activity ;first login activitiy =false otherwise true
-            String username = getSessionUser();
-            
-            if(username.equals("anonymousUser")){
-            	specialityName ="No Speciality";
-            	System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		}
-    		else{
-    			specialityName = specService.getByID(username);
-    			System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		} //
-            
+            logger.debug("Received request to show settings");      
             List<Configuration> configs = configurationService.getAll();
             for(Configuration config : configs) { 
                     model.addAttribute(config.getName(), config.getValue());
@@ -1043,7 +1018,9 @@ public class AdminController {
     @RequestMapping(value = "/administration/crud", method = RequestMethod.GET)
     public String crudOperation(Model model, Principal principal){
             final String currentUser = principal.getName();
-            List<UserInfo> userDetail = usrMngmentCRUDServiceIntrface.getAllUsers(currentUser);
+            //Sakib on 13 march
+            //List<UserInfo> userDetail = usrMngmentCRUDServiceIntrface.getAllUsers(currentUser);
+            List<UserInfo> userDetail = usrMngmentCRUDServiceIntrface.getAllAdminsAndInstructors(currentUser);
             
             List<Specialty> specialityID = specService.getAll();
             //Attach by Anamika
@@ -1195,16 +1172,36 @@ public class AdminController {
      */
     @RequestMapping(value = "/administration/crud/updatePassword", method = RequestMethod.POST)
     public String updateUser(@RequestParam(value="id", required=true) Integer id,
-                                                     @RequestParam(value="username" ) String username,
-                                                     @RequestParam(value="curr_password" ) String currPass,
-                                                     @RequestParam(value="newPassword" , required=true) String password) {   
-                logger.debug("Received request to updating existing user");               
-                //Find User by id
-                User user = usrMngmentCRUDServiceIntrface.get(id);
-                user.setPassword(password);                       
+    						 @RequestParam(value="fromPage", required=true) String fromPage,
+                             @RequestParam(value="curr_password" ) String currPass,
+                             @RequestParam(value="newPassword" , required=true) String password) {   
+                logger.debug("Received request to updating existing user");   
+                
+                System.out.println("frompage : "+fromPage);
+                System.out.println("id : "+id);
+                User user;
+                if(fromPage.equals("residentProgress")) {
+                	// load the associated project
+                    Project project = projectService.get(id);
+                    
+                    // load the person
+                    Integer personID = project.getPersID();
+                    Person person = personService.get(personID);
+                    user = usrMngmentCRUDServiceIntrface.getUserFromUsername(person.getUsername());
+                } else {
+                	//Find User by id
+                    user = usrMngmentCRUDServiceIntrface.get(id);
+                }
+
+                user.setPassword(password);       
+                
                 //Update User
                 usrMngmentCRUDServiceIntrface.updateUsers(user);
                 // This will redirect to /WEB-INF/jsp/admin/crud.jsp
+                if(fromPage.equals("residentProgress")) {
+                	return "redirect:../progress";
+                }
+                
                 return "redirect:../crud";
         }
 
@@ -1297,10 +1294,24 @@ public class AdminController {
 	 * @return true/false
 	 */
 	@RequestMapping(value = "/administration/crud/checkCurrentPassWithUserName", method = RequestMethod.POST)
-	public @ResponseBody String checkCurrentPassword(String currPassValue, String userNameValue){
+	public @ResponseBody String checkCurrentPassword(String currPassValue, String upid, String pageType){
 		// Retrieve current user activity ;first login activitiy =false otherwise true
+		System.out.println("Inside java" + currPassValue + " " + upid + " " + pageType);
 		String res = null;
-		res = usrMngmentCRUDServiceIntrface.checkCurrentPassword(currPassValue, userNameValue);
+		User user;
+        if(pageType.equals("residentProgress")) {
+        	// load the associated project
+            Project project = projectService.get(Integer.parseInt(upid));
+            
+            // load the person
+            Integer personID = project.getPersID();
+            Person person = personService.get(personID);
+            user = usrMngmentCRUDServiceIntrface.getUserFromUsername(person.getUsername());
+        } else {
+        	//Find User by id
+            user = usrMngmentCRUDServiceIntrface.get(Integer.parseInt(upid));
+        }
+		res = usrMngmentCRUDServiceIntrface.checkCurrentPassword(currPassValue, user.getUsername());
 		//System.out.println("Result: "+res);
 		return res;
 	}

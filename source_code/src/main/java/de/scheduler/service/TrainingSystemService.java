@@ -32,14 +32,11 @@ protected static Logger logger = Logger.getLogger("service");
 	public static String GET_ALL_TRAINING_SYSTEM = " SELECT *" + 
                                                 " FROM training_systems ts";
 	
-
 	public static String GET_ALL_TRAIN_SYSTEM = " SELECT ts.train_system_id as trainID" + 
-                                                " FROM training_systems ts" + " ,opcatalogues op " + 
-                                                " WHERE ts.train_system_id = op.TrainSystemID" ;
+            									" FROM training_systems ts";
 	
 	public static String GET_ALL_TRAIN_SYSTEM_NAME = " SELECT  distinct train_system_name" + 
-            									" FROM training_systems" + ", opcatalogues " + 
-            									" WHERE training_systems.train_system_id = opcatalogues.TrainSystemID" ;
+            									" FROM training_systems";
 	
 	public static String SELECT_CATALOG_FOR_TRAINSYSTEM = " SELECT * " +
                                                           " FROM opcatalogues" +

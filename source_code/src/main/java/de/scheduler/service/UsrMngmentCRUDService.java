@@ -34,6 +34,9 @@ public class UsrMngmentCRUDService implements UsrMngmentCRUDServiceIntrface{
 	public static String SELECT_ALL_USER="SELECT "+ "US.ID AS usrId"+" ,US.ACTIVE AS active"+" ,US.USERNAME AS userName"+" ,US.PASSWORD AS password"+" ,USR.ROLE AS userRole "+
 			"FROM "+ "USER US"+", USER_ROLES USR "+" WHERE "+" US.ID = USR.USER_ID"+" AND US.USERNAME <> :cUsrName ";
 	
+	public static String SELECT_ALL_ADMIN_AND_INSTRUCTOR="SELECT "+ "US.ID AS usrId"+" ,US.ACTIVE AS active"+" ,US.USERNAME AS userName"+" ,US.PASSWORD AS password"+" ,USR.ROLE AS userRole "+
+			"FROM "+ "USER US"+", USER_ROLES USR "+" WHERE "+" US.ID = USR.USER_ID"+" AND US.USERNAME <> :cUsrName "+" AND USR.ROLE <> 'ROLE_RESIDENT'";
+	
 	public static String UPDATE_USER_ROLE = "UPDATE "+ "USER_ROLES "+ " SET ROLE = :user_role "+" WHERE USER_ID = :id";
 	
 	public static String USER_FROM_USERNAME = "SELECT "+ "ID FROM "+ " USER "+" WHERE USERNAME = :username";
@@ -59,6 +62,28 @@ public class UsrMngmentCRUDService implements UsrMngmentCRUDServiceIntrface{
 		
 		// Create a query (SQL)
 		Query query = session.createSQLQuery(SELECT_ALL_USER)
+				.addScalar("usrId",Hibernate.INTEGER)
+				.addScalar("active",Hibernate.BOOLEAN)
+				.addScalar("userName",Hibernate.STRING)
+				.addScalar("password",Hibernate.STRING)
+				.addScalar("userRole",Hibernate.STRING)
+				.setParameter("cUsrName", cUsrName)
+				.setResultTransformer(Transformers.aliasToBean(UserInfo.class))
+				;
+		List<UserInfo> usrDetail = query.list();
+		logger.debug("Retrieving project by id");
+		return usrDetail;
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<UserInfo> getAllAdminsAndInstructors(String cUsrName) {
+		
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+		
+		// Create a query (SQL)
+		Query query = session.createSQLQuery(SELECT_ALL_ADMIN_AND_INSTRUCTOR)
 				.addScalar("usrId",Hibernate.INTEGER)
 				.addScalar("active",Hibernate.BOOLEAN)
 				.addScalar("userName",Hibernate.STRING)

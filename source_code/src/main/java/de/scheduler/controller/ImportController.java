@@ -31,6 +31,10 @@ import de.scheduler.model.Operation;
 import de.scheduler.service.OpBlockService;
 import de.scheduler.service.OperationService;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+
 @Controller
 public class ImportController {
 	protected static Logger logger = Logger.getLogger("ImportController");
@@ -93,11 +97,11 @@ public class ImportController {
 	 */
 	@RequestMapping(value = "/administration/import/save", method = RequestMethod.POST)
 	public String processForm(
-			@Valid @ModelAttribute(value = "uploadForm") UploadForm form,
-			BindingResult result, Model model) {
+			@Valid @ModelAttribute(value = "uploadForm") UploadForm form, BindingResult result, Model model) {
 		
 		// handle errors
 		if (result.hasErrors()) {
+			
 			//if errors occured get all errors and redirect the page to the import page
 			List<ObjectError> errors = result.getAllErrors();
 			for (ObjectError error : errors) {
@@ -121,17 +125,18 @@ public class ImportController {
 			} catch (IOException e) {
 				throw new IllegalStateException(e.getLocalizedMessage());
 			}
-			
 			//batch insert the parsed operations
 			operationService.performBatchInsert(operations);
 
 			//update opblocks with the imported operations
 			if (operations.size() >= 2) {
 				opBlockService.updateOpBlocksSize(operations.get(0).getOpBlockId(), operations.get(operations.size()-1).getOpBlockId());
-				opBlockService.deleteDSuppOperationsAfterImport(operations.get(0).getOpBlockId(), operations.get(operations.size()-1).getOpBlockId());
+				//Sakib Anamika
+				//opBlockService.deleteDSuppOperationsAfterImport(operations.get(0).getOpBlockId(), operations.get(operations.size()-1).getOpBlockId());
 			} else {
 				opBlockService.updateOpBlocksSize(operations.get(0).getOpBlockId(), operations.get(0).getOpBlockId());
-				opBlockService.deleteDSuppOperationsAfterImport(operations.get(0).getOpBlockId(), operations.get(0).getOpBlockId());
+				//Sakib Anamika
+				//opBlockService.deleteDSuppOperationsAfterImport(operations.get(0).getOpBlockId(), operations.get(0).getOpBlockId());
 			}
 			
 			logger.debug(("Uploaded successfully: " + fileName));
@@ -141,5 +146,7 @@ public class ImportController {
 		model.addAttribute("import.success", fileName);
 		return "redirect:../import";
 	}
+	
+	
 
 }

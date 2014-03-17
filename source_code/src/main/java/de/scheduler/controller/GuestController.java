@@ -59,18 +59,7 @@ public class GuestController {
     	 // Retrieve current user activity ;first login activitiy =false otherwise true
         String username = getSessionUser();
         boolean activity = usrMngmentCRUDServiceIntrface.getUserActivity(username);
-        //Attach by Anamika
         
-        if(username.equals("anonymousUser")){
-        	specialityName ="No Speciality";
-        	System.out.println("Sp:" +specialityName);
-			model.addAttribute("specialityName",specialityName);
-		}
-		else{
-			specialityName = specService.getByID(username);
-			System.out.println("Sp:" +specialityName);
-			model.addAttribute("specialityName",specialityName);
-		} //
         //model.addAttribute("activity",activity);
 		model.addAttribute("birtURL", birtURL);
 		model.addAttribute("specialtyId", specialtyId);

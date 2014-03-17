@@ -7,9 +7,15 @@
 				<img align="left" src = "../../resources/images/header.png"/>			
 			</c:if>
 			
-			<p style = "padding: 7px 0px 0px 0px; height: 110px; font-size: 15px; color: #FFFFFF; font-weight: normal">
-			<em>Specialization</em> </br>
-				<input type="text" style="width: 120px; vertical-align: baseline" value="${specialityName}" disabled/>
+			<p style = "padding: 7px 0px 0px 0px; height: 110px; font-size: 13px; color: #FFFFFF; font-weight: normal">
+				<c:if test="${specialties != null}">
+					Specialization
+					<select id="chosenSpecialty" name="chosenSpecialty">
+						<c:forEach items="${specialties}" var="specialty">  
+				            <option value="${specialty.specialtyID}"><c:out value="${specialty.name}"/></option>  
+				     	</c:forEach> 
+			     	</select> 
+		     	</c:if>
 			</p>
 		</h1>		
 		

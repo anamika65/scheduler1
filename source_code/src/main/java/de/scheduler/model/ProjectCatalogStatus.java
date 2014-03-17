@@ -27,6 +27,7 @@ public class ProjectCatalogStatus {
 	private Double progressPercentShouldBe;
 	
 	private boolean overdue;
+	
 
 	public Integer getProjectID() {
 		return projectID;
@@ -128,5 +129,6 @@ public class ProjectCatalogStatus {
 	public void setOverdue() {
 		this.overdue = this.elapsedMonths > this.duration;
 	}
+
 
 }

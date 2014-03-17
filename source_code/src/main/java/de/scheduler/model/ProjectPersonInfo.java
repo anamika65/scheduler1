@@ -5,6 +5,7 @@ public class ProjectPersonInfo {
 	private Project project;
 	
 	private Person person;
+	
 
 	public Project getProject() {
 		return project;
@@ -21,6 +22,7 @@ public class ProjectPersonInfo {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
+
 
 	@Override
 	public int hashCode() {

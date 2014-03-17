@@ -24,7 +24,7 @@
 			
 		<security:form-login login-page="/scheduler/login"
 			authentication-failure-url="/scheduler/login?error=true"
-			default-target-url="/scheduler/schedule/view" />
+			default-target-url="/scheduler/administration/home" />
 
 		<security:logout invalidate-session="true"
 			logout-success-url="/scheduler/logoutSuccess" logout-url="/j_spring_security_logout" />

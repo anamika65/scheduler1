@@ -43,6 +43,10 @@ $(document).ready(function () {
 				<td style="width:70px;"/>
 			
 				<td> 
+					<div class="alert alert-info">
+ 						 Configure Training Duration parameters that are common across all specializations.
+							 This configuration will be applied to all residents when generating a new monthly schedule.
+					</div>
 					<form method="POST" action="../administration/settings/save">
 						<fieldset>
 						    <label class="control-label fontBigLabel">New training duration</label>

@@ -59,18 +59,6 @@
 							            </td>
 							        </tr>
 							        <tr>
-						            	<td class="tdCatalogueType1" style="vertical-align:baseline;">
-											<label class="control-label" > Nickname: </label>
-										</td>
-										<td style="vertical-align:baseline;">
-							              <div class="control-group">
-							              	<div class="controls">
-								            	<input name="nickname" type="text" placeholder="Type nickname..." required/> 
-							             	</div>
-							              </div>
-							            </td>
-							        </tr>
-							        <tr>
 					                    <td class="tdCatalogueType1" style="vertical-align:baseline;">
 					                        <label class="control-label" > Username: </label>
 					                    </td>

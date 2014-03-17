@@ -143,7 +143,7 @@
 												<td style="text-align: center;"><c:out
 														value="${catalgueTrainsSys.leve1OpNo}" />/<c:out
 														value="${catalgueTrainsSys.leve2OpNo}" />/<c:out
-														value="${catalogue.leve3OpNo}" /></td>
+														value="${catalgueTrainsSys.leve3OpNo}" /></td>
 												<td style="text-align: center;"><c:out
 														value="${catalgueTrainsSys.blockSize}" /></td>
 												<td style="text-align: center;">${catalgueTrainsSys.monthlyCapacity}</td>
@@ -392,6 +392,38 @@
 															</div>
 														</td>
 													</tr>
+													<tr>
+														<td class="tdCatalogueType1"
+															style="vertical-align: baseline;"><label
+															class="control-label"> Block size:
+														</label></td>
+														<td style="vertical-align: baseline;">
+															<div class="control-group">
+																<div class="controls">
+																	<input name="blockSize" type="number" min="1" max="150"
+																		placeholder="Type nr..."
+																		style="width: 120px; vertical-align: baseline"
+																		required />
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="tdCatalogueType1"
+															style="vertical-align: baseline;"><label
+															class="control-label"> Capacity:
+														</label></td>
+														<td style="vertical-align: baseline;">
+															<div class="control-group">
+																<div class="controls">
+																	<input name="capacity" type="number" min="0" max="150"
+																		placeholder="Type nr..."
+																		style="width: 120px; vertical-align: baseline"
+																		required />
+																</div>
+															</div>
+														</td>
+													</tr>
 												</table>
 											</div>
 
@@ -409,7 +441,6 @@
 					</div>
 					<c:set var="tName" value="${tName + 1}" />
 				</c:forEach>
-
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/jsp/common/footer.jspf" />

@@ -15,7 +15,9 @@
 <script src="../resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="<c:url value='/scheduler/resources/js/jqBootstrapValidation.js'/>"></script>
 <script src="<c:url value='/scheduler/resources/js/jqEmailValidation.js'/>"></script>
+
 <script src="<c:url value='/scheduler/resources/js/admin.usrmngement.js'/>"></script>
+
 <script type="text/javascript">
 $(function(){
 	var OK = 0;
@@ -58,7 +60,8 @@ $(function(){
         <title>User Management</title>
 </head>
         
-<body>
+<body >
+
         <div class="wrap">
         
                 <%-- <c:set var="headerLogout" value="../logout" scope="session"/> --%>                
@@ -279,6 +282,7 @@ $(function(){
                                                                                                             <c:if test=""></c:if>
                                                                                                                                         <option value="ROLE_ADMIN" ${user.userRole == "ROLE_ADMIN" ? 'selected' : ''}>ADMIN</option>
                                                                                                                                         <option value="ROLE_INSTRUCTOR" ${user.userRole == "ROLE_INSTRUCTOR" ? 'selected' : ''}>INSTRUCTOR</option>
+                                                                                                                                        <option value="ROLE_INSTRUCTOR" ${user.userRole == "ROLE_RESIDENT" ? 'selected' : ''}>RESIDENT</option>
                                                                                                                         </select> 
                                                                                                      </div>
                                                                                               </div>
@@ -338,62 +342,55 @@ $(function(){
                                                                         </div>
                                                                 </form>
                                                                 <!--Delete User Modal End  -->  
-                                                                <!-- Update Password for ADMIN and INSTRUCTOR -->
-                                                                 <c:url var="updatePasswordURL" value="../administration/crud/updatePassword?id=${user.usrId}" />
-                                                            <form method="POST" action="${updatePasswordURL}" id="passwordChangeForm">
+                                                                                                                    
+                                                <!-- Update Password for Admin and Instructor -->
+			                                    <c:url var="updatePasswordURL" value="../administration/crud/updatePassword?id=${user.usrId}&fromPage=userManagement" />
+			                                    <form method="POST" action="${updatePasswordURL}" class="passwordChangeForm">
+			
+			                                    <!------------------------------------- Modal  for Updating Password for Admin and Instructor ------------------------------------------------>
+			                                    <div id="${myUpdatePasswordURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			                                         <div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3 id="myModalLabel">Change Password</h3></div>
+			                                         <div class="modal-body" style="text-align:left;">
+			                                         	<br/>
+			                                         	<table> 
+			                                                <tr>
+			                                                     <td class="tdCatalogueType1" style="vertical-align:baseline;">
+			                                                          <label class="control-label" >Current Password: </label>
+			                                                     </td>
+			                                                     <td style="vertical-align:baseline;">
+			                                             				<div class="control-group">
+			                                                     			<div class="controls">
+			                                                           		<input class="curr_password" name="curr_password" type="password" required/> 
+			                                                    			<input class="upid" name="upid" type="hidden" value = "${user.usrId}"/> <!-- Necessary for ajax validation -->
+			                                                    			<input class="pageType" name="pageType" type="hidden" value = "userManagement"/> <!-- Necessary for ajax validation -->
+			                                                    			</div>
+			                                             				</div>
+			                                           			</td>
+			                                           			<td><span class="mappingSuggestionPass miniSugg" ></span></td> 	
+			                                      			</tr> 
+			                                      			<tr>
+			                                                     <td class="tdCatalogueType1" style="vertical-align:baseline;">
+			                                                          <label class="control-label" >New Password: </label>
+			                                                     </td>
+			                                                     <td style="vertical-align:baseline;">
+			                                             				<div class="control-group">
+			                                                     			<div class="controls">
+			                                                           		<input class="newPassword" name="newPassword" type="password" required/> 
+			                                                    			</div>
+			                                             				</div>
+			                                            			</td>
+			                                          			<td>&nbsp;</td> 
+			                                         		</tr>
+			                                     	 	</table>
+			                                         </div>
+			                                         <div class="modal-footer">
+			                                             <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+			                                             <input type="submit" value="Save" class="btn btn-primary" />
+			                                         </div>
+			                                    </div>
+			                                    </form>
+			                                    <!------------------------------------- End Modal for Updating Password for ADMIN and INSTRUCTOR ------------------------------------------------>
 
-                                                             <!------------------------------------- Modal  for Updating Password for ADMIN and INSTRUCTOR ------------------------------------------------>
-                                                            <div id="${myUpdatePasswordURL}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                        <div class="modal-header">
-                                                                            <a class="close" data-dismiss="modal">×</a>
-                                                                                    <h3 id="myModalLabel"> Update Password for <c:out value="${user.userName}" /></h3>
-                                                                            </div>
-                                                                              <div class="modal-body" style="text-align:left;">
-                                                                                        <br/>
-                                                                                        <table> 
-                                                                                                <tr>
-                                                                                                      <td class="tdCatalogueType1" style="vertical-align:baseline;">
-                                                                                                           <label class="control-label" >Current Password: </label>
-                                                                                                       </td>
-                                                                                                       <td style="vertical-align:baseline;">
-                                                                                              				<div class="control-group">
-                                                                                                      			<div class="controls">
-                                                                                                            		<input id="curr_password" name="curr_password" type="password" required/> 
-                                                                                                     			</div>
-                                                                                              				</div>
-                                                                                            			</td>
-                                                                                            			 <td>
-                    																						<span class="mappingSuggestion1 miniSugg" ></span>
-                    																					</td> 	
-                                                                                            			<td>
-                                                                                            			<input id="username" name="username" type="hidden" value = "${user.userName}"/>
-                                                                                            			</td>
-                                                                                    			</tr> 
-                                                                                    			<tr>
-                                                                                                      <td class="tdCatalogueType1" style="vertical-align:baseline;">
-                                                                                                           <label class="control-label" >New Password: </label>
-                                                                                                       </td>
-                                                                                                       <td style="vertical-align:baseline;">
-                                                                                              				<div class="control-group">
-                                                                                                      			<div class="controls">
-                                                                                                            		<input id="new_password" name="newPassword" type="password" required/> 
-                                                                                                     			</div>
-                                                                                              				</div>
-                                                                                            			</td>
-                                                                                            			<td>
-                    																						<span class="mappingSuggestion2 miniSugg" ></span>
-                    																					</td> 
-                                                                                    			</tr>
-                                                                            </table>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-                                                                            <input type="submit" value="Save" class="btn btn-primary" />
-                                                                        </div>
-                                                            </div>
-                                                            </form>
-                                                            <!------------------------------------- End Modal for Updating Password for ADMIN and INSTRUCTOR ------------------------------------------------>
-                                           
                                             </td> 
                                         </tr>
                         </c:forEach>

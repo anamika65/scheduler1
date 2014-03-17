@@ -38,10 +38,10 @@ public class PersonService {
 															  " WHERE prj.SpecialtyID = :specialtyID" +
 															  " AND prj.Active = 1";
 	
-	public static String GET_PERSON_FOR_USERID =  " SELECT * " +
+	public static String GET_PERSON_FOR_USERNAME =  " SELECT * " +
 			  " FROM " +
 					" personnel " +
-			  " WHERE UserID = :userId";
+			  " WHERE Username = :userName";
 
 	/**
 	 * Retrieves all persons
@@ -138,16 +138,16 @@ public class PersonService {
 	 * 
 	 * @return 		a person
 	 */
-	public Person getPersonForUserId( Integer id ) {
+	public Person getPersonForUserName( String uname ) {
 		logger.debug("Retrieving person by user id");
 
 		// Retrieve session from Hibernate
 		Session session = sessionFactory.getCurrentSession();
 		
 		// Create a Hibernate query (HQL)
-		Query query = session.createSQLQuery(GET_PERSON_FOR_USERID)
+		Query query = session.createSQLQuery(GET_PERSON_FOR_USERNAME)
 											.addEntity(Person.class)
-											.setParameter("userId", id);
+											.setParameter("userName", uname);
 				
 		List<Person> activePersonsForSpecialty = query.list();
 		if (activePersonsForSpecialty.isEmpty()) return null;

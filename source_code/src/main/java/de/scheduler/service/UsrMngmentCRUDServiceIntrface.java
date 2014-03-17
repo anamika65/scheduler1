@@ -10,6 +10,8 @@ public interface UsrMngmentCRUDServiceIntrface {
 	
 	public List<UserInfo> getAllUsers(String cUsrName);
 	
+	public List<UserInfo> getAllAdminsAndInstructors(String cUsrName);
+	
 	public void deleteUsers(Integer usrId);
 	
 	public User get( Integer id );

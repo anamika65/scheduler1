@@ -47,7 +47,7 @@
 								<select class="input-block-level" id="month" name="user_role">
 									<option value="ROLE_ADMIN">ADMIN</option>
 									<option value="ROLE_INSTRUCTOR">INSTRUCTOR</option>
-									<option value="ROLE_USER">USER</option>
+									<option value="ROLE_RESIDENT">RESIDENT</option>
 								</select> 
 							</div>
 						</div>

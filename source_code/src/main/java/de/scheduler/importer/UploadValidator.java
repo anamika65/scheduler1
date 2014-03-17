@@ -44,7 +44,8 @@ public class  UploadValidator implements Validator {
         // Check content type
         boolean acceptableContentType = false;
         String incomingContentType = file.getContentType();
-        logger.info("FileName = "+file.getName());      
+        logger.info("FileName = "+file.getName()); 
+        System.out.println("FileName = "+file.getName());//added by anamika
         logger.info("incomingContentType = "+incomingContentType);
         // This related to bug  when on Vista and using Firefox/IE bug content type is 'application/octet-stream'        
         // Instead  of one of the allowed ones
