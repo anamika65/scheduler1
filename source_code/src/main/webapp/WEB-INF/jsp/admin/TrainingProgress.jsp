@@ -299,6 +299,7 @@ $(function(){
 											              	<div class="controls">
 												            	<input name="capacity" min="1" max="200" type="number" value="${project.key.project.capacity}" required/> 
 											             	</div>
+											             	
 											              </div>
 											            </td>
 											        </tr>		

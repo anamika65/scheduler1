@@ -15,6 +15,8 @@ $(document).ready(function() {
 	$('#button').click(function() {
 	    $(this).button('loading');
 	});
+	
+
 });
 </script>
 <head>
@@ -43,6 +45,7 @@ $(document).ready(function() {
 		    	<td class="buttonRight"/>
 			</tr>
 		</table>
+		<div></div>
 		<table  class="homepageTable" style="width:100%;">
 			<div style="width:1000px;margin:20px 40px 0px 100px;">
 				<c:if test="${not empty error}">
@@ -51,6 +54,14 @@ $(document).ready(function() {
 						<strong class="leftIdentSmall">${error}</strong>
 					</div>
 				</c:if>
+				<%
+				    if (request.getParameter("resName") == null) {
+				        out.println("");
+				    } else {
+				        out.println("<div class=\"alert alert-error\" id=\"customError\"><button class=\"close\" data-dismiss=\"alert\" type=\"button\">×</button><strong class=\"leftIdentSmall\">Resident not found : "+request.getParameter("resName")+". Please add this resident before import.</strong></div>");
+				    }
+				%>
+				
 			</div>
 			
 			<div style="width:1000px;margin:20px 40px 0px 100px;">
