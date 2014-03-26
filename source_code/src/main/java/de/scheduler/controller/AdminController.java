@@ -139,7 +139,6 @@ public class AdminController {
         @Resource(name="specialtyService")
         private SpecialtyService specService;
         
-        private String specialityName;
         
         @Autowired
         private JavaMailSender mailSender;
@@ -198,20 +197,7 @@ public class AdminController {
                 
             // Attach specialties to the Model
             this.mapSpecialties(model);
-            //Attach by Anamika
-            // Retrieve current user activity ;first login activitiy =false otherwise true
-            String username = getSessionUser();
-            
-            if(username.equals("anonymousUser")){
-            	specialityName ="No Speciality";
-            	System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		}
-    		else{
-    			specialityName = specService.getByID(username);
-    			System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		} //
+           
             
             // This will resolve to /WEB-INF/jsp/admin/AdminHome.jsp
                 return "admin/AdminHome";
@@ -245,20 +231,7 @@ public class AdminController {
             
                 // Retrieve list of residents for each catalogue, prioritized -> by delegating the call to DSupportOperationService
             Map<OpCatalogue, List<ProjectCatalogStatus>> residentListByCatalogues = dSupportOperationService.getPrioritizedResidents(specialtyID);
-          //Attach by Anamika
-            // Retrieve current user activity ;first login activitiy =false otherwise true
-            String username = getSessionUser();
-            
-            if(username.equals("anonymousUser")){
-            	specialityName ="No Speciality";
-            	System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		}
-    		else{
-    			specialityName = specService.getByID(username);
-    			System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		} //
+         
                 
             // Attach status to the Model
                 model.addAttribute("residentListForCatalogues", residentListByCatalogues);
@@ -533,22 +506,7 @@ public class AdminController {
 	            
 	            model.addAttribute("nameUser", username);
             }
-            List<Specialty> specialityID = specService.getAll();
-            //Attach by Anamika
-            // Retrieve current user activity ;first login activitiy =false otherwise true
-            String userName = getSessionUser();
-            
-            if(userName.equals("anonymousUser")){
-            	specialityName ="No Speciality";
-            	System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		}
-    		else{
-    			specialityName = specService.getByID(username);
-    			System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		} //
-            
+            List<Specialty> specialityID = specService.getAll();    
             List<TrainingSystem> trainSystems = trSystemService.getAllTrainSystem();
             model.addAttribute("trainSystems", trainSystems); 
             //System.out.println(specialityID);
@@ -774,20 +732,7 @@ public class AdminController {
 
                 UploadForm form = new UploadForm();
                 model.addAttribute("uploadForm", form);
-              //Attach by Anamika
-                // Retrieve current user activity ;first login activitiy =false otherwise true
-                String username = getSessionUser();
-                
-                if(username.equals("anonymousUser")){
-                	specialityName ="No Speciality";
-                	System.out.println("Sp:" +specialityName);
-        			model.addAttribute("specialityName",specialityName);
-        		}
-        		else{
-        			specialityName = specService.getByID(username);
-        			System.out.println("Sp:" +specialityName);
-        			model.addAttribute("specialityName",specialityName);
-        		} //
+              
                 return "admin/Import";
         }
     
@@ -1023,20 +968,7 @@ public class AdminController {
             List<UserInfo> userDetail = usrMngmentCRUDServiceIntrface.getAllAdminsAndInstructors(currentUser);
             
             List<Specialty> specialityID = specService.getAll();
-            //Attach by Anamika
-            // Retrieve current user activity ;first login activitiy =false otherwise true
-            String username = getSessionUser();
             
-            if(username.equals("anonymousUser")){
-            	specialityName ="No Speciality";
-            	System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		}
-    		else{
-    			specialityName = specService.getByID(username);
-    			System.out.println("Sp:" +specialityName);
-    			model.addAttribute("specialityName",specialityName);
-    		} //
             
             List<TrainingSystem> trainSystems = trSystemService.getAllTrainSystem();
             model.addAttribute("trainSystems", trainSystems); 

@@ -1,5 +1,6 @@
 package de.scheduler.controller;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -30,6 +31,7 @@ import de.scheduler.importer.UploadValidator;
 import de.scheduler.model.Operation;
 import de.scheduler.service.OpBlockService;
 import de.scheduler.service.OperationService;
+import de.scheduler.service.PersonService;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -44,6 +46,9 @@ public class ImportController {
 	
 	@Resource(name = "opBlockService")
 	private OpBlockService opBlockService;
+	
+	@Resource(name = "personService")
+	private PersonService personService;
 	
 	/**
 	 * This method is invoked when a exception occurs in the processForm method.
@@ -112,19 +117,40 @@ public class ImportController {
 		}
 		
 		String fileName = null;
+		String resName = null;
 		if (form != null) {
 			//get the filename of the uploaded file
 			fileName = form.getFile().getOriginalFilename();
 			List<Operation> operations = null;
 			try {
 				//parse the uploaded file and return everything as a list of operations
-				operations = FileImportParser.processExcelFile(form
-						.getFile().getInputStream());
+				//Added by Anamika
+				List<String> residentNames = FileImportParser.getXcelResidentNames(form.getFile().getInputStream());
+				
+				resName =personService.checkNickName(residentNames); 
+				//all residents are in personnel table
+				if( resName.equals("")){
+					operations = FileImportParser.processExcelFile(form.getFile().getInputStream());
+					//but with the message success
+				}
+				else{
+					//but with the message success
+					model.addAttribute("resName",resName);
+					System.out.println("Not Found: " + resName);
+
+					return "redirect:../import";
+				}
+		        
+				//operations = FileImportParser.processExcelFile(form
+				//		.getFile().getInputStream());
 			} catch (InvalidFormatException e) {
 				throw new IllegalStateException(e.getLocalizedMessage());
 			} catch (IOException e) {
 				throw new IllegalStateException(e.getLocalizedMessage());
 			}
+			//if(!FileImportParser.isResident()){
+			//	resName = FileImportParser.getNotFoundResident();
+			//}
 			//batch insert the parsed operations
 			operationService.performBatchInsert(operations);
 
@@ -142,7 +168,6 @@ public class ImportController {
 			logger.debug(("Uploaded successfully: " + fileName));
 		}
 		//if everything was a success redirect the page to import page 
-		//but with the message success
 		model.addAttribute("import.success", fileName);
 		return "redirect:../import";
 	}

@@ -25,7 +25,7 @@ public class PersonService {
 	protected static Logger logger = Logger.getLogger("service");
 	
 	@Resource(name="sessionFactory")
-	private SessionFactory sessionFactory;
+	private  SessionFactory sessionFactory;
 	
 	public static String GET_ALL_PERSONS_FOR_SPECIALTY =  " SELECT * " +
 														  " FROM " +
@@ -37,6 +37,10 @@ public class PersonService {
 																	" personnel pers inner join project prj ON pers.PersID = prj.PersID" +
 															  " WHERE prj.SpecialtyID = :specialtyID" +
 															  " AND prj.Active = 1";
+	public static String SELECT_NICKNAME = " SELECT * " +
+			  								" FROM " +
+			  								" personnel " +
+			  								" WHERE Nickname = :residentName";
 	
 	public static String GET_PERSON_FOR_USERNAME =  " SELECT * " +
 			  " FROM " +
@@ -199,6 +203,37 @@ public class PersonService {
 		Session session = sessionFactory.getCurrentSession();
 		// Save updates
 		session.update(person);
+	}
+	/**
+	 * Check personnels(Resident) whether they are in import excel files.
+	 * @param residentName
+	 * 
+	 */
+	
+	public String checkNickName(List<String> residentNames){
+		logger.debug("Checking Resident's Nick Name");
+		boolean isResident = true ;
+		String residentNotFound = null;
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("------CheckNickName:");
+		// Create a Hibernate query (HQL)
+		// Print the name from the list....
+        for(String rName : residentNames) {
+        	Query query = session.createSQLQuery(SELECT_NICKNAME)
+					.setParameter("residentName",rName);
+        	if(query.list().size()>0){
+        		residentNotFound = "";
+    		}
+        	else {
+        		residentNotFound = rName ;
+            			break;
+        	}
+        }
+		
+		
+		 return residentNotFound;
+		
 	}
 
 
