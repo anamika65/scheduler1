@@ -62,9 +62,30 @@ public class DSupportOperation {
 
 	@Column(name = "OP2ChosenDifficult")
 	private String oP2ChosenDifficult;
-	
+
 	@Column(name = "Ass1ChosenDifficult")
 	private String ass1ChosenDifficult;
+
+	@Column(name = "Operation1Op1")
+	private Integer operation1Op1;
+
+	@Column(name = "Operation2Op1")
+	private Integer operation2Op1;
+
+	@Column(name = "Operation1Op2")
+	private Integer operation1Op2;
+
+	@Column(name = "Operation2Op2")
+	private Integer operation2Op2;
+
+	@Column(name = "Operation1Ass1")
+	private Integer operation1Ass1;
+
+	@Column(name = "Operation2Ass1")
+	private Integer operation2Ass1;
+
+	@Column(name = "Deletable")
+	private Integer deletable;
 
 	@Column(name = "EntryDate")
 	private Date entryDate;
@@ -198,6 +219,64 @@ public class DSupportOperation {
 
 	public void setAss1ChosenDifficult(String ass1ChosenDifficult) {
 		this.ass1ChosenDifficult = ass1ChosenDifficult;
+	}
+
+	public Integer getOperation1Op1() {
+		return operation1Op1;
+	}
+
+	public void setOperation1Op1(Integer operation1Op1) {
+		this.operation1Op1 = operation1Op1;
+	}
+	
+	public Integer getOperation2Op1() {
+		return operation2Op1;
+	}
+
+	public void setOperation2Op1(Integer operation2Op1) {
+		this.operation2Op1 = operation2Op1;
+	}
+
+
+	public Integer getOperation1Op2() {
+		return operation1Op2;
+	}
+
+	public void setOperation1Op2(Integer operation1Op2) {
+		this.operation1Op2 = operation1Op2;
+	}
+	
+	public Integer getOperation2Op2() {
+		return operation2Op2;
+	}
+
+	public void setOperation2Op2(Integer operation2Op2) {
+		this.operation2Op2 = operation2Op2;
+	}
+
+
+	public Integer getOperation1Ass1() {
+		return operation1Ass1;
+	}
+
+	public void setOperation1Ass1(Integer operation1Ass1) {
+		this.operation1Ass1 = operation1Ass1;
+	}
+	
+	public Integer getOperation2Ass1() {
+		return operation2Ass1;
+	}
+
+	public void setOperation2Ass1(Integer operation2Ass1) {
+		this.operation2Ass1 = operation2Ass1;
+	}
+
+	public Integer getDeletable() {
+		return deletable;
+	}
+
+	public void setDeletable(Integer deletable) {
+		this.deletable = deletable;
 	}
 
 	public Date getEntryDate() {

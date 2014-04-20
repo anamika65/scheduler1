@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.scheduler.model.DSupportOperation;
 import de.scheduler.model.OpCatalogue;
+import de.scheduler.model.Operation;
 import de.scheduler.model.ProjectCatalogStatus;
 
 /**
@@ -57,12 +58,20 @@ public class DSupportOperationService {
 								", dsop.OP1ChosenDifficult" +
 								", dsop.OP2ChosenDifficult" +
 								", dsop.Ass1ChosenDifficult" +
+								", dsop.Operation1Op1" +
+								", dsop.Operation2Op1" +
+								", dsop.Operation1Op2" +
+								", dsop.Operation2Op2" +
+								", dsop.Operation1Ass1" +
+								", dsop.Operation2Ass1" +
+								", dsop.Deletable" +
 						" FROM " +
 								" dSupportOperations dsop inner join project prj ON dsop.Op1 = prj.Nickname" +
 						" WHERE " +
 								" prj.SpecialtyID = :specialtyID" +
 						" ORDER BY " +
 								" dsop.OpDate ASC";
+	public static String GET_DS_OPERATIONS_OF_MONTH = " SELECT * FROM dsupportoperations WHERE MONTH(OpDate) = :mnth AND YEAR(OpDate) = :yr";
 	
 	public static String GET_ALL_DECISION_SUPPORT_OPERATIONS_FOR_USER = " SELECT " +
 								" dsop.dSuppOpID" +
@@ -83,6 +92,13 @@ public class DSupportOperationService {
 								", dsop.OP1ChosenDifficult" +
 								", dsop.OP2ChosenDifficult" +
 								", dsop.Ass1ChosenDifficult" +
+								", dsop.Operation1Op1" +
+								", dsop.Operation2Op1" +
+								", dsop.Operation1Op2" +
+								", dsop.Operation2Op2" +
+								", dsop.Operation1Ass1" +
+								", dsop.Operation2Ass1" +
+								", dsop.Deletable" +
 						" FROM " +
 								" dSupportOperations dsop " +
 						" WHERE " +
@@ -91,6 +107,15 @@ public class DSupportOperationService {
 						" ORDER BY " +
 								" dsop.OpDate DESC";
 	
+	public static String GET_DECISION_SUPPORT_OPERATIONS_FOR_OPERATION = " SELECT * FROM " +
+						" dSupportOperations dsop " +
+						" WHERE " +
+						" dsop.Operation1Op1 = :opId OR dsop.Operation2Op1 = :opId OR " + 
+						" dsop.Operation1Op2 = :opId OR dsop.Operation2Op2 = :opId OR " +
+						" dsop.Operation1Ass1 = :opId OR dsop.Operation2Ass1 = :opId " +
+						" ORDER BY " +
+						" dsop.OpDate DESC";
+
 	public static String GET_CATALOG_ID_FOR_D_SUPP_OP = " SELECT " +
 																" psc.CatalogID as CatalogID " +
 									 					 " FROM " +
@@ -231,6 +256,34 @@ public class DSupportOperationService {
 		return dSupportOperationsForSpecialty;
 	}
 	
+
+	/**
+	 * Retrieve dsupportOperations of a specific month from dsupportoperations table
+	 * 
+	 * @param month 		
+	 * @param year 		
+	 */
+	public List <DSupportOperation> getDSuppOperationsOfMonthYear(Integer month, Integer year) {
+		logger.debug("Getting operations of a specific month from operations table");
+		
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("||| Month " + month + " Year ||||"+ year);
+		// Create a query (HQL)
+		Query query = session.createSQLQuery(GET_DS_OPERATIONS_OF_MONTH)
+									.addEntity(DSupportOperation.class)
+									.setParameter("mnth", month)
+									.setParameter("yr", year);
+
+		List <DSupportOperation> result = query.list();
+
+		if (result.size() > 0) {
+			return result;
+		}
+		
+		return null;
+	}
+	
 	
 	/**
 	 * Retrieves a single DSupportOperation and maps the OPSCode to a Catalogue
@@ -288,7 +341,7 @@ public class DSupportOperationService {
 	 */
 	public void delete(Integer id) {
 		logger.debug("Deleting existing decision support operation");
-		
+		System.out.println("******* delete " + id);
 		// Retrieve session from Hibernate
 		Session session = sessionFactory.getCurrentSession();
 		
@@ -332,6 +385,15 @@ public class DSupportOperationService {
 		existingDSupportOperation.setOP1ChosenDifficult(dSupportOperation.getOP1ChosenDifficult());
 		existingDSupportOperation.setOP2ChosenDifficult(dSupportOperation.getOP2ChosenDifficult());
 		existingDSupportOperation.setAss1ChosenDifficult(dSupportOperation.getAss1ChosenDifficult());
+
+		existingDSupportOperation.setOperation1Op1(dSupportOperation.getOperation1Op1());
+		existingDSupportOperation.setOperation2Op1(dSupportOperation.getOperation2Op1());
+
+		existingDSupportOperation.setOperation1Op2(dSupportOperation.getOperation1Op2());
+		existingDSupportOperation.setOperation2Op2(dSupportOperation.getOperation2Op2());
+
+		existingDSupportOperation.setOperation1Ass1(dSupportOperation.getOperation1Ass1());
+		existingDSupportOperation.setOperation2Ass1(dSupportOperation.getOperation2Ass1());
                 
         //existingDSupportOperation.setEntryDate(dSupportOperation.getEntryDate());
 		
@@ -467,4 +529,32 @@ public class DSupportOperationService {
 		return catalogID;
 	}
 
+
+	/**
+	 * Get DecisionSupport Operation for operation
+	 * 
+	 * @param opId		the id of the operation
+	 * 
+	 * @return 		true or false
+	 */
+	@SuppressWarnings("unchecked")
+	public DSupportOperation getDSuppOpForOp(Integer opId) {
+		logger.debug("Getting DecisionSupport Operation for operation");
+		
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+		
+		// Create a Hibernate query (HQL)
+		Query query = session.createSQLQuery(GET_DECISION_SUPPORT_OPERATIONS_FOR_OPERATION)
+									.setParameter("opId", opId);
+		if (query.list().size() > 0) {
+			DSupportOperation dSupportOperation = (DSupportOperation) query.list().get(0);
+			return dSupportOperation;
+		}
+
+		// Retrieve the ID
+		return null;
+	}
+	
+	
 }

@@ -81,12 +81,60 @@ $(document).ready(function() {
 					<form:form commandName="uploadForm" action="../administration/import/save" enctype="multipart/form-data" method="POST">
 			 		    <table>
 					         <tr>
-					         	<td colspan="2" style="color: red;"><form:errors path="*" cssStyle="color : red;"/> ${errors} </td>
+					         	<td colspan="3" style="color: red;"><form:errors path="*" cssStyle="color : red;"/> ${errors} </td>
 					         </tr>
 					         <tr>
-						         <td style = "vertical-align: baseline; padding-top: 10px; white-space: pre;">File:     </td>
-						         <td style = "padding-top: 10px;"> <form:input type="file" path="file" onchange="if (this.files && this.files[0]) {document.getElementById('updoadBtn').style.display = 'block';} else {document.getElementById('updoadBtn').style.display = 'none';}"/> </td>
-					         	 <td id = "updoadBtn" style = "display:none">
+					         	<td style="text-align: left; padding-top: 10px;">Time period</td>
+					         	<td style="text-align: left; padding-top: 10px; "> :&nbsp;
+					         		<select name="month" id="month">
+									  <option value="01">January</option>
+									  <option value="02">February</option>
+									  <option value="03">March</option>
+									  <option value="04" selected>April</option>
+									  <option value="05">May</option>
+									  <option value="06">June</option>
+									  <option value="07">July</option>
+									  <option value="08">August</option>
+									  <option value="09">September</option>
+									  <option value="10">October</option>
+									  <option value="11">November</option>
+									  <option value="12">December</option>
+									</select> 
+								</td>
+								<td style="text-align: left; padding-top: 10px; ">&nbsp;&nbsp;
+									<select name="year" id="year">
+									  <option value="2000">2000</option>
+									  <option value="2001">2001</option>
+									  <option value="2002">2002</option>
+									  <option value="2003">2003</option>
+									  <option value="2004">2004</option>
+									  <option value="2005">2005</option>
+									  <option value="2006">2006</option>
+									  <option value="2007">2007</option>
+									  <option value="2008">2008</option>
+									  <option value="2009">2009</option>
+									  <option value="2010">2010</option>
+									  <option value="2011">2011</option>
+									  <option value="2012">2012</option>
+									  <option value="2013">2013</option>
+									  <option value="2014" selected>2014</option>
+									  <option value="2015">2015</option>
+									  <option value="2016">2016</option>
+									  <option value="2017">2017</option>
+									  <option value="2018">2018</option>
+									  <option value="2019">2019</option>
+									  <option value="2020">2020</option>
+									</select> 
+								</td>
+					         </tr>
+					    	<tr>
+					         	<td style="text-align: left;">&nbsp;</td>
+					         	<td colspan="2" style="text-align: left; ">&nbsp;&nbsp;&nbsp;<span class="label label-warning">Any previous record of this time period will be deleted</span></td>
+					         </tr>
+					         <tr>
+						         <td style = "vertical-align: baseline; padding-top: 10px; white-space: pre; text-align: left;">File</td>
+						         <td style = "padding-top: 10px; text-align: left;"> :&nbsp;&nbsp;<form:input type="file" path="file" onchange="if (this.files && this.files[0]) {document.getElementById('updoadBtn').style.display = 'block';} else {document.getElementById('updoadBtn').style.display = 'none';}"/> </td>
+					         	 <td id = "updoadBtn" style = "display:none; text-align: left; ">&nbsp;&nbsp;
 					         	 	<button id="button" class="btn btn-primary" data-loading-text="Processing..." type="submit" >Upload File</button>
 					         	 </td>
 					         </tr>

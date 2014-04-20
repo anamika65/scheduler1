@@ -13,6 +13,8 @@ public interface OpsCodeMappingServiceInterface {
 	
 	public Integer getOpCatalogueIdForPsCode( String psCode );
 	
+	public Integer getOpCatalogueIdFor5DigitPsCode( String psCode );
+	
 	public Boolean updateOpCatalogueForPsCode( String psCode , String opCatalogueId );
 	
 	public Boolean insertOpCatalogueForPsCode( String psCode , String opCatalogueId , String description );

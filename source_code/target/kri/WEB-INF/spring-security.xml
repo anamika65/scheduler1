@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/security 
+			http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<!-- This is where we configure Spring-Security -->
+	<security:http use-expressions="true"
+	
+		access-denied-page="/scheduler/denied">
+		<security:intercept-url pattern="/scheduler/login"
+			access="permitAll" />
+		<security:intercept-url pattern="/scheduler/schedule/*"
+			access="permitAll" />
+		<security:intercept-url pattern="/scheduler/persons/*"
+			access="hasRole('ROLE_ADMIN')" />	
+		<security:intercept-url pattern="/scheduler/persons"
+			access="hasRole('ROLE_ADMIN')" />	
+		<security:intercept-url pattern="/scheduler/administration/*"
+			access="hasAnyRole('ROLE_ADMIN','ROLE_RESIDENT','ROLE_INSTRUCTOR')" />	
+			
+			
+		<security:form-login login-page="/scheduler/login"
+			authentication-failure-url="/scheduler/login?error=true"
+			default-target-url="/scheduler/administration/home" />
+
+		<security:logout invalidate-session="true"
+			logout-success-url="/scheduler/logoutSuccess" logout-url="/j_spring_security_logout" />
+
+	</security:http>
+
+	<!-- Declare an authentication-manager to use a custom userDetailsService -->
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource" 
+                           users-by-username-query="
+                              select username,password, active 
+                              from user where username=?" 
+                           authorities-by-username-query="
+                              select u.username, ur.role from user u, user_roles ur 
+                              where u.id = ur.user_id and u.username=?" 
+                             />
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

@@ -475,7 +475,7 @@
 														</c:forEach>
 													</select>
 													<span class="sub-controls"> <input type="checkbox"
-														name="opscToCountForOp1" value="OPSC01"> OPSC01 <input
+														name="opscToCountForOp1" value="OPSC01" checked> OPSC01 <input
 														type="checkbox" name="opscToCountForOp1" value="OPSC02">
 														OPSC02
 													</span>
@@ -520,7 +520,15 @@
 												</c:if>
 										</span>
 									</span>
+									</span><span id="editSpan">Allow Replace? :</span> <span
+										style="vertical-align: baseline;"> <span
+										class="control-group"> <span class="controls">
+												<input type="radio" name="deletable" value="0" checked>No &nbsp;
+												<input type="radio" name="deletable" value="1">Yes
+										</span>
 									</span>
+									</span>
+									
 								</div>
 							</div>
 
@@ -725,7 +733,7 @@
 									<td>
 										<!-- Button to trigger modal to edit operation --> 
 										<c:set var="myEditOperationURL" value="editOperation${count}" /> 
-										<a href="#${myEditOperationURL}" class="editButon"  id="editButon${count}" style="font-size: 12px;" role="button" data-toggle="modal"> Edit </a> <!-- Generate the URL with the dSuppOpId -->
+										<a href="#${myEditOperationURL}" class="editButon"  id="editButon${count}" style="font-size: 12px;" role="button" data-toggle="modal"> View </a> <!-- Generate the URL with the dSuppOpId -->
 										<c:url var="editOperationURL"
 											value="../administration/decisionsupport/editOperation?id=${operation.dSuppOpId}" />
 										<form method="POST" class="editOperationForm" id="editOperationForm${count}" action="${editOperationURL}">
@@ -736,7 +744,7 @@
 												aria-hidden="true">
 												<div class="modal-header">
 													<a class="close" data-dismiss="modal">×</a>
-													<h3 id="myModalLabel">Edit operation</h3>
+													<h3 id="myModalLabel">View operation</h3>
 												</div>
 
 												<div class="modal-body" style="text-align: left;">
@@ -881,8 +889,9 @@
 												</div>
 												<div class="modal-footer">
 													<a href="#" class="btn" data-dismiss="modal"
-														aria-hidden="true">Cancel</a> <input type="submit"
-														value="Save" class="btn btn-primary" />
+														aria-hidden="true">Cancel</a> 
+													<!-- input type="submit"
+														value="Save" class="btn btn-primary" / -->
 												</div>
 											</div>
 										</form>

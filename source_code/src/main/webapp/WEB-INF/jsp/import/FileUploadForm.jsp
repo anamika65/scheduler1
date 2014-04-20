@@ -5,6 +5,7 @@
 <html>
 <head>
 	<title>Import operations</title>
+
 </head>
 	
 <body>
@@ -16,7 +17,6 @@
 			<jsp:param name="headerViewAdministration" value="../administration/home"/>
 			<jsp:param name="headerModule" value="Import"/>
 		</jsp:include>
-
 		<table  class="homepageTable" style="width:100%;">
 			
 			<tr style="height:100px;"/>

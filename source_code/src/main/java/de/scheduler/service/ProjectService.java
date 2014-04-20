@@ -76,6 +76,11 @@ public class ProjectService {
 															  " WHERE SpecialtyID = :specialtyID" +
 															  " AND Active = 1";
 	
+	public static String GET_PROJECT_FOR_NICKNAME = " SELECT * " +
+															  " FROM project " +
+															  " WHERE Nickname = :nick";
+
+	
 	public static String GET_ALL_NICKNAMES_FOR_SPECIALTY = " SELECT prj.Nickname " +
 														  " FROM project prj" +
 														  " WHERE prj.SpecialtyID = :specialtyID" +
@@ -459,5 +464,31 @@ public class ProjectService {
 		nicknames.add(0, "");
 
 		return nicknames;
+	}
+	
+	/**
+	 * Get projectId for a nickname
+	 *
+	 * @return 		projectId
+	 */
+	@SuppressWarnings("unchecked")
+	public Integer getProjectIdForNickname(String nickname) {
+		logger.debug("Get projectId for a nickname");
+		
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+		
+		// Create a query (SQL)
+		Query query = session.createSQLQuery(GET_PROJECT_FOR_NICKNAME)
+				.addEntity(Project.class)
+				.setParameter("nick", nickname);
+		
+		List <Project> result = query.list();
+
+		if (result.size() > 0) {
+			return result.get(0).getProjectID();
+		}
+		
+		return null;
 	}
 }

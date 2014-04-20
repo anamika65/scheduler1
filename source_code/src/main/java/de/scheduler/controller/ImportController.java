@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -28,7 +29,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import de.scheduler.importer.FileImportParser;
 import de.scheduler.importer.UploadForm;
 import de.scheduler.importer.UploadValidator;
+import de.scheduler.model.DSupportOperation;
 import de.scheduler.model.Operation;
+import de.scheduler.service.DSupportOperationService;
 import de.scheduler.service.OpBlockService;
 import de.scheduler.service.OperationService;
 import de.scheduler.service.PersonService;
@@ -50,6 +53,9 @@ public class ImportController {
 	@Resource(name = "personService")
 	private PersonService personService;
 	
+    @Resource(name="dSupportOperationService")
+    private DSupportOperationService dSupportOperationService;
+    
 	/**
 	 * This method is invoked when a exception occurs in the processForm method.
 	 * It handles the errors by redirecting the page to the /import page and dysplaying the apropriate message. 
@@ -102,7 +108,9 @@ public class ImportController {
 	 */
 	@RequestMapping(value = "/administration/import/save", method = RequestMethod.POST)
 	public String processForm(
-			@Valid @ModelAttribute(value = "uploadForm") UploadForm form, BindingResult result, Model model) {
+			@Valid @ModelAttribute(value = "uploadForm") UploadForm form, BindingResult result, Model model, 
+            @RequestParam(value="month", required=true) String mnth,
+            @RequestParam(value="year", required=false) String yr) {
 		
 		// handle errors
 		if (result.hasErrors()) {
@@ -115,6 +123,7 @@ public class ImportController {
 			}
 			return "redirect:../import";
 		}
+		//System.out.println("Month "+mnth+" Year "+yr);
 		
 		String fileName = null;
 		String resName = null;
@@ -130,11 +139,45 @@ public class ImportController {
 				resName =personService.checkNickName(residentNames); 
 				//all residents are in personnel table
 				if( resName.equals("")){
+
+					//Remove decision support operations and normal operations before import
+					List <DSupportOperation> dSuppOpsToRemove= dSupportOperationService.getDSuppOperationsOfMonthYear(Integer.parseInt(mnth), Integer.parseInt(yr));
+					if(dSuppOpsToRemove != null) {
+						//System.out.println("dSuppOpsToRemove "+dSuppOpsToRemove +" "+ dSuppOpsToRemove.size());
+						for(int opr=0; opr < dSuppOpsToRemove.size(); opr++) {
+							if(dSuppOpsToRemove.get(opr) != null) {
+								System.out.println("****Removable dsuppop ? "+ dSuppOpsToRemove.get(opr).getDeletable());
+								if(dSuppOpsToRemove.get(opr).getDeletable() == 1) {
+									System.out.println("dSuppOpsTORemove "+dSuppOpsToRemove.get(opr).getdSuppOpId());
+									deleteDsupportOperation(dSuppOpsToRemove.get(opr).getdSuppOpId());
+								}
+							}
+						}
+					}
+					//If still any operation is remaining in the operations table, delete those
+					List <Operation> opsToRemove= operationService.getOperationsOfMonthYear(Integer.parseInt(mnth), Integer.parseInt(yr));
+					if(opsToRemove != null) {
+						System.out.println("OpsTORemove "+opsToRemove +" "+ opsToRemove.size());
+						for(int opr=0; opr < opsToRemove.size(); opr++) {
+							System.out.println("**** nullcheck " + opsToRemove.get(opr).getOpBlockId());
+							if(opsToRemove.get(opr) != null) {
+								System.out.println("**** nullcheck inside");
+								System.out.println("****Removable op ? "+ isOperationReplacable(opsToRemove.get(opr).getOpBlockId()));
+								if(isOperationReplacable(opsToRemove.get(opr).getOpBlockId())) {
+									//System.out.println("Removable? "+ dSuppOpsToRemove.get(opr).getDeletable());
+									System.out.println("OpsTORemove "+opsToRemove.get(opr).getOpBlockId());
+									operationService.removeOperation(opsToRemove.get(opr).getOpBlockId());
+								}
+							}
+						}
+					}
+					
+					//Now do the actual import
 					operations = FileImportParser.processExcelFile(form.getFile().getInputStream());
-					//but with the message success
+					System.out.println("**** operations to be imported " + operations.size());
+					
 				}
 				else{
-					//but with the message success
 					model.addAttribute("resName",resName);
 					System.out.println("Not Found: " + resName);
 
@@ -172,6 +215,43 @@ public class ImportController {
 		return "redirect:../import";
 	}
 	
+	public void deleteDsupportOperation(Integer id) {
+	    DSupportOperation dsop = dSupportOperationService.get(id);
+	    if (dsop.getOperation1Op1() != null) {
+	    	if (dsop.getOperation1Op1() > 0) operationService.removeOperation(dsop.getOperation1Op1());
+	    }
+	    if (dsop.getOperation2Op1() != null) {
+	    	if (dsop.getOperation2Op1() > 0) operationService.removeOperation(dsop.getOperation2Op1());
+	    }
+	    if (dsop.getOperation1Op2() != null) {
+	    	if (dsop.getOperation1Op2() > 0) operationService.removeOperation(dsop.getOperation1Op2());
+	    }
+	    if (dsop.getOperation2Op2() != null) {
+	    	if (dsop.getOperation2Op2() > 0) operationService.removeOperation(dsop.getOperation2Op2());
+	    }
+	    if (dsop.getOperation1Ass1() != null) {
+	    	if (dsop.getOperation1Ass1() > 0) operationService.removeOperation(dsop.getOperation1Ass1());
+	    }
+	    if (dsop.getOperation2Ass1() != null) {
+	    	if (dsop.getOperation2Ass1() > 0) operationService.removeOperation(dsop.getOperation2Ass1());
+	    }
+	    
+	    // Call DSupportOperationService to do the actual deleting
+	    dSupportOperationService.delete(id);
+	}
+
 	
+	public boolean isOperationReplacable(Integer id) {
+	    Operation op = operationService.get(id);
+	    if(op != null) {
+	    	DSupportOperation dsuppop = dSupportOperationService.getDSuppOpForOp(op.getOpBlockId());
+	    	if(dsuppop != null) {
+	    		if(dsuppop.getDeletable() == 1) return true;
+	    		else return false;
+	    	}
+	    }
+	    
+	    return true;
+	}
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.scheduler.model.OpBlock;
+import de.scheduler.model.Project;
 import de.scheduler.util.OpBlockType;
 
 /**
@@ -46,6 +47,11 @@ public class OpBlockService {
 													" and prj.DeactivatedUntil is not null)) " +
 													" and opb.DefaultSize <> ActualSize " +
 													" and prj.SpecialtyID = :specialtyID";
+	
+	public static String GET_OPBLOCK_FROM_CATALOGUE_PROJECT = " SELECT * FROM opblocks " +
+															" WHERE CatalogID = :cid and ProjID = :pid " +
+															" ORDER BY ActualSize DESC";
+	
 	@Resource(name = "sessionFactory")
 	private SessionFactory sessionFactory;
 
@@ -156,8 +162,7 @@ public class OpBlockService {
 		
 		// Retrieve session from Hibernate
 		Session session = sessionFactory.getCurrentSession();
-		
-		System.out.println("Project ID:"+projectID);
+
 		// Create a query (HQL)
 		Query query = session
 				.createQuery("FROM  OpBlock WHERE ProjID = :projectID AND Type like :type");
@@ -231,5 +236,34 @@ public class OpBlockService {
 						.setParameter("endID", endID);
 
 		deleteDSuppOp.executeUpdate();		
+	}
+	
+	/**
+	 * Get opblock from projectid, catalogueid, difficultylevel
+	 * 
+	 * @param projectId 		
+	 * @param catalogueId 		
+	 * @param difficultyLevel
+	 */
+	@SuppressWarnings("unchecked")
+	public OpBlock getOpblockFromPCD(Integer projectId, Integer catalogueId) {
+		logger.debug("Get opblock from projectid, catalogueid, difficultylevel");
+		
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+
+		// Create a query (HQL)
+		Query query = session.createSQLQuery(GET_OPBLOCK_FROM_CATALOGUE_PROJECT)
+											.addEntity(OpBlock.class)
+											.setParameter("cid", catalogueId)
+											.setParameter("pid", projectId);
+		
+		List <OpBlock> result = query.list();
+
+		if (result.size() > 0) {
+			return result.get(0);
+		}
+		
+		return null;
 	}
 }

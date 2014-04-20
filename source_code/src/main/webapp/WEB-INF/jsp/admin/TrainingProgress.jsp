@@ -35,6 +35,9 @@
 <script type="text/javascript">
 $(function(){
 	var OK = 0;
+	
+	var currentForm;
+	var OK_Difficult = 0;
 	//check already exist username
 	$("#usr_name").blur(function(){
 		if($.trim($("#usr_name").val()).length >0){
@@ -65,6 +68,20 @@ $(function(){
 		  }
 		  event.preventDefault();
 		});
+	
+	$(".chooseDiffOpForm").submit(function( event ) {
+		if ( OK_Difficult == 1 ) { //all are ok
+		    return;
+		}
+		currentForm = $(this);
+		event.preventDefault();
+		$('#diffChangeModal').modal();
+	});
+	
+	$( "#yesChange" ).click(function() {
+		OK_Difficult = 1;
+		currentForm.submit();
+	});
 	
 }); 
  
@@ -299,7 +316,6 @@ $(function(){
 											              	<div class="controls">
 												            	<input name="capacity" min="1" max="200" type="number" value="${project.key.project.capacity}" required/> 
 											             	</div>
-											             	
 											              </div>
 											            </td>
 											        </tr>		
@@ -1019,6 +1035,8 @@ $(function(){
 							<c:if test="${noOfActualDiffOperationForThisUser > 0 }">
 								<c:url var="chooseDiffOpUrl" value="../administration/decisionsupport/updateChosenDiffOp" />
 				    			<form class="chooseDiffOpForm" method="POST" action="${chooseDiffOpUrl}">
+				    			
+				    			<c:set var="saveNeeded" value="0"/>
 				    			<input type="hidden" name="diffSuppOpId" value="${difficultOperation.dSuppOpId}">
 								<tr>
 									<!-- td>${difficultOperation.dSuppOpId}</td -->
@@ -1053,28 +1071,34 @@ $(function(){
 									
 									<td>
 										<c:if test="${difficultOperation.op1 == nameUser && fn:contains(difficultOperation.OP1Credit, 'OPSC01') && difficultOperation.OPSC01Difficulty == 2}">
-											<input type="checkbox" name="opscToCount" value="OPSC01" <c:if test="${fn:contains(difficultOperation.OP1ChosenDifficult, 'OPSC01')}"> checked </c:if> > OPSC01 
+											<c:if test="${fn:contains(difficultOperation.OP1ChosenDifficult, 'OPSC01')}"> <span class="label label-info" >OPSC01</span> </c:if>
+											<c:if test="${not fn:contains(difficultOperation.OP1ChosenDifficult, 'OPSC01')}"><input type="checkbox" name="opscToCount" value="OPSC01" > OPSC01 <c:set var="saveNeeded" value="1"/></c:if>
 										</c:if>
 										<c:if test="${difficultOperation.op1 == nameUser && fn:contains(difficultOperation.OP1Credit, 'OPSC02') && difficultOperation.OPSC02Difficulty == 2}">
-											<input type="checkbox" name="opscToCount" value="OPSC02" <c:if test="${fn:contains(difficultOperation.OP1ChosenDifficult, 'OPSC02')}"> checked </c:if> > OPSC02 
+											<c:if test="${fn:contains(difficultOperation.OP1ChosenDifficult, 'OPSC02')}"> <span class="label label-info" >OPSC02</span> </c:if>
+											<c:if test="${not fn:contains(difficultOperation.OP1ChosenDifficult, 'OPSC02')}"><input type="checkbox" name="opscToCount" value="OPSC02" > OPSC02 <c:set var="saveNeeded" value="1"/></c:if>
 										</c:if>
 										
 										<c:if test="${difficultOperation.op2 == nameUser && fn:contains(difficultOperation.OP2Credit, 'OPSC01') && difficultOperation.OPSC01Difficulty == 2}">
-											<input type="checkbox" name="opscToCount" value="OPSC01" <c:if test="${fn:contains(difficultOperation.OP2ChosenDifficult, 'OPSC01')}"> checked </c:if> > OPSC01 
+											<c:if test="${fn:contains(difficultOperation.OP2ChosenDifficult, 'OPSC01')}"> <span class="label label-info" >OPSC01</span> </c:if>
+											<c:if test="${not fn:contains(difficultOperation.OP2ChosenDifficult, 'OPSC01')}"><input type="checkbox" name="opscToCount" value="OPSC01" > OPSC01 <c:set var="saveNeeded" value="1"/></c:if>
 										</c:if>
 										<c:if test="${difficultOperation.op2 == nameUser && fn:contains(difficultOperation.OP2Credit, 'OPSC02') && difficultOperation.OPSC02Difficulty == 2}">
-											<input type="checkbox" name="opscToCount" value="OPSC02" <c:if test="${fn:contains(difficultOperation.OP2ChosenDifficult, 'OPSC02')}"> checked </c:if> > OPSC02 
+											<c:if test="${fn:contains(difficultOperation.OP2ChosenDifficult, 'OPSC02')}"> <span class="label label-info" >OPSC02</span> </c:if>
+											<c:if test="${not fn:contains(difficultOperation.OP2ChosenDifficult, 'OPSC02')}"><input type="checkbox" name="opscToCount" value="OPSC02" > OPSC02 <c:set var="saveNeeded" value="1"/></c:if>
 										</c:if>
 										
 										<c:if test="${difficultOperation.ass1 == nameUser && fn:contains(difficultOperation.ass1Credit, 'OPSC01') && difficultOperation.OPSC01Difficulty == 2}">
-											<input type="checkbox" name="opscToCount" value="OPSC01" <c:if test="${fn:contains(difficultOperation.Ass1ChosenDifficult, 'OPSC01')}"> checked </c:if> > OPSC01 
+											<c:if test="${fn:contains(difficultOperation.ass1ChosenDifficult, 'OPSC01')}"> <span class="label label-info" >OPSC01</span> </c:if>
+											<c:if test="${not fn:contains(difficultOperation.ass1ChosenDifficult, 'OPSC01')}"><input type="checkbox" name="opscToCount" value="OPSC01" > OPSC01 <c:set var="saveNeeded" value="1"/></c:if>
 										</c:if>
 										
 										<c:if test="${difficultOperation.ass1 == nameUser && fn:contains(difficultOperation.ass1Credit, 'OPSC02') && difficultOperation.OPSC02Difficulty == 2}">
-											<input type="checkbox" name="opscToCount" value="OPSC02" <c:if test="${fn:contains(difficultOperation.Ass1ChosenDifficult, 'OPSC02')}"> checked </c:if> > OPSC02 
+											<c:if test="${fn:contains(difficultOperation.ass1ChosenDifficult, 'OPSC02')}"> <span class="label label-info" >OPSC02</span> </c:if>
+											<c:if test="${not fn:contains(difficultOperation.ass1ChosenDifficult, 'OPSC02')}"><input type="checkbox" name="opscToCount" value="OPSC02" > OPSC02 <c:set var="saveNeeded" value="1"/></c:if>
 										</c:if>
 									</td>
-									<td><input type="submit" value="Save" class="btn btn-primary"></td>
+									<td><c:if test="${saveNeeded == 1}"><input type="submit" id="setAsDifficult" value="Save" class="btn btn-primary"></c:if></td>
 								</tr>
 								</form>
 							</c:if>
@@ -1093,5 +1117,28 @@ $(function(){
 
 	</div>
 	<div style = "height:30px"></div>
+	<!-- Modal for updating the Difficult operation -->
+	<div id="diffChangeModal" class="modal hide fade"
+		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3 id="myModalLabel">Delete</h3>
+		</div>
+
+		<div class="modal-body" style="text-align: left;">
+			<br />
+			<div>
+				Are you sure you want to credit this operation as Difficult? <br>
+				<span style="color: rgb(170, 0, 0);"><b>You cannot undo this change.</b></span><br>
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal"
+				aria-hidden="true">Cancel</a> <input type="button" id="yesChange"
+				value="Count as Difficult" class="btn btn-primary" />
+		</div>
+	</div>
 </body>
 </html>

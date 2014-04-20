@@ -114,17 +114,6 @@
 				<td style="width:110px;"/>
 				
 				<td class="textAlignCenter"> 
-					<a href="../administration/import">
-						<div id="cf" class="resizeImgContainer">
-						  <img class="bottom resizeImg" src="../resources/images/import.png"/>
-						  <img class="top resizeImg" src="../resources/images/import_bw.png"/>
-						</div>
-					</a>
-					<br>
-					Import 
-				</td>
-				
-				<td class="textAlignCenter"> 
 <!-- 				<img src = "../resources/images/catalogues_bw.png" class="resizeImg"/> -->
 					<a href="../administration/catalogues">
 						<div id="cf" class="resizeImgContainer">
@@ -138,6 +127,19 @@
 				
 				<td class="textAlignCenter"> 
 				<sec:authorize ifAllGranted="ROLE_ADMIN">
+					<a href="../administration/import">
+						<div id="cf" class="resizeImgContainer">
+						  <img class="bottom resizeImg" src="../resources/images/import.png"/>
+						  <img class="top resizeImg" src="../resources/images/import_bw.png"/>
+						</div>
+					</a>
+					<br>
+					Import 
+				</sec:authorize>
+				</td>
+
+				<td class="textAlignCenter"> 
+				<sec:authorize ifAllGranted="ROLE_ADMIN">
 					<a href="../administration/settings">
 						<div id="cf" class="resizeImgContainer">
 						  <img class="bottom resizeImg" src="../resources/images/settings.png"/>
@@ -146,8 +148,9 @@
 					</a>
 					<br>
 					Settings
+				</sec:authorize>	
 				</td>	
-			</sec:authorize>				
+						
 			</tr>
 			
 			<tr style="height:30px;"/>

@@ -34,8 +34,13 @@ public class OpsCodeMappingService implements OpsCodeMappingServiceInterface {
 			  										" FROM opcatalogues" +
 			  										" WHERE CatalogID != 4" +
 			  										" ORDER BY opcatalogues.Name ASC";
-	
+
 	public static String GET_CATALOGUE_FOR_PSCODE = " SELECT CatalogID " +
+													" FROM pscodes" +
+													" WHERE PSCode = :psCode";
+	
+
+	public static String GET_CATALOGUE_FOR_PSCODE_5DIGIT = " SELECT CatalogID " +
 													" FROM pscodes" +
 													" WHERE PSCode = :psCode";
 	
@@ -96,7 +101,6 @@ public class OpsCodeMappingService implements OpsCodeMappingServiceInterface {
 		
 		// Retrieve session from Hibernate
 		Session session = sessionFactory.getCurrentSession();
-		
 		// Create a Hibernate query
 		Query query = session.createSQLQuery(GET_CATALOGUE_FOR_PSCODE)
 									.addScalar("CatalogID", Hibernate.STRING)
@@ -106,6 +110,37 @@ public class OpsCodeMappingService implements OpsCodeMappingServiceInterface {
 		
 		if(cataloguesForPscode.isEmpty()) return null;
 		Integer ctlgId = Integer.parseInt(cataloguesForPscode.get(0));
+		return ctlgId;
+
+	}
+	
+
+	/**
+	 * Retrieves OpCatalogue for a single pscode
+	 * 
+	 * @return 		a OpCatalogueId (an Integer)
+	 */
+	@SuppressWarnings("unchecked")
+	public Integer getOpCatalogueIdFor5DigitPsCode( String psCode ) {
+		logger.debug("Retrieving opcatalogue for pscode");
+		
+		// Retrieve session from Hibernate
+		Session session = sessionFactory.getCurrentSession();
+
+		String psCode5Digit = psCode.substring(0,5);
+		//System.out.println("************"+psCode5Digit);
+		
+		// Create a Hibernate query
+		Query query = session.createSQLQuery(GET_CATALOGUE_FOR_PSCODE_5DIGIT)
+									.addScalar("CatalogID", Hibernate.STRING)
+									.setParameter("psCode", psCode5Digit);
+		
+		List<String> cataloguesForPscode = query.list();
+		//System.out.println("************"+cataloguesForPscode.size());
+		
+		if(cataloguesForPscode.isEmpty()) return null;
+		Integer ctlgId = Integer.parseInt(cataloguesForPscode.get(0));
+		//System.out.println("************"+cataloguesForPscode.get(0));
 		return ctlgId;
 
 	}
